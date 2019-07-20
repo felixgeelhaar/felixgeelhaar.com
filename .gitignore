@@ -8,3 +8,5 @@ node_modules
 # IDE configs
 .vscode
 
+# error logs
+yarn-error.log
