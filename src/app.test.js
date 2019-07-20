@@ -11,7 +11,7 @@ test("that App component renders", () => {
           Hi there!
         </h1>
         <a
-          href="mailto=hello@felixgeelhaar.de"
+          href="mailto:hello@felixgeelhaar.de"
         >
           write me
         </a>
