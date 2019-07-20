@@ -20,7 +20,7 @@ test("that App component renders", () => {
   `);
 });
 
-test('that App container the Headline "Hi"', () => {
+test('that App component contains the Headline "Hi"', () => {
   const { getByText } = render(<App />);
   expect(getByText(/hi/i)).toBeInTheDocument();
 });
