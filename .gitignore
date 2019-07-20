@@ -1,0 +1,10 @@
+
+# Project 
+dist
+
+# js dependencies
+node_modules
+
+# IDE configs
+.vscode
+
