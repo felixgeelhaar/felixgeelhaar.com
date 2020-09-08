@@ -1,6 +1,8 @@
 language: node_js
 node_js:
-  - "12"
+  - '12'
+dist: 'xenial'
+os: 'linux'
 cache:
   yarn: true
   directories:
@@ -14,7 +16,7 @@ deploy:
   secret_access_key: $AWS_SECRET_ACCESS_KEY
   bucket: $S3_BUCKET
   region: $AWS_REGION
-  skip_cleanup: false
+  cleanup: true
   local_dir: public
   on:
     branch: master
