@@ -5,7 +5,8 @@
   "scripts": {
     "develop": "gatsby develop",
     "build": "gatsby build",
-    "clean": "gatsby clean"
+    "clean": "gatsby clean",
+    "test": "noop"
   },
   "dependencies": {
     "@mdx-js/mdx": "^1.6.16",
