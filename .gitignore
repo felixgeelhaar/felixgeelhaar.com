@@ -1,6 +1,7 @@
 
 # Project 
 dist
+public
 
 # js dependencies
 node_modules
