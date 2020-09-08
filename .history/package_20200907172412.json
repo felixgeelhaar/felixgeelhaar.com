@@ -1,0 +1,14 @@
+{
+  "name": "felixgeelhaar.com",
+  "version": "2.0.0",
+  "scripts": {
+    "develop": "gatsby develop",
+    "build": "gatsby build",
+    "clean": "gatsby clean"
+  },
+  "dependencies": {
+    "gatsby": "^2.24.54",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}
