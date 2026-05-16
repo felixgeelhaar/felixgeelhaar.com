@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const BASE = import.meta.env.BASE_URL;
+
+// Derek-Sivers /now convention: what I am focused on right now. Updated
+// every quarter at most. Replace the whole list when the focus shifts —
+// no archive.
+const updated = '2026-05-16';
+---
+<BaseLayout
+  title="Now"
+  description="What I am focused on right now."
+  lede={`Quarterly /now in the Sivers tradition. Last updated ${updated}.`}
+  nav="home"
+>
+  <section class="prose">
+    <h2>Building</h2>
+    <ul>
+      <li>
+        <a href="https://github.com/felixgeelhaar/roady">Roady</a> — plan-of-record for AI coding agents.
+        v0.12 just shipped: nested sub-projects, live Kanban, cross-project board, drag-and-drop,
+        SSE updates, auth gate.
+      </li>
+      <li>
+        <a href="https://github.com/felixgeelhaar/tokenops">TokenOps</a> — local daemon measuring
+        LLM spend and prompt waste. v0.17 adds output-side compression detection (catches when a
+        skill like caveman engages and how many tokens it saved).
+      </li>
+      <li>
+        This site. v0.1 scaffold up; v1.0 needs three essays, two lab notes, OG images, favicons.
+        See the launch checklist in the brand repo.
+      </li>
+    </ul>
+
+    <h2>Writing on</h2>
+    <ul>
+      <li>Operating-model debt — why three weeks looks identical to a year until it does not.</li>
+      <li>Error-budget discipline at platform scale.</li>
+      <li>Keeping senior engineers senior.</li>
+    </ul>
+
+    <h2>Reading</h2>
+    <ul>
+      <li>Team Topologies (re-read).</li>
+      <li>The Goal (Goldratt) — flow-not-utilisation reframe.</li>
+    </ul>
+
+    <h2>Not doing</h2>
+    <p>
+      Conference travel until autumn. No new advisor seats this quarter.
+    </p>
+
+    <p class="muted">
+      <em>Inspired by <a href="https://nownownow.com/about">nownownow.com</a>.</em>
+    </p>
+  </section>
+</BaseLayout>

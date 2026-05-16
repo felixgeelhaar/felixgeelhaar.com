@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const BASE = import.meta.env.BASE_URL;
+---
+<BaseLayout
+  title="Uses"
+  description="Hardware, software, and editor setup that earns its place."
+  lede="Tools that earn their place. Anything not on this list got tried and dropped."
+  nav="home"
+>
+  <section class="prose">
+    <h2>Hardware</h2>
+    <ul>
+      <li>MacBook Pro M-series, 32 GB.</li>
+      <li>Stream Deck XL — wired to <a href="https://github.com/felixgeelhaar/govee-light-management">my Govee plugin</a> for room lights + meeting modes.</li>
+      <li>External 4K monitor, mechanical keyboard, ergonomic mouse.</li>
+    </ul>
+
+    <h2>Editor + terminal</h2>
+    <ul>
+      <li><strong>Claude Code</strong> with the caveman skill for output compression and the roady MCP server for plan-of-record.</li>
+      <li><strong>Zed</strong> for quick edits; <strong>Neovim</strong> for everything serious.</li>
+      <li><strong>Ghostty</strong> terminal, <strong>zsh</strong> with my own dotfiles.</li>
+      <li><strong>Homebrew</strong> for everything else.</li>
+    </ul>
+
+    <h2>Engineering stack</h2>
+    <ul>
+      <li><strong>Go</strong> for services and CLIs (<a href="https://github.com/felixgeelhaar/roady">roady</a>, <a href="https://github.com/felixgeelhaar/tokenops">tokenops</a>, <a href="https://github.com/felixgeelhaar/mnemos">mnemos</a>).</li>
+      <li><strong>Astro</strong> for static sites (this one).</li>
+      <li><strong>SQLite</strong> first; PostgreSQL only when SQLite stops scaling.</li>
+      <li><strong>MCP</strong> as the integration substrate for AI tooling.</li>
+    </ul>
+
+    <h2>Productivity</h2>
+    <ul>
+      <li><strong>Roady</strong> — every project I touch has a plan-of-record. Survives context resets.</li>
+      <li><strong>Mnemos</strong> — long-term memory the assistant can read back across sessions.</li>
+      <li><strong>iA Writer</strong> for drafting prose.</li>
+      <li><strong>Cal.com</strong> for booking; <strong>Fastmail</strong> for email.</li>
+    </ul>
+
+    <p class="muted">
+      <em>Format inspired by <a href="https://uses.tech">uses.tech</a>.</em>
+    </p>
+  </section>
+</BaseLayout>
