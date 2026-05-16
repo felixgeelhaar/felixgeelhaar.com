@@ -1,0 +1,155 @@
+/**
+ * Site footer — IA repeat, social, RSS, copyright, theme echo.
+ *
+ * Markup contract (see ./footer.html):
+ *   <footer class="site-footer" role="contentinfo">
+ *     <div class="site-footer__grid">…columns…</div>
+ *     <div class="site-footer__base">…meta row…</div>
+ *   </footer>
+ *
+ * Serial-position effect: footer is the last thing a user sees. Repeat the
+ * primary nav so a reader who scrolled past the header can navigate without
+ * scrolling back up.
+ */
+
+.site-footer {
+  border-top: var(--border-strong) solid var(--color-fg);
+  margin-top: var(--space-11);
+  padding: var(--space-9) var(--space-7) var(--space-7);
+  color: var(--color-fg);
+}
+
+.site-footer__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) repeat(3, minmax(0, 1fr));
+  gap: var(--space-8);
+  padding-bottom: var(--space-8);
+  border-bottom: var(--border-hairline) solid var(--color-line);
+}
+
+.site-footer__col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.site-footer__label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-50);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-mono);
+  text-transform: uppercase;
+  color: var(--color-fg-muted);
+  margin: 0 0 var(--space-3);
+}
+
+.site-footer__brand {
+  font-family: var(--font-mono);
+  font-size: var(--fs-200);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-mono);
+  text-transform: uppercase;
+  color: var(--color-fg);
+  text-decoration: none;
+  display: block;
+  margin-bottom: var(--space-3);
+}
+
+.site-footer__brand:hover { color: var(--color-accent); }
+/* Focus ring inherited from global :where(:focus-visible). */
+
+.site-footer__brand .accent { color: var(--color-accent); }
+
+.site-footer__tagline {
+  font-family: var(--font-sans);
+  font-size: var(--fs-75);
+  line-height: var(--lh-body);
+  color: var(--color-fg-muted);
+  max-width: 42ch;
+  margin: 0;
+}
+
+.site-footer__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.site-footer__link {
+  font-family: var(--font-sans);
+  font-size: var(--fs-75);
+  font-weight: var(--fw-regular);
+  color: var(--color-fg);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  transition: color var(--dur-fast) var(--ease-out);
+  min-height: 24px; /* hit-target headroom in a list */
+}
+
+.site-footer__link:hover { color: var(--color-accent); }
+/* Focus ring inherited; radius rounds the outline corners. */
+.site-footer__link:focus-visible { border-radius: var(--radius-1); }
+
+.site-footer__link .meta {
+  font-family: var(--font-mono);
+  font-size: var(--fs-50);
+  letter-spacing: var(--ls-mono);
+  text-transform: uppercase;
+  color: var(--color-fg-subtle);
+}
+
+/* ── Base row ─────────────────────────────────────────────────────── */
+.site-footer__base {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--space-6);
+  gap: var(--space-5);
+  font-family: var(--font-mono);
+  font-size: var(--fs-50);
+  letter-spacing: var(--ls-mono);
+  text-transform: uppercase;
+  color: var(--color-fg-subtle);
+  flex-wrap: wrap;
+}
+
+.site-footer__base a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: var(--border-hairline) solid transparent;
+  transition: all var(--dur-fast) var(--ease-out);
+}
+
+.site-footer__base a:hover {
+  color: var(--color-fg);
+  border-bottom-color: var(--color-line-strong);
+}
+
+.site-footer__base a:focus-visible {
+  /* Tighter offset; this link sits in dense meta-row context. */
+  outline-offset: 2px;
+}
+
+/* Theme toggle in footer uses <fg-theme-toggle data-variant="compact">.
+   Styling lives in /components/theme-toggle/theme-toggle.css. */
+
+/* ── Responsive collapse ─────────────────────────────────────────── */
+@media (max-width: 767.98px) {
+  .site-footer__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-7);
+  }
+
+  .site-footer__base {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+}
+
+/* Reduced motion handled centrally in tokens.css via duration tokens. */

@@ -1,0 +1,28 @@
+<!--
+  Plausible analytics — drop in every <head>.
+
+  Replace $DOMAIN with the production host (felixgeelhaar.com). The
+  script is cookieless, GDPR/CCPA-clean, no banner needed.
+
+  Self-hosted Umami substitution:
+    <script defer
+      src="https://umami.felixgeelhaar.com/script.js"
+      data-website-id="$WEBSITE_ID">
+    </script>
+
+  Outbound link + file-download tracking:
+    data-domain="$DOMAIN"
+    src=".../js/script.outbound-links.file-downloads.js"
+
+  404 + custom-event tracking: same domain, plus event helpers via
+  `plausible('Event Name')` at the surface that fires.
+
+  Loaded async with `defer` so it never blocks LCP.
+-->
+<script defer
+  data-domain="felixgeelhaar.com"
+  src="https://plausible.io/js/script.outbound-links.file-downloads.js">
+</script>
+<script>
+  window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments) };
+</script>

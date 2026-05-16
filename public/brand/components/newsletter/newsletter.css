@@ -1,0 +1,83 @@
+/**
+ * <fg-newsletter> visual styles. Light DOM, sits inside any page region.
+ *
+ * Inherits .form-* primitives for the input + helper + error states.
+ * Adds the headline / blurb / inline submit row.
+ */
+
+fg-newsletter { display: block; }
+
+.fg-newsletter {
+  display: grid;
+  gap: var(--space-5);
+  padding: var(--space-7);
+  border: var(--border-hairline) solid var(--color-line);
+  border-radius: var(--radius-2);
+  background: var(--color-bg-elevated);
+}
+
+.fg-newsletter__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.fg-newsletter__title {
+  font-family: var(--font-sans);
+  font-size: var(--fs-300);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
+  color: var(--color-fg);
+  margin: 0;
+}
+
+.fg-newsletter__blurb {
+  font-family: var(--font-sans);
+  font-size: var(--fs-100);
+  line-height: var(--lh-body);
+  color: var(--color-fg-muted);
+  margin: 0;
+  max-width: 56ch;
+}
+
+.fg-newsletter__form { display: grid; gap: var(--space-3); }
+
+.fg-newsletter__field {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-3);
+}
+
+.fg-newsletter__submit {
+  align-self: stretch;
+  min-height: 44px;
+}
+
+@media (max-width: 479.98px) {
+  .fg-newsletter__field { grid-template-columns: 1fr; }
+}
+
+/* Success state has its own simpler layout. */
+.fg-newsletter--success {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+  text-align: left;
+}
+
+.fg-newsletter__icon { color: var(--color-success-fg); }
+
+/* Screen-reader-only utility used for the hidden email label. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

@@ -1,0 +1,104 @@
+/**
+ * Chart primitives. Light DOM so tokens cascade into SVG via currentColor
+ * and via custom properties that the components read at render time.
+ *
+ * Three primitives shipping in v1:
+ *   <fg-chart-sparkline>    inline tiny trend line, no axes
+ *   <fg-chart-line>         time-series with axes
+ *   <fg-chart-bar>          categorical bars
+ */
+
+fg-chart-sparkline,
+fg-chart-line,
+fg-chart-bar {
+  display: block;
+  width: 100%;
+  color: var(--color-fg);
+  font-family: var(--font-mono);
+}
+
+fg-chart-sparkline {
+  display: inline-block;
+  vertical-align: middle;
+  width: 96px;
+  height: 28px;
+}
+
+.fg-chart {
+  width: 100%;
+  display: block;
+  overflow: visible;
+}
+
+.fg-chart__line {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.fg-chart__area {
+  fill: var(--color-accent);
+  fill-opacity: 0.08;
+}
+
+.fg-chart__point {
+  fill: var(--color-accent);
+  r: 3;
+}
+
+.fg-chart__point--last { r: 4; }
+
+.fg-chart__bar {
+  fill: var(--color-accent);
+}
+
+.fg-chart__bar:hover { fill: var(--color-accent-hover); }
+
+.fg-chart__axis {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--ls-mono);
+  text-transform: uppercase;
+  fill: var(--color-fg-muted);
+}
+
+.fg-chart__axis line,
+.fg-chart__axis path {
+  stroke: var(--color-line);
+  shape-rendering: crispEdges;
+}
+
+.fg-chart__grid line {
+  stroke: var(--color-line);
+  stroke-dasharray: 2 2;
+  shape-rendering: crispEdges;
+}
+
+.fg-chart__label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--ls-mono);
+  text-transform: uppercase;
+  fill: var(--color-fg-muted);
+}
+
+.fg-chart__tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: var(--color-fg);
+  color: var(--color-bg);
+  font-family: var(--font-mono);
+  font-size: var(--fs-50);
+  letter-spacing: var(--ls-mono);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-1);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(-50%, -120%);
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+
+.fg-chart__tooltip[data-visible="true"] { opacity: 1; }

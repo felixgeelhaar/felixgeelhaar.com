@@ -1,0 +1,142 @@
+/**
+ * <fg-code> visual styles. Light DOM.
+ *
+ * Layout: chrome strip (filename + language tag + copy button) over
+ * the code surface. Code wraps in a <pre><code> using --font-mono.
+ */
+
+fg-code { display: block; }
+
+.fg-code {
+  display: flex;
+  flex-direction: column;
+  border: var(--border-hairline) solid var(--color-line);
+  border-radius: var(--radius-2);
+  background: var(--color-bg-elevated);
+  overflow: hidden;
+  font-family: var(--font-mono);
+}
+
+.fg-code__chrome {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg-muted);
+  border-bottom: var(--border-hairline) solid var(--color-line);
+  font-family: var(--font-mono);
+  font-size: var(--fs-50);
+  letter-spacing: var(--ls-mono);
+  text-transform: uppercase;
+}
+
+.fg-code__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.fg-code__filename {
+  color: var(--color-fg);
+  font-weight: var(--fw-medium);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fg-code__lang {
+  color: var(--color-fg-muted);
+  padding: var(--space-1) var(--space-3);
+  border: var(--border-hairline) solid var(--color-line-strong);
+  border-radius: var(--radius-1);
+  flex-shrink: 0;
+}
+
+.fg-code__copy {
+  appearance: none;
+  background: transparent;
+  border: var(--border-hairline) solid var(--color-line-strong);
+  color: var(--color-fg);
+  font: inherit;
+  font-size: var(--fs-50);
+  letter-spacing: var(--ls-mono);
+  text-transform: uppercase;
+  padding: var(--space-3) var(--space-4);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  min-width: 44px;
+  cursor: pointer;
+  transition: all var(--dur-fast) var(--ease-out);
+  flex-shrink: 0;
+}
+
+.fg-code__copy:hover {
+  background: var(--color-fg);
+  color: var(--color-bg);
+  border-color: var(--color-fg);
+}
+
+.fg-code__copy[aria-label="Copied"] {
+  color: var(--color-success-fg);
+  border-color: var(--color-success-fg);
+}
+
+.fg-code__pre {
+  margin: 0;
+  padding: var(--space-5);
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: var(--fs-75);
+  line-height: var(--lh-body);
+  color: var(--color-fg);
+  background: var(--color-bg-elevated);
+}
+
+.fg-code__code {
+  font-family: inherit;
+  font-size: inherit;
+  background: transparent;
+  padding: 0;
+  border: 0;
+  color: inherit;
+}
+
+/* Line numbers ──────────────────────────────────────────────────── */
+.fg-code__table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.fg-code__lineno {
+  user-select: none;
+  text-align: right;
+  padding: 0 var(--space-4) 0 0;
+  color: var(--color-fg-subtle);
+  width: 1%;
+  white-space: nowrap;
+}
+
+.fg-code__line {
+  white-space: pre;
+}
+
+/* ── Responsive ────────────────────────────────────────────────── */
+@media (max-width: 479.98px) {
+  .fg-code__chrome {
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    padding: var(--space-3);
+  }
+  .fg-code__meta {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .fg-code__pre {
+    padding: var(--space-4);
+    font-size: var(--fs-50);
+  }
+}

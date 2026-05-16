@@ -1,0 +1,23 @@
+/**
+ * .rule — horizontal separator. Two weights:
+ *   .rule           hairline, color/line (1 px)
+ *   .rule--strong   2 px, color/fg — reserve for section breaks
+ *
+ * Plain <hr> picks up the same style; use the class when the rule
+ * must be reinforced or sits on a unique surface.
+ */
+
+:where(hr), .rule {
+  border: 0;
+  border-top: var(--border-hairline) solid var(--color-line);
+  margin: 0;
+  height: 0;
+}
+
+.rule--strong {
+  border-top: var(--border-strong) solid var(--color-fg);
+}
+
+.rule--accent {
+  border-top: var(--border-strong) solid var(--color-accent);
+}

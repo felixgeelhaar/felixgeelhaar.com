@@ -1,0 +1,212 @@
+/**
+ * Form primitives — label / input / textarea / select / helper / error.
+ *
+ * Single-column layout (Luke Wroblewski). Label above field, helper text
+ * below. Error message replaces helper on validation failure and is
+ * announced via aria-live on the parent. No JS in this stylesheet —
+ * validation lives in the consuming component.
+ *
+ * Markup contract:
+ *   <div class="form-field">
+ *     <label for="email" class="form-label">Email address</label>
+ *     <input id="email" type="email" class="form-input" required
+ *            aria-describedby="email-help" />
+ *     <p class="form-helper" id="email-help">For the newsletter.</p>
+ *   </div>
+ *
+ * Error state — toggle .form-field--error on the wrapper. Replace the
+ * helper paragraph with a <p class="form-error" id="…-error"
+ * role="alert" aria-live="polite">…</p> and set aria-invalid="true" +
+ * aria-describedby on the input.
+ */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: 480px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.form-row {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.form-row > .form-field { flex: 1 1 220px; }
+
+/* ── Label ────────────────────────────────────────────────────────── */
+.form-label {
+  font-family: var(--font-sans);
+  font-size: var(--fs-75);
+  font-weight: var(--fw-medium);
+  color: var(--color-fg);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.form-label__required {
+  font-family: var(--font-mono);
+  font-size: var(--fs-50);
+  letter-spacing: var(--ls-mono);
+  text-transform: uppercase;
+  color: var(--color-fg-muted);
+}
+
+.form-label__required::before { content: "· "; }
+
+/* ── Inputs ───────────────────────────────────────────────────────── *
+ * Inherits font/color from the page so dark mode + tokens flow in. */
+.form-input,
+.form-textarea,
+.form-select {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  font: inherit;
+  font-size: var(--fs-100);
+  line-height: var(--lh-body);
+  color: var(--color-fg);
+  background: var(--color-bg-elevated);
+  border: var(--border-hairline) solid var(--color-line-strong);
+  border-radius: var(--radius-2);
+  padding: var(--space-3) var(--space-4);
+  min-height: 44px;
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.form-textarea {
+  min-height: 120px;
+  resize: vertical;
+  line-height: var(--lh-body);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--color-fg-subtle);
+}
+
+.form-input:hover,
+.form-textarea:hover,
+.form-select:hover {
+  border-color: var(--color-fg-muted);
+}
+
+/* Focus ring inherits from the global :where(:focus-visible). */
+
+.form-input:disabled,
+.form-textarea:disabled,
+.form-select:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  background: var(--color-bg-muted);
+}
+
+/* ── Select arrow ─────────────────────────────────────────────────── */
+.form-select {
+  padding-right: var(--space-9);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23737373' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='m6 9 6 6 6-6'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right var(--space-4) center;
+  background-size: 16px 16px;
+}
+
+/* ── Helper + error ───────────────────────────────────────────────── */
+.form-helper,
+.form-error {
+  font-family: var(--font-sans);
+  font-size: var(--fs-75);
+  line-height: var(--lh-caption);
+  margin: 0;
+}
+
+.form-helper { color: var(--color-fg-muted); }
+.form-error  { color: var(--color-danger-fg); }
+
+/* Error variant on the wrapper recolours the input border so the
+   problem is obvious without relying on the error text alone. */
+.form-field--error .form-input,
+.form-field--error .form-textarea,
+.form-field--error .form-select {
+  border-color: var(--color-danger-solid);
+}
+
+/* ── Checkbox + radio ─────────────────────────────────────────────── */
+.form-check {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: var(--fs-75);
+  line-height: var(--lh-body);
+  color: var(--color-fg);
+}
+
+.form-check input[type="checkbox"],
+.form-check input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  background: var(--color-bg-elevated);
+  border: var(--border-hairline) solid var(--color-line-strong);
+  border-radius: var(--radius-1);
+  display: inline-grid;
+  place-content: center;
+  cursor: pointer;
+  transition: all var(--dur-fast) var(--ease-out);
+}
+
+.form-check input[type="radio"] { border-radius: var(--radius-pill); }
+
+.form-check input[type="checkbox"]:checked,
+.form-check input[type="radio"]:checked {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.form-check input[type="checkbox"]:checked::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background: var(--color-accent-fg);
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+.form-check input[type="radio"]:checked::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  background: var(--color-accent-fg);
+  border-radius: var(--radius-pill);
+}
+
+/* ── Fieldset + legend ────────────────────────────────────────────── */
+.form-fieldset {
+  border: var(--border-hairline) solid var(--color-line);
+  border-radius: var(--radius-2);
+  padding: var(--space-5) var(--space-6) var(--space-6);
+  margin: 0;
+}
+
+.form-legend {
+  font-family: var(--font-mono);
+  font-size: var(--fs-50);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-mono);
+  text-transform: uppercase;
+  color: var(--color-fg-muted);
+  padding: 0 var(--space-3);
+}

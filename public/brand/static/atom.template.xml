@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Atom 1.0 template. Modern feed readers prefer Atom for its stricter
+  schema. Mirrors the RSS content.
+-->
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Felix Geelhaar — Writing &amp; Lab</title>
+  <subtitle>R&amp;D ops, platform topology, and open-source notes from Felix Geelhaar.</subtitle>
+  <link href="https://felixgeelhaar.com/atom.xml" rel="self" type="application/atom+xml" />
+  <link href="https://felixgeelhaar.com/" />
+  <id>https://felixgeelhaar.com/</id>
+  <updated>2026-05-16T09:00:00Z</updated>
+  <author>
+    <name>Felix Geelhaar</name>
+    <email>felix@felixgeelhaar.com</email>
+    <uri>https://felixgeelhaar.com/</uri>
+  </author>
+  <rights>© 2026 Felix Geelhaar</rights>
+
+  <!--
+    Per-post entry — SSG renders one per content file:
+
+    <entry>
+      <title>Why platforms rot from the middle</title>
+      <link href="https://felixgeelhaar.com/writing/why-platforms-rot" />
+      <id>https://felixgeelhaar.com/writing/why-platforms-rot</id>
+      <updated>2026-05-16T09:00:00Z</updated>
+      <published>2026-05-16T09:00:00Z</published>
+      <summary>Two-sentence lede.</summary>
+      <content type="html"><![CDATA[Full essay HTML here.]]></content>
+      <category term="essay" />
+      <category term="platforms" />
+    </entry>
+  -->
+</feed>

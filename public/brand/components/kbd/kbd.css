@@ -1,0 +1,25 @@
+/**
+ * kbd — keyboard shortcut indicator. Use inside prose to show a key
+ * the user should press. Pairs with one or more siblings to form a
+ * combo: <kbd>⌘</kbd> + <kbd>K</kbd>.
+ *
+ * Native <kbd> selector picks this up automatically; the .kbd class
+ * is available for non-kbd elements that need the same chrome.
+ */
+
+:where(kbd), .kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5em;
+  padding: 2px var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-50);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-mono);
+  color: var(--color-fg);
+  background: var(--color-bg-muted);
+  border: var(--border-hairline) solid var(--color-line-strong);
+  border-radius: var(--radius-1);
+  line-height: 1;
+}

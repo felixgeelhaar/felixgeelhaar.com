@@ -1,0 +1,143 @@
+/**
+ * Semantic typography roles.
+ *
+ * Each `.type-*` class composes the atomic primitives (font, size,
+ * weight, line-height, letter-spacing) into a named role. Components
+ * apply one class and stop mixing atoms — which keeps headlines and
+ * captions visually consistent across the system.
+ *
+ * Native element selectors (`:where(h1, h2, ...)`) provide a default
+ * binding so plain HTML still renders correctly without classes.
+ * Specificity stays 0 so a `.type-*` class always overrides.
+ *
+ * Load order: tokens.css → type.css → component CSS.
+ */
+
+/* ── Display ──────────────────────────────────────────────────────── *
+ * Hero copy. Single biggest type on the page. One per route, maybe
+ * two on the home page (hero + section opener). */
+.type-display {
+  font-family: var(--font-sans);
+  font-size: clamp(48px, 8vw, var(--fs-800));
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-display);
+  letter-spacing: var(--ls-display);
+  margin: 0;
+}
+
+/* ── Headings ─────────────────────────────────────────────────────── *
+ * Bind to native h1..h4 for unstyled HTML; classes override or repurpose
+ * the styling on non-heading elements when semantics require it. */
+:where(h1), .type-heading-1 {
+  font-family: var(--font-sans);
+  font-size: var(--fs-600);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
+  margin: 0;
+}
+
+:where(h2), .type-heading-2 {
+  font-family: var(--font-sans);
+  font-size: var(--fs-500);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
+  margin: 0;
+}
+
+:where(h3), .type-heading-3 {
+  font-family: var(--font-sans);
+  font-size: var(--fs-400);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
+  margin: 0;
+}
+
+:where(h4), .type-heading-4 {
+  font-family: var(--font-sans);
+  font-size: var(--fs-300);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-heading);
+  margin: 0;
+}
+
+/* ── Lede ─────────────────────────────────────────────────────────── *
+ * The line beneath a heading that sets context for the rest of the
+ * page. Larger than body, muted colour, generous leading. */
+.type-lede {
+  font-family: var(--font-sans);
+  font-size: var(--fs-300);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-heading);
+  color: var(--color-fg-muted);
+  max-width: 56ch;
+  margin: 0;
+}
+
+/* ── Body — long-form prose ───────────────────────────────────────── *
+ * Reading body for essays, lab write-ups, talks. 18 px / 1.55 with
+ * generous max-width keeps line length in Bringhurst's 45-75ch sweet
+ * spot. */
+.type-body-prose {
+  font-family: var(--font-sans);
+  font-size: var(--fs-200);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-body);
+  color: var(--color-fg);
+  max-width: var(--width-prose);
+  overflow-wrap: break-word;
+}
+
+/* ── Body — default UI ────────────────────────────────────────────── */
+.type-body {
+  font-family: var(--font-sans);
+  font-size: var(--fs-100);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-body);
+  color: var(--color-fg);
+}
+
+/* ── Caption ──────────────────────────────────────────────────────── *
+ * Secondary metadata under images, around tables, beneath form
+ * inputs, anywhere a small subdued line is needed. */
+.type-caption {
+  font-family: var(--font-sans);
+  font-size: var(--fs-75);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-caption);
+  color: var(--color-fg-muted);
+}
+
+/* ── Mono label ───────────────────────────────────────────────────── *
+ * Kickers, section IDs, technical metadata. Uppercase + mono
+ * letter-spacing make labels read as system-chrome, not body content. */
+.type-mono-label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-50);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-mono);
+  text-transform: uppercase;
+  color: var(--color-fg-muted);
+}
+
+/* ── Inline code ──────────────────────────────────────────────────── *
+ * Distinct from `kbd`. Used inside prose; sits on a tinted bg-muted
+ * surface so the eye lands on it without underlining. */
+:where(code), .type-code-inline {
+  font-family: var(--font-mono);
+  font-size: 0.9em;            /* track the surrounding paragraph size */
+  background: var(--color-bg-muted);
+  padding: 0.1em 0.35em;
+  border-radius: var(--radius-1);
+  color: var(--color-fg);
+}
+
+:where(pre) code,
+:where(pre) .type-code-inline {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  font-size: var(--fs-75);
+}

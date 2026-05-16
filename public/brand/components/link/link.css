@@ -1,0 +1,45 @@
+/**
+ * .link — inline prose links. Underlined by default; underline thickens
+ * on hover. Distinct from .btn (which is for actions/CTAs) and from the
+ * footer link styles (which use a separate class).
+ *
+ * Use inside body copy. Prefer button + arrow icon for primary
+ * navigation; reserve .link for inline references within sentences.
+ */
+
+a.link {
+  color: var(--color-fg);
+  text-decoration: none;
+  border-bottom: var(--border-hairline) solid var(--color-line-strong);
+  padding-bottom: 1px;
+  transition:
+    color var(--dur-fast) var(--ease-out),
+    border-bottom-color var(--dur-fast) var(--ease-out);
+}
+
+a.link:hover {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+}
+
+/* External link convention — pair with an inline icon. Author markup:
+     <a class="link" href="https://…" target="_blank" rel="noopener">
+       text <fg-icon name="arrow-up-right" data-size="xs"></fg-icon>
+     </a>
+*/
+a.link--external > fg-icon,
+a.link--external > svg {
+  margin-left: var(--space-1);
+  vertical-align: -1px;
+}
+
+/* Accent link — lifts the colour from start (when the colour itself
+   is the affordance, e.g. in a "Read more →" row). */
+a.link--accent {
+  color: var(--color-accent);
+  border-bottom-color: transparent;
+}
+
+a.link--accent:hover {
+  border-bottom-color: var(--color-accent);
+}

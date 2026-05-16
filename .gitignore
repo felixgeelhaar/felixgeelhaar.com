@@ -1,5 +1,4 @@
 node_modules/
 dist/
-public/brand/
 .astro/
 .DS_Store

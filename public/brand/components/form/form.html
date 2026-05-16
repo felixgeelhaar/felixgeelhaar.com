@@ -1,0 +1,83 @@
+<!--
+  Form primitive markup. Copy-paste the relevant block; replace ids
+  with stable values. Every input must:
+    - have a unique id
+    - be associated with a <label for="…">
+    - declare aria-describedby pointing at its helper or error
+    - in error state, also declare aria-invalid="true"
+-->
+
+<!-- ── Default field ────────────────────────────────────────────── -->
+<form class="form" novalidate>
+  <div class="form-field">
+    <label for="newsletter-email" class="form-label">
+      Email address
+      <span class="form-label__required">required</span>
+    </label>
+    <input
+      id="newsletter-email"
+      class="form-input"
+      type="email"
+      autocomplete="email"
+      required
+      aria-describedby="newsletter-email-help"
+      placeholder="you@domain.com"
+    />
+    <p id="newsletter-email-help" class="form-helper">
+      One quiet email when a new essay drops. Unsubscribe in one click.
+    </p>
+  </div>
+
+  <!-- ── Textarea ──────────────────────────────────────────────── -->
+  <div class="form-field">
+    <label for="contact-message" class="form-label">Message</label>
+    <textarea
+      id="contact-message"
+      class="form-textarea"
+      rows="4"
+      aria-describedby="contact-message-help"
+    ></textarea>
+    <p id="contact-message-help" class="form-helper">
+      No deck attached, no follow-up cadence — just say what's on your mind.
+    </p>
+  </div>
+
+  <!-- ── Select ────────────────────────────────────────────────── -->
+  <div class="form-field">
+    <label for="topic" class="form-label">Topic</label>
+    <select id="topic" class="form-select">
+      <option value="ops">Engineering ops</option>
+      <option value="platform">Platform topology</option>
+      <option value="hire">Hiring or referrals</option>
+      <option value="press">Press / speaking</option>
+    </select>
+  </div>
+
+  <!-- ── Checkbox + radio ──────────────────────────────────────── -->
+  <fieldset class="form-fieldset">
+    <legend class="form-legend">Preferences</legend>
+    <label class="form-check">
+      <input type="checkbox" />
+      Send me the lab digest too
+    </label>
+  </fieldset>
+
+  <!-- ── Submit ────────────────────────────────────────────────── -->
+  <button type="submit" class="btn btn--accent">Subscribe</button>
+</form>
+
+<!-- ── Error state ──────────────────────────────────────────────── -->
+<div class="form-field form-field--error" style="margin-top: 32px;">
+  <label for="bad-email" class="form-label">Email address</label>
+  <input
+    id="bad-email"
+    class="form-input"
+    type="email"
+    aria-invalid="true"
+    aria-describedby="bad-email-error"
+    value="not-an-email"
+  />
+  <p id="bad-email-error" class="form-error" role="alert">
+    That doesn't look like a valid email. Check the domain and try again.
+  </p>
+</div>

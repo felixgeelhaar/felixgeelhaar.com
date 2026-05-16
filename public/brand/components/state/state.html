@@ -1,0 +1,54 @@
+<!--
+  State templates. Use the matching variant class on the wrapper.
+
+  Empty:
+    <div class="state state--empty">
+      <fg-icon name="info" data-size="lg" class="state__icon"></fg-icon>
+      <p class="state__kicker">Empty</p>
+      <h1 class="state__title">No writing yet.</h1>
+      <p class="state__body">First essay drops on launch. In the meantime, subscribe for it.</p>
+      <div class="state__actions">
+        <a href="/subscribe" class="btn btn--accent">Subscribe</a>
+      </div>
+    </div>
+
+  Loading (skeleton):
+    <div class="state-skeleton" aria-busy="true" aria-live="polite">
+      <span class="state-skeleton__bar state-skeleton__bar--h1 state-skeleton__bar--w-2/3"></span>
+      <span class="state-skeleton__bar state-skeleton__bar--text state-skeleton__bar--w-full"></span>
+      <span class="state-skeleton__bar state-skeleton__bar--text state-skeleton__bar--w-full"></span>
+      <span class="state-skeleton__bar state-skeleton__bar--text state-skeleton__bar--w-1/2"></span>
+    </div>
+
+  404 page:
+    <div class="state state--404">
+      <fg-icon name="alert-triangle" data-size="lg" class="state__icon"></fg-icon>
+      <p class="state__kicker">404 · Not found</p>
+      <h1 class="state__title">Nothing at this address.</h1>
+      <p class="state__body">The link may have moved or the page never existed. Try the writing index or head home.</p>
+      <div class="state__actions">
+        <a href="/writing" class="btn btn--accent">Writing index</a>
+        <a href="/" class="btn btn--ghost">Home</a>
+      </div>
+    </div>
+
+  500 page:
+    <div class="state state--500">
+      <fg-icon name="alert-circle" data-size="lg" class="state__icon"></fg-icon>
+      <p class="state__kicker">500 · Server error</p>
+      <h1 class="state__title">Something on the server fell over.</h1>
+      <p class="state__body">It's not you. Refresh in a minute, or drop me a note if it persists.</p>
+      <div class="state__actions">
+        <button type="button" class="btn btn--accent" onclick="location.reload()">Refresh</button>
+        <a href="mailto:felix@felixgeelhaar.com" class="btn btn--ghost">Email Felix</a>
+      </div>
+    </div>
+-->
+<div class="state state--empty">
+  <p class="state__kicker">Empty</p>
+  <h1 class="state__title">No writing yet.</h1>
+  <p class="state__body">First essay drops on launch. In the meantime, subscribe for it.</p>
+  <div class="state__actions">
+    <a href="/subscribe" class="btn btn--accent">Subscribe</a>
+  </div>
+</div>

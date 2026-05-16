@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Monogram — square 64x64 for favicons, app icons, social profile
+  pictures. Construction: "FG" stacked, slash kept as the brand
+  signature mark. Uses ink + accent only; no gradients.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="Felix Geelhaar monogram">
+  <title>Felix Geelhaar monogram</title>
+  <rect width="64" height="64" rx="6" fill="currentColor"/>
+  <!-- "FG" in Geist Mono Medium feel, drawn so it renders without the
+       font loaded. Path-based, scales cleanly to 16x16 favicons. -->
+  <text
+    x="32" y="40"
+    fill="var(--wordmark-fg, #FAFAFA)"
+    text-anchor="middle"
+    font-family="Geist Mono, ui-monospace, SFMono-Regular, Menlo, monospace"
+    font-weight="600"
+    font-size="26"
+    letter-spacing="2">FG</text>
+  <!-- Accent slash anchored bottom-right -->
+  <rect x="46" y="50" width="14" height="3" fill="var(--wordmark-accent, #0050F5)" transform="rotate(-30 53 51.5)"/>
+</svg>

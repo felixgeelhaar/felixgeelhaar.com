@@ -1,0 +1,122 @@
+/**
+ * <fg-ai-disclosure> styles. Light DOM.
+ *
+ * Tiers share the same outer skeleton; tier-C (unverified) lifts the
+ * warning treatment because it's the most dangerous Misinformed-Use
+ * surface (Holmes).
+ */
+
+fg-ai-disclosure { display: block; }
+
+.fg-ai-disclosure {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-5) var(--space-6);
+  margin: var(--space-6) 0;
+  background: var(--color-info-bg);
+  border: var(--border-hairline) solid var(--color-info-border);
+  border-left: var(--border-strong) solid var(--color-info-fg);
+  border-radius: var(--radius-2);
+  color: var(--color-fg);
+}
+
+.fg-ai-disclosure--c {
+  background: var(--color-warning-bg);
+  border-color: var(--color-warning-border);
+  border-left-color: var(--color-warning-fg);
+}
+
+.fg-ai-disclosure__chrome {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.fg-ai-disclosure__icon {
+  color: var(--color-info-fg);
+  flex-shrink: 0;
+}
+
+.fg-ai-disclosure--c .fg-ai-disclosure__icon {
+  color: var(--color-warning-fg);
+}
+
+.fg-ai-disclosure__kicker {
+  font-family: var(--font-mono);
+  font-size: var(--fs-50);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-mono);
+  text-transform: uppercase;
+  color: var(--color-info-fg);
+}
+
+.fg-ai-disclosure--c .fg-ai-disclosure__kicker {
+  color: var(--color-warning-fg);
+}
+
+.fg-ai-disclosure__body {
+  font-family: var(--font-sans);
+  font-size: var(--fs-100);
+  line-height: var(--lh-body);
+  color: var(--color-fg);
+}
+
+.fg-ai-disclosure__body > :first-child { margin-top: 0; }
+.fg-ai-disclosure__body > :last-child { margin-bottom: 0; }
+.fg-ai-disclosure__body p { margin: 0 0 var(--space-3); }
+.fg-ai-disclosure__body p:last-child { margin-bottom: 0; }
+
+.fg-ai-disclosure__sources {
+  font-family: var(--font-mono);
+  font-size: var(--fs-50);
+  letter-spacing: var(--ls-mono);
+  text-transform: uppercase;
+  color: var(--color-fg-muted);
+  padding-top: var(--space-3);
+  border-top: var(--border-hairline) solid var(--color-info-border);
+}
+
+.fg-ai-disclosure--c .fg-ai-disclosure__sources {
+  border-top-color: var(--color-warning-border);
+}
+
+.fg-ai-disclosure__sources-label {
+  display: inline-block;
+  margin-right: var(--space-3);
+  color: var(--color-fg-subtle);
+}
+
+.fg-ai-disclosure__sources ul {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.fg-ai-disclosure__sources li {
+  color: var(--color-fg);
+}
+
+.fg-ai-disclosure__policy {
+  font-family: var(--font-mono);
+  font-size: var(--fs-50);
+  letter-spacing: var(--ls-mono);
+  text-transform: uppercase;
+  color: var(--color-fg-muted);
+  margin: 0;
+}
+
+@media (max-width: 479.98px) {
+  .fg-ai-disclosure {
+    padding: var(--space-4) var(--space-5);
+    gap: var(--space-3);
+    margin: var(--space-5) 0;
+  }
+  .fg-ai-disclosure__sources ul {
+    flex-direction: column;
+    gap: var(--space-2);
+    align-items: flex-start;
+  }
+}

@@ -1,0 +1,101 @@
+/**
+ * <fg-modal> visual styles. The native <dialog> handles open/close
+ * positioning + focus trap. We style the chrome.
+ */
+
+fg-modal { display: contents; }
+
+.fg-modal__dialog {
+  /* Native <dialog> centres itself; constrain the width here.
+     `dvh` (dynamic viewport height) accounts for mobile browser
+     chrome (URL bar collapse/expand) — falls back to vh in browsers
+     that don't support it. */
+  width: min(560px, calc(100% - var(--space-7) * 2));
+  max-height: calc(100vh - var(--space-9));
+  max-height: calc(100dvh - var(--space-9));
+  margin: auto;
+  padding: 0;
+  background: var(--color-bg-elevated);
+  color: var(--color-fg);
+  border: var(--border-hairline) solid var(--color-line);
+  border-radius: var(--radius-2);
+  box-shadow: var(--shadow-high);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.fg-modal__dialog::backdrop {
+  background: rgb(0 0 0 / 0.5);
+  backdrop-filter: blur(2px);
+}
+
+.fg-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  padding: var(--space-5) var(--space-6);
+  border-bottom: var(--border-hairline) solid var(--color-line);
+}
+
+.fg-modal__title {
+  font-family: var(--font-sans);
+  font-size: var(--fs-300);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
+  color: var(--color-fg);
+  margin: 0;
+}
+
+.fg-modal__close {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: var(--color-fg-muted);
+  cursor: pointer;
+  padding: var(--space-2);
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.fg-modal__close:hover { color: var(--color-fg); }
+
+.fg-modal__body {
+  padding: var(--space-6);
+  overflow-y: auto;
+  flex: 1;
+}
+
+.fg-modal__body > :first-child { margin-top: 0; }
+.fg-modal__body > :last-child  { margin-bottom: 0; }
+
+.fg-modal__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--space-6);
+  border-top: var(--border-hairline) solid var(--color-line);
+  background: var(--color-bg);
+}
+
+/* Stacking — the modal sits above sticky chrome via :modal pseudo
+   (Chromium/Firefox handle this automatically; explicit fallback in
+   case a non-:modal renderer breaks the cascade). */
+.fg-modal__dialog:modal { z-index: var(--z-modal); }
+
+@media (max-width: 767.98px) {
+  .fg-modal__dialog {
+    width: calc(100% - var(--space-5) * 2);
+    max-height: calc(100vh - var(--space-7));
+    max-height: calc(100dvh - var(--space-7));
+  }
+  .fg-modal__header,
+  .fg-modal__actions { padding: var(--space-4) var(--space-5); }
+  .fg-modal__body { padding: var(--space-5); }
+}

@@ -1,0 +1,172 @@
+/**
+ * Card — markup-heavy primitive used for writing indexes, lab project
+ * lists, and any "linked summary block." Variants share the same
+ * outer skeleton; only the meta content changes.
+ *
+ * Variants:
+ *   .card--writing   writing-index list item
+ *   .card--project   lab-index list item (status + tech tags)
+ *   .card--feature   home page feature card (larger title, more space)
+ *
+ * Structural classes:
+ *   .card           outer container
+ *   .card__kicker   mono caps line (uses .type-mono-label)
+ *   .card__title    heading-3 / heading-4 depending on variant
+ *   .card__lede     2-line lede, clamped
+ *   .card__meta     date/reading-time row
+ *   .card__meta-row tag list flex row
+ *   .card__tag      pill-shaped tag
+ *
+ * Whole card is clickable when wrapped in an <a> — focus ring inherits
+ * from the global :where(:focus-visible) rule.
+ */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  background: var(--color-bg);
+  border: var(--border-hairline) solid var(--color-line);
+  text-decoration: none;
+  color: inherit;
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    transform    var(--dur-fast) var(--ease-out),
+    box-shadow   var(--dur-fast) var(--ease-out);
+}
+
+/* Anchor card — covers the entire surface. */
+a.card {
+  cursor: pointer;
+}
+
+a.card:hover {
+  border-color: var(--color-line-strong);
+  box-shadow: var(--shadow-low);
+}
+
+a.card:hover .card__title { color: var(--color-accent); }
+
+.card__kicker {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--color-fg-muted);
+  margin: 0;
+}
+
+.card__kicker::before {
+  content: "";
+  display: inline-block;
+  width: var(--space-5);
+  height: var(--border-strong);
+  background: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.card__title {
+  margin: 0;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.card__lede {
+  margin: 0;
+  color: var(--color-fg-muted);
+  font-size: var(--fs-100);
+  line-height: var(--lh-body);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+.card__meta {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-50);
+  letter-spacing: var(--ls-mono);
+  text-transform: uppercase;
+  color: var(--color-fg-subtle);
+}
+
+.card__meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.card__tag {
+  font-family: var(--font-mono);
+  font-size: var(--fs-50);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-mono);
+  text-transform: uppercase;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg-muted);
+  color: var(--color-fg);
+  border-radius: var(--radius-1);
+}
+
+/* ── Writing variant ──────────────────────────────────────────────── */
+.card--writing .card__title {
+  font-family: var(--font-sans);
+  font-size: var(--fs-300);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
+  color: var(--color-fg);
+}
+
+/* ── Project (lab) variant ────────────────────────────────────────── *
+ * Mono title leans into the System Diagram language for the lab side. */
+.card--project .card__title {
+  font-family: var(--font-mono);
+  font-size: var(--fs-300);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-heading);
+  color: var(--color-fg);
+}
+
+.card--project .card__kicker {
+  color: var(--color-accent);
+}
+
+/* ── Feature card (home hero rows) ────────────────────────────────── */
+.card--feature {
+  padding: var(--space-8);
+  gap: var(--space-5);
+}
+
+.card--feature .card__title {
+  font-family: var(--font-sans);
+  font-size: var(--fs-400);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
+  color: var(--color-fg);
+}
+
+.card--feature .card__lede {
+  font-size: var(--fs-200);
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+}
+
+/* ── Responsive — shrink padding on narrow phones ─────────────────── */
+@media (max-width: 479.98px) {
+  .card {
+    padding: var(--space-5);
+    gap: var(--space-3);
+  }
+
+  .card--feature {
+    padding: var(--space-6);
+    gap: var(--space-4);
+  }
+
+  .card--feature .card__title {
+    font-size: var(--fs-300);
+  }
+}

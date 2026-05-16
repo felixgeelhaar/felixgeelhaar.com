@@ -1,0 +1,50 @@
+/**
+ * <fg-theme-toggle> styles. Light DOM so tokens cascade.
+ *
+ * Two visual variants for the same component:
+ *   - default: 44px tall, header/footer baseline
+ *   - variant="compact": 32px, used in tight contexts
+ *
+ * Set via [data-variant] attribute on the host element.
+ */
+
+fg-theme-toggle {
+  display: inline-block;
+}
+
+fg-theme-toggle > button {
+  appearance: none;
+  background: transparent;
+  border: var(--border-hairline) solid var(--color-line-strong);
+  color: var(--color-fg);
+  font-family: var(--font-mono);
+  font-size: var(--fs-50);
+  letter-spacing: var(--ls-mono);
+  text-transform: uppercase;
+  padding: var(--space-3) var(--space-4);
+  min-height: 44px;
+  min-width: 44px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  transition: all var(--dur-fast) var(--ease-out);
+}
+
+fg-theme-toggle > button:hover {
+  background: var(--color-fg);
+  color: var(--color-bg);
+  border-color: var(--color-fg);
+}
+
+fg-theme-toggle > button:focus-visible {
+  /* Ring colour + width inherited; tighter offset for in-chrome button. */
+  outline-offset: 2px;
+}
+
+fg-theme-toggle[data-variant="compact"] > button {
+  padding: var(--space-2) var(--space-4);
+  min-height: 32px;
+}
+
+/* Reduced motion handled centrally in tokens.css via duration tokens. */

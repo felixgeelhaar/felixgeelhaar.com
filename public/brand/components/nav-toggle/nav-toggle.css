@@ -1,0 +1,40 @@
+/**
+ * <fg-nav-toggle> styles. Light DOM, hidden above md breakpoint.
+ */
+
+fg-nav-toggle {
+  display: none;
+}
+
+fg-nav-toggle > button {
+  appearance: none;
+  background: transparent;
+  border: var(--border-hairline) solid var(--color-line-strong);
+  color: var(--color-fg);
+  font-family: var(--font-mono);
+  font-size: var(--fs-50);
+  letter-spacing: var(--ls-mono);
+  text-transform: uppercase;
+  padding: var(--space-3) var(--space-4);
+  min-height: 44px;
+  min-width: 44px;
+  cursor: pointer;
+  transition: all var(--dur-fast) var(--ease-out);
+}
+
+fg-nav-toggle > button:hover {
+  background: var(--color-fg);
+  color: var(--color-bg);
+  border-color: var(--color-fg);
+}
+
+fg-nav-toggle > button:focus-visible {
+  /* Ring colour + width inherited; tighter offset for in-chrome button. */
+  outline-offset: 2px;
+}
+
+@media (max-width: 767.98px) {
+  fg-nav-toggle { display: inline-block; }
+}
+
+/* Reduced motion handled centrally in tokens.css via duration tokens. */

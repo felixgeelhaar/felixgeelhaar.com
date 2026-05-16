@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  RSS 2.0 template. Writing + lab notes interleaved (most-recent
+  first). Limit to 50 most recent items to keep the feed small;
+  archive entries available at /writing and /lab.
+-->
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Felix Geelhaar — Writing &amp; Lab</title>
+    <link>https://felixgeelhaar.com/</link>
+    <description>R&amp;D ops, platform topology, and open-source notes from Felix Geelhaar.</description>
+    <language>en-gb</language>
+    <atom:link href="https://felixgeelhaar.com/rss.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 16 May 2026 09:00:00 GMT</lastBuildDate>
+
+    <!--
+      Per-post item — SSG renders one per content file:
+
+      <item>
+        <title>Why platforms rot from the middle</title>
+        <link>https://felixgeelhaar.com/writing/why-platforms-rot</link>
+        <guid isPermaLink="true">https://felixgeelhaar.com/writing/why-platforms-rot</guid>
+        <pubDate>Sat, 16 May 2026 09:00:00 GMT</pubDate>
+        <description><![CDATA[Two-sentence lede.]]></description>
+        <category>essay</category>
+        <category>platforms</category>
+      </item>
+    -->
+  </channel>
+</rss>

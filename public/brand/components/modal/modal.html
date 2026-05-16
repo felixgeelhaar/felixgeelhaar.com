@@ -1,0 +1,52 @@
+<!--
+  <fg-modal> canonical markup. Author the dialog and slot in your own
+  body content. Triggers reference the modal by id via
+  `data-fg-modal-open`; close buttons inside use `data-fg-close`.
+
+    <button class="btn btn--accent" data-fg-modal-open="confirm-delete">
+      Delete project…
+    </button>
+
+    <fg-modal id="confirm-delete">
+      <dialog class="fg-modal__dialog" aria-labelledby="confirm-delete-title">
+        <header class="fg-modal__header">
+          <h2 id="confirm-delete-title" class="fg-modal__title">Delete project?</h2>
+          <button class="fg-modal__close" type="button" data-fg-close aria-label="Close">
+            <fg-icon name="x" data-size="sm"></fg-icon>
+          </button>
+        </header>
+        <div class="fg-modal__body">
+          <p>This removes the project and every published artifact tied to it.
+          You can't undo this from the dashboard — only the audit log keeps a copy.</p>
+        </div>
+        <footer class="fg-modal__actions">
+          <button class="btn btn--ghost" type="button" data-fg-close>Cancel</button>
+          <button class="btn btn--accent" type="button">Delete project</button>
+        </footer>
+      </dialog>
+    </fg-modal>
+-->
+
+<button class="btn btn--accent" data-fg-modal-open="example-modal">
+  Open example modal
+</button>
+
+<fg-modal id="example-modal">
+  <dialog class="fg-modal__dialog" aria-labelledby="example-modal-title">
+    <header class="fg-modal__header">
+      <h2 id="example-modal-title" class="fg-modal__title">Example modal</h2>
+      <button class="fg-modal__close" type="button" data-fg-close aria-label="Close">
+        <fg-icon name="x" data-size="sm"></fg-icon>
+      </button>
+    </header>
+    <div class="fg-modal__body">
+      <p>Native &lt;dialog&gt; under the hood. Focus is trapped, escape closes,
+      backdrop click closes, scroll is locked while open, and focus returns
+      to the trigger when it closes.</p>
+    </div>
+    <footer class="fg-modal__actions">
+      <button class="btn btn--ghost" type="button" data-fg-close>Cancel</button>
+      <button class="btn btn--accent" type="button">Confirm</button>
+    </footer>
+  </dialog>
+</fg-modal>

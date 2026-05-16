@@ -1,0 +1,9 @@
+# Felix Geelhaar — robots.txt
+# Allow all crawlers; disallow only internal API endpoints and drafts.
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /drafts/
+
+Sitemap: https://felixgeelhaar.com/sitemap.xml

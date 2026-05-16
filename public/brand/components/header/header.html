@@ -1,0 +1,33 @@
+<!--
+  Reference markup for the site header. Copy verbatim into every page
+  template; do not deviate from the structure without updating
+  ./header.css. See /docs/ia.md for the canonical primary-nav route list.
+
+  Required IDs / hooks:
+    - <a href="#main"> on the skip link — every page must have an
+      element with id="main" matching this fragment.
+    - aria-current="page" on the matching <a> for the current route.
+    - data-open="true|false" on .site-nav toggled by JS for the mobile drawer.
+-->
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header" role="banner">
+  <a class="site-header__brand" href="/">
+    FELIX GEELHAAR<span class="accent"> /</span>
+  </a>
+
+  <nav class="site-nav" aria-label="Primary" data-open="false" id="primary-nav">
+    <ul class="site-nav__list">
+      <li><a class="site-nav__link" href="/writing">Writing</a></li>
+      <li><a class="site-nav__link" href="/lab">Lab</a></li>
+      <li><a class="site-nav__link" href="/talks">Talks</a></li>
+      <li><a class="site-nav__link" href="/work">Work</a></li>
+      <li><a class="site-nav__link" href="/about">About</a></li>
+    </ul>
+  </nav>
+
+  <div class="site-header__actions">
+    <fg-theme-toggle></fg-theme-toggle>
+    <fg-nav-toggle for="primary-nav" label="Menu"></fg-nav-toggle>
+  </div>
+</header>

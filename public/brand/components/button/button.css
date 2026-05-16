@@ -1,0 +1,103 @@
+/**
+ * .btn — every interactive surface in the system that triggers an
+ * action or navigates. Three semantic variants:
+ *
+ *   .btn          solid, ink fill (default)
+ *   .btn--ghost   transparent, ink border, ink fill on hover
+ *   .btn--accent  accent fill — primary action of the surface
+ *
+ * Optional modifiers:
+ *   .btn--sm      32 px minimum height, dense rows
+ *   .btn--lg      52 px minimum height, hero CTAs
+ *   .btn--danger  red fill — destructive actions, paired with modal
+ *
+ * Touch target ≥ 44 × 44 (min-height + min-width on the default).
+ * Focus ring inherits from the global :where(:focus-visible).
+ */
+
+.btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6);
+  min-height: 44px;
+  min-width: 44px;
+  border: var(--border-hairline) solid var(--color-fg);
+  background: var(--color-fg);
+  color: var(--color-bg);
+  font-family: var(--font-sans);
+  font-size: var(--fs-75);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-body);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+  user-select: none;
+}
+
+.btn:hover {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-accent-fg);
+}
+
+.btn:active { transform: translateY(1px); }
+
+.btn[disabled],
+.btn[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* ── Variants ─────────────────────────────────────────────────────── */
+.btn--ghost {
+  background: transparent;
+  color: var(--color-fg);
+}
+
+.btn--ghost:hover {
+  background: var(--color-fg);
+  color: var(--color-bg);
+}
+
+.btn--accent {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-accent-fg);
+}
+
+.btn--accent:hover {
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+}
+
+.btn--danger {
+  background: var(--color-danger-solid);
+  border-color: var(--color-danger-solid);
+  color: var(--color-danger-solid-fg);
+}
+
+.btn--danger:hover {
+  background: var(--color-danger-fg);
+  border-color: var(--color-danger-fg);
+}
+
+/* ── Sizes ────────────────────────────────────────────────────────── */
+.btn--sm {
+  padding: var(--space-2) var(--space-4);
+  min-height: 32px;
+  font-size: var(--fs-50);
+}
+
+.btn--lg {
+  padding: var(--space-5) var(--space-7);
+  min-height: 52px;
+  font-size: var(--fs-100);
+}

@@ -1,0 +1,52 @@
+/**
+ * <fg-icon> styles + plain `<svg class="fg-icon">` baseline.
+ *
+ * Sizes pull from --icon-size-* tokens declared below. Stroke width
+ * stays unitless on the symbol itself; vector-effect: non-scaling-stroke
+ * keeps the rendered weight optically uniform across sizes.
+ */
+
+:root {
+  --icon-size-xs: 16px;
+  --icon-size-sm: 20px;
+  --icon-size-md: 24px;
+  --icon-size-lg: 32px;
+  --icon-stroke:  1.5;
+}
+
+fg-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--icon-size-sm);
+  height: var(--icon-size-sm);
+  color: currentColor;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+fg-icon[data-size="xs"] { width: var(--icon-size-xs); height: var(--icon-size-xs); }
+fg-icon[data-size="sm"] { width: var(--icon-size-sm); height: var(--icon-size-sm); }
+fg-icon[data-size="md"] { width: var(--icon-size-md); height: var(--icon-size-md); }
+fg-icon[data-size="lg"] { width: var(--icon-size-lg); height: var(--icon-size-lg); }
+
+fg-icon > svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+fg-icon svg [stroke="currentColor"] {
+  vector-effect: non-scaling-stroke;
+}
+
+/* Plain SVG usage (no Lit component) — for pages that haven't loaded
+   the element script yet. Same sizing convention. */
+.fg-icon {
+  display: inline-flex;
+  width: var(--icon-size-sm);
+  height: var(--icon-size-sm);
+  color: currentColor;
+  flex-shrink: 0;
+  vertical-align: middle;
+}

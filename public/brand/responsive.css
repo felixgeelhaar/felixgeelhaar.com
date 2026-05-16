@@ -1,0 +1,159 @@
+/**
+ * Global responsive tweaks. Component CSS owns its own breakpoints;
+ * this file handles cross-component concerns that don't belong inside
+ * a single component (page padding, skip-link offset, common rhythm).
+ */
+
+/* ── Horizontal-overflow root cause fix ─────────────────────────── *
+ * The brand preview's catalogue grids (.type-row, .space-row,
+ * .semantic-pair) declare `1fr` tracks. CSS Grid resolves a bare `1fr`
+ * as `minmax(auto, 1fr)`, and `auto` equals the cell's min-content
+ * size. With a fs-800 word like "Display" (~280 px) or a 192 px space
+ * bar inside that cell, the track is forced wider than the viewport
+ * and the page horizontally scrolls.
+ *
+ * Two-part fix:
+ *   1. Re-declare each problematic 1fr as minmax(0, 1fr) so the cell
+ *      can shrink below min-content.
+ *   2. Allow long words inside type samples to break.
+ *
+ * `overflow-x: clip` on body — belt-and-suspenders safeguard for any
+ * future child that accidentally exceeds the viewport (a chart with
+ * a fixed-width SVG, a code block whose copy button uses a too-wide
+ * label, etc.). Unlike `hidden` it doesn't create a scroll container,
+ * so sticky header + future fixed reading-progress bar still work.
+ * The real content is now sized correctly via tokens + minmax(0,1fr),
+ * so clip never clips legitimate copy.
+ */
+
+html, body {
+  width: 100%;
+  min-width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: clip;
+}
+
+/* Force chrome elements + main content area to span the full viewport
+   width. `100vw` covers iOS Chrome (WebKit) where percentage widths
+   sometimes resolve relative to the layout viewport, not the visual
+   viewport, leaving a gap. min-width also defends against any parent
+   that's somehow narrower than expected. */
+.site-header,
+.site-footer,
+main {
+  width: 100%;
+  min-width: 100%;
+  box-sizing: border-box;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Very narrow phones (< 480 px) — tighten the gutter further so the
+   brand chrome reaches closer to the hardware edge. 12 px keeps
+   touch-targets clear of the screen border without burning real
+   estate. */
+@media (max-width: 479.98px) {
+  main {
+    padding-left: var(--space-4) !important;
+    padding-right: var(--space-4) !important;
+  }
+  .site-header,
+  .site-footer {
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+  }
+}
+
+:where(.type-row, .space-row, .semantic-pair) {
+  grid-template-columns: 80px minmax(0, 1fr);
+}
+
+:where(.space-row) {
+  grid-template-columns: 80px 64px minmax(0, 1fr);
+}
+
+:where(.semantic-pair) {
+  grid-template-columns: 64px minmax(0, 1fr);
+}
+
+:where(.type-sample) {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+:where(.space-bar) {
+  max-width: 100%;
+}
+
+/* Load order: tokens.css → type.css → grid.css → responsive.css →
+   component CSS. responsive.css sits at specificity 0 via :where()
+   so component-level CSS always wins.
+   Breakpoints match docs/breakpoints.md: sm 640, md 768, lg 1024,
+   xl 1280, 2xl 1536. */
+
+/* ── Below 640 px: shrink page chrome ────────────────────────────── *
+ * Phones get back ~32 px of horizontal real estate when .page padding
+ * drops from space-7 (32) to space-5 (16). Vertical breathing room
+ * also tightens — the page rhythm matches content density.
+ *
+ * Specificity: `main.page` (0,1,1) beats inline `.page` rules in page
+ * <style> blocks (0,1,0). `:where()` previously zeroed specificity and
+ * lost to inline rules. */
+@media (max-width: 639.98px) {
+  main.page {
+    padding-left: var(--space-5);
+    padding-right: var(--space-5);
+    padding-top: var(--space-7);
+    padding-bottom: var(--space-9);
+  }
+
+  /* Phone-only main padding shrink for pages that use bare <main>
+     (home, work, policy/ai) — these set their own inline padding. */
+  main {
+    padding-left: var(--space-5) !important;
+    padding-right: var(--space-5) !important;
+  }
+
+  /* Catalogue (index.html) hero — was using space-12 (192 px) top and
+     space-11 (128 px) bottom which pushes the headline way past the
+     fold on phones. Trim aggressively. */
+  main .hero {
+    padding: var(--space-6) 0 var(--space-7);
+  }
+
+  /* Footer horizontal padding matches main on phones. */
+  .site-footer {
+    padding-left: var(--space-5);
+    padding-right: var(--space-5);
+  }
+}
+
+/* ── Below 480 px: very-narrow phones ─────────────────────────────── *
+ * Skip-link offset shrinks so it doesn't collide with the wordmark
+ * when revealed. */
+@media (max-width: 479.98px) {
+  :where(.skip-link) {
+    top: var(--space-2);
+    left: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+  }
+
+  /* `.btn--lg` is hero-CTA size on desktop; on a very-narrow phone the
+     surrounding column drops to ~280 px and the lg button wraps. Pull
+     padding down so two side-by-side btns fit. */
+  :where(.btn--lg) {
+    padding: var(--space-4) var(--space-5);
+  }
+}
+
+/* ── Touch-only refinement ────────────────────────────────────────── *
+ * On touch devices the hover state never fires; transitions on
+ * non-hover styles add jank. Suppress hover-driven box-shadow on cards
+ * so first-tap doesn't surface a stuck shadow. */
+@media (hover: none) {
+  :where(a.card):hover {
+    box-shadow: none;
+  }
+}

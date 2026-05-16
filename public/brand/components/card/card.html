@@ -1,0 +1,40 @@
+<!--
+  Card primitive — three variants share the same outer skeleton.
+  Whole card is clickable when wrapped in <a>. See ./card.css for
+  the markup contract.
+
+  Writing card:
+    <a href="/writing/$slug" class="card card--writing">
+      <p class="card__kicker type-mono-label">ESSAY · 12 MIN</p>
+      <h3 class="card__title">Why platforms rot from the middle</h3>
+      <p class="card__lede">Two-line lede explaining the piece in the
+      reader's language…</p>
+      <p class="card__meta">2026-05-16 · ops · platforms</p>
+    </a>
+
+  Project card:
+    <a href="/lab/$slug" class="card card--project">
+      <p class="card__kicker type-mono-label">LAB · v2.7.4</p>
+      <h3 class="card__title">govee-light-management</h3>
+      <p class="card__lede">Stream Deck plugin for Govee smart lights.</p>
+      <div class="card__meta-row">
+        <span class="card__tag">TypeScript</span>
+        <span class="card__tag">Stream Deck SDK</span>
+        <span class="card__tag">Lit</span>
+      </div>
+    </a>
+
+  Feature card (home page hero row):
+    <a href="/about" class="card card--feature">
+      <p class="card__kicker type-mono-label">01 / Ops leadership</p>
+      <h3 class="card__title">Run the platform like a product.</h3>
+      <p class="card__lede">Three-line lede that takes more space and
+      sets context for a high-stakes choice…</p>
+    </a>
+-->
+<a href="#" class="card card--writing">
+  <p class="card__kicker type-mono-label">Essay · 12 min</p>
+  <h3 class="card__title">Why platforms rot from the middle</h3>
+  <p class="card__lede">Lede explaining the piece in two lines maximum.</p>
+  <p class="card__meta">2026-05-16 · ops · platforms</p>
+</a>

@@ -1,0 +1,62 @@
+<!--
+  Reference markup for the site footer. Mirrors primary nav (serial-position
+  effect) plus secondary IA (now, uses, press), social, and feeds. Routes
+  match /docs/ia.md. Year is rendered server-side or via JS — never hard-coded.
+-->
+<footer class="site-footer" role="contentinfo">
+  <div class="site-footer__grid">
+    <div class="site-footer__col">
+      <a class="site-footer__brand" href="/">
+        FELIX GEELHAAR<span class="accent"> /</span>
+      </a>
+      <p class="site-footer__tagline">
+        Ops leader and open-source author. Writing on platform topology,
+        engineering effectiveness, and the systems that hold modern R&amp;D
+        together.
+      </p>
+    </div>
+
+    <nav class="site-footer__col" aria-label="Site">
+      <p class="site-footer__label">Site</p>
+      <ul class="site-footer__list">
+        <li><a class="site-footer__link" href="/writing">Writing</a></li>
+        <li><a class="site-footer__link" href="/lab">Lab</a></li>
+        <li><a class="site-footer__link" href="/talks">Talks</a></li>
+        <li><a class="site-footer__link" href="/about">About</a></li>
+        <li><a class="site-footer__link" href="/contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <nav class="site-footer__col" aria-label="More">
+      <p class="site-footer__label">More</p>
+      <ul class="site-footer__list">
+        <li><a class="site-footer__link" href="/now">Now</a></li>
+        <li><a class="site-footer__link" href="/uses">Uses</a></li>
+        <li><a class="site-footer__link" href="/press">Press kit</a></li>
+        <li><a class="site-footer__link" href="/policy/ai">AI policy</a></li>
+        <li><a class="site-footer__link" href="/rss.xml">RSS <span class="meta">XML</span></a></li>
+        <li><a class="site-footer__link" href="/atom.xml">Atom <span class="meta">XML</span></a></li>
+      </ul>
+    </nav>
+
+    <nav class="site-footer__col" aria-label="Elsewhere">
+      <p class="site-footer__label">Elsewhere</p>
+      <ul class="site-footer__list">
+        <li><a class="site-footer__link" href="https://github.com/felixgeelhaar" rel="me">GitHub</a></li>
+        <li><a class="site-footer__link" href="https://linkedin.com/in/felixgeelhaar" rel="me">LinkedIn</a></li>
+        <li><a class="site-footer__link" href="https://bsky.app/profile/felixgeelhaar.bsky.social" rel="me">Bluesky</a></li>
+        <li><a class="site-footer__link" href="https://mastodon.social/@felixgeelhaar" rel="me">Mastodon</a></li>
+        <li class="site-footer__link"><fg-mailto user="felix" host="felixgeelhaar.com" label="Email"></fg-mailto></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="site-footer__base">
+    <span>© <span id="footerYear">2026</span> Felix Geelhaar.</span>
+    <span>
+      Built with the brand system —
+      <a href="https://github.com/felixgeelhaar/brand">source</a>.
+    </span>
+    <fg-theme-toggle data-variant="compact"></fg-theme-toggle>
+  </div>
+</footer>

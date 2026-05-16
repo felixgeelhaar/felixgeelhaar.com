@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Wordmark — canonical. Geist Mono Medium, uppercase, letter-spacing
+  0.04em. Accent slash trails the name. Use this SVG when the rendering
+  environment can't host the web font (PDF, email signatures, slide
+  decks before fonts load).
+
+  Sized at 24 px line-height so it slots inline with the system's
+  fs-100. Scale freely via width/height.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="24" viewBox="0 0 220 24" role="img" aria-label="Felix Geelhaar">
+  <title>Felix Geelhaar</title>
+  <style>
+    .word { font: 500 16px/1 "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 0.04em; fill: currentColor; }
+    .slash { fill: var(--wordmark-accent, #0050F5); }
+  </style>
+  <text class="word" x="0" y="18" textLength="200" lengthAdjust="spacingAndGlyphs">FELIX GEELHAAR</text>
+  <text class="word slash" x="206" y="18">/</text>
+</svg>

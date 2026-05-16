@@ -1,0 +1,412 @@
+/**
+ * Felix Geelhaar — brand tokens v0
+ * Direction: "System Diagram" (blueprint clarity, mono-leaning, grid-disciplined)
+ *
+ * Layer 1 — primitives    : raw values, never reference each other
+ * Layer 2 — semantic      : reference primitives, what UI code should consume
+ * Layer 3 — dark mode     : overrides semantic tokens for [data-theme="dark"]
+ *
+ * Edit primitives to retune the system. Edit semantic mapping to change how a
+ * surface (bg / fg / accent / line) consumes those primitives. Never reference
+ * primitives from UI code — go through the semantic layer so dark mode and
+ * future themes stay one place to change.
+ */
+
+:root {
+  /* ── 1. Primitives ──────────────────────────────────────────────── */
+
+  /* Neutral ramp — cool, near-black ink to cool off-white paper */
+  --ink-1000: #0A0A0A;
+  --ink-900:  #171717;
+  --ink-800:  #262626;
+  --ink-700:  #404040;
+  --ink-600:  #525252;
+  --ink-500:  #737373;
+  --ink-400:  #A3A3A3;
+  --ink-300:  #C9C9C9;
+  --ink-200:  #E5E5E5;
+  --ink-100:  #FAFAFA;
+  --ink-0:    #FFFFFF;
+
+  /* Accent — electric blue. Dev-tools/blueprint, not webflow-marketing.
+     blue-250 added between 200 and 300 to give dark-mode accent enough
+     luminance for APCA Lc 60 while preserving the "electric" character. */
+  --blue-600: #0040C8;
+  --blue-500: #0050F5;
+  --blue-400: #2E70FF;
+  --blue-300: #6B9AFF;
+  --blue-250: #A0BFFF;
+  --blue-200: #B3CAFF;
+  --blue-100: #E5EEFF;
+
+  /* Status ramps — cool, restrained, paired against the electric blue.
+     Each ramp carries enough range to host:
+       light surface tint  (100/200)
+       light surface text  (700)
+       solid button fill   (500)
+       dark surface tint   (900)
+       dark surface text   (300)
+     Verified against APCA via scripts/check-contrast.mjs. */
+  --green-100: #DCFCE7;
+  --green-200: #BBF7D0;
+  --green-300: #86EFAC;
+  --green-400: #4ADE80;
+  --green-500: #22C55E;
+  --green-700: #15803D;
+  --green-900: #052E16;
+
+  --amber-100: #FEF3C7;
+  --amber-200: #FDE68A;
+  --amber-300: #FCD34D;
+  --amber-400: #FBBF24;
+  --amber-500: #F59E0B;
+  --amber-700: #B45309;
+  --amber-900: #451A03;
+
+  --red-100: #FEE2E2;
+  --red-200: #FECACA;
+  --red-300: #FCA5A5;
+  --red-400: #F87171;
+  --red-500: #EF4444;
+  --red-700: #B91C1C;
+  --red-900: #450A0A;
+
+  /* Type families */
+  --font-sans: "Geist", "Geist Sans", ui-sans-serif, system-ui, -apple-system,
+               "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "JetBrains Mono", "SF Mono",
+               Menlo, Consolas, monospace;
+
+  /* Type weights */
+  --fw-light:    300;
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+
+  /* Type scale — base 16, ratio 1.333 (perfect fourth). px values rounded for
+     legibility at small sizes; large sizes follow the ratio strictly. */
+  --fs-50:  12px;
+  --fs-75:  14px;
+  --fs-100: 16px;   /* base body */
+  --fs-200: 18px;
+  --fs-300: 24px;
+  --fs-400: 32px;
+  --fs-500: 42px;
+  --fs-600: 56px;
+  --fs-700: 76px;
+  --fs-800: 100px;
+
+  /* Line heights */
+  --lh-display: 0.95;
+  --lh-heading: 1.15;
+  --lh-body:    1.55;
+  --lh-caption: 1.4;
+
+  /* Letter spacing — mono labels get loosened slightly, big display tightened */
+  --ls-display: -0.02em;
+  --ls-heading: -0.01em;
+  --ls-body:     0em;
+  --ls-mono:     0.04em; /* uppercase mono labels */
+
+  /* Spacing — 4-base scale */
+  --space-0:   0;
+  --space-1:   2px;
+  --space-2:   4px;
+  --space-3:   8px;
+  --space-4:   12px;
+  --space-5:   16px;
+  --space-6:   24px;
+  --space-7:   32px;
+  --space-8:   48px;
+  --space-9:   64px;
+  --space-10:  96px;
+  --space-11:  128px;
+  --space-12:  192px;
+
+  /* Radii — blueprint aesthetic stays mostly square */
+  --radius-0: 0;
+  --radius-1: 2px;
+  --radius-2: 4px;
+  --radius-3: 8px;
+  --radius-pill: 999px;
+
+  /* Borders — single hairline + a stronger rule. No multi-weight noise. */
+  --border-hairline: 1px;
+  --border-strong:   2px;
+
+  /* Elevation — restrained for blueprint aesthetic. Two soft levels +
+     a tighter low-z one for sticky chrome. Use sparingly: a hairline
+     border usually communicates separation better than a shadow. */
+  --shadow-none:  none;
+  --shadow-low:   0 1px 2px rgb(0 0 0 / 0.06), 0 1px 1px rgb(0 0 0 / 0.04);
+  --shadow-med:   0 4px 12px rgb(0 0 0 / 0.08), 0 2px 4px rgb(0 0 0 / 0.06);
+  --shadow-high:  0 16px 32px rgb(0 0 0 / 0.12), 0 4px 8px rgb(0 0 0 / 0.06);
+
+  /* Z-index scale. Named layers prevent stacking wars. Stay inside the
+     scale; never inline a magic z-index in component CSS. */
+  --z-base:      0;
+  --z-raised:    1;
+  --z-sticky:    100;
+  --z-dropdown:  200;
+  --z-overlay:   300;
+  --z-modal:     400;
+  --z-toast:     500;
+  --z-tooltip:   600;
+
+  /* Motion */
+  --dur-fast:   120ms;
+  --dur-base:   200ms;
+  --dur-slow:   320ms;
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Focus ring — atomic pieces that components compose into a single
+     `outline` shorthand. Width is 2 px (WCAG 2.2 SC 2.4.13 floor).
+     Offset 3 px to clear typical border-radius without clipping. */
+  --focus-ring-width:  2px;
+  --focus-ring-offset: 3px;
+  --focus-ring-style:  solid;
+
+  /* Layout — max content widths */
+  --width-prose:  min(64ch, 100%);
+  --width-page:   1280px;
+  --width-narrow: min(720px, 100%);
+
+  /* Breakpoints. CSS variables don't work inside @media queries, so
+     these stay informational here — the canonical values live in
+     tokens.json and feed the Tailwind preset + slide consumers. CSS
+     @media queries hard-code matching pixel values. Document a change
+     in docs/breakpoints.md if you ever shift them. */
+  --bp-sm:  640px;
+  --bp-md:  768px;
+  --bp-lg:  1024px;
+  --bp-xl:  1280px;
+  --bp-2xl: 1536px;
+
+  /* 12-column grid defaults. Override per-section as needed. */
+  --grid-columns: 12;
+  --grid-gutter:  var(--space-6);
+
+  /* ── 2. Semantic (light) ────────────────────────────────────────── */
+
+  --color-bg:           var(--ink-100);
+  --color-bg-elevated:  var(--ink-0);
+  --color-bg-inverse:   var(--ink-1000);
+  --color-bg-muted:     var(--ink-200);
+
+  --color-fg:           var(--ink-1000);
+  --color-fg-muted:     var(--ink-600);
+  --color-fg-subtle:    var(--ink-400);
+  --color-fg-inverse:   var(--ink-100);
+
+  --color-line:         var(--ink-200);
+  --color-line-strong:  var(--ink-400);
+
+  --color-accent:        var(--blue-500);
+  --color-accent-hover:  var(--blue-600);
+  --color-accent-muted:  var(--blue-100);
+  --color-accent-fg:     var(--ink-0);
+
+  --color-focus-ring:   var(--blue-500);
+
+  /* Status semantic tokens — same shape per state so components can
+     swap between them by changing one prefix. */
+  --color-success-bg:        var(--green-100);
+  --color-success-fg:        var(--green-700);
+  --color-success-border:    var(--green-200);
+  --color-success-solid:     var(--green-500);
+  --color-success-solid-fg:  var(--ink-0);
+
+  --color-warning-bg:        var(--amber-100);
+  --color-warning-fg:        var(--amber-700);
+  --color-warning-border:    var(--amber-200);
+  --color-warning-solid:     var(--amber-500);
+  --color-warning-solid-fg:  var(--ink-1000);
+
+  --color-danger-bg:         var(--red-100);
+  --color-danger-fg:         var(--red-700);
+  --color-danger-border:     var(--red-200);
+  --color-danger-solid:      var(--red-500);
+  --color-danger-solid-fg:   var(--ink-0);
+
+  --color-info-bg:           var(--blue-100);
+  --color-info-fg:           var(--blue-600);
+  --color-info-border:       var(--blue-200);
+  --color-info-solid:        var(--blue-500);
+  --color-info-solid-fg:     var(--ink-0);
+}
+
+/* ── 3. Dark mode ─────────────────────────────────────────────────── */
+
+[data-theme="dark"] {
+  --color-bg:           var(--ink-1000);
+  --color-bg-elevated:  var(--ink-900);
+  --color-bg-inverse:   var(--ink-100);
+  --color-bg-muted:     var(--ink-800);
+
+  --color-fg:           var(--ink-100);
+  --color-fg-muted:     var(--ink-300);
+  --color-fg-subtle:    var(--ink-400);
+  --color-fg-inverse:   var(--ink-1000);
+
+  --color-line:         var(--ink-700);
+  --color-line-strong:  var(--ink-500);
+
+  --color-accent:        var(--blue-250);
+  --color-accent-hover:  var(--blue-200);
+  --color-accent-muted:  var(--ink-800);
+  --color-accent-fg:     var(--ink-1000);
+
+  --color-success-bg:        var(--green-900);
+  --color-success-fg:        var(--green-300);
+  --color-success-border:    var(--green-700);
+  --color-success-solid:     var(--green-500);
+  --color-success-solid-fg:  var(--ink-1000);
+
+  --color-warning-bg:        var(--amber-900);
+  --color-warning-fg:        var(--amber-300);
+  --color-warning-border:    var(--amber-700);
+  --color-warning-solid:     var(--amber-500);
+  --color-warning-solid-fg:  var(--ink-1000);
+
+  --color-danger-bg:         var(--red-900);
+  --color-danger-fg:         var(--red-300);
+  --color-danger-border:     var(--red-700);
+  --color-danger-solid:      var(--red-500);
+  --color-danger-solid-fg:   var(--ink-0);
+
+  --color-info-bg:           var(--ink-800);
+  --color-info-fg:           var(--blue-250);
+  --color-info-border:       var(--blue-300);
+  --color-info-solid:        var(--blue-250);
+  --color-info-solid-fg:     var(--ink-1000);
+}
+
+/* ── Forced-colors (Windows High Contrast Mode) ──────────────────── *
+ * When forced-colors is active, the OS overrides every colour the
+ * design system chose. Semantic tokens map to system keywords so
+ * meaning survives: focus rings stay visible, borders remain visible,
+ * accent surfaces collapse to system-defined link colour. This block
+ * lives at the bottom of the cascade so it overrides both light + dark.
+ */
+@media (forced-colors: active) {
+  :root {
+    --color-bg:           Canvas;
+    --color-bg-elevated:  Canvas;
+    --color-bg-inverse:   CanvasText;
+    --color-bg-muted:     Canvas;
+
+    --color-fg:           CanvasText;
+    --color-fg-muted:     CanvasText;
+    --color-fg-subtle:    GrayText;
+    --color-fg-inverse:   Canvas;
+
+    --color-line:         CanvasText;
+    --color-line-strong:  CanvasText;
+
+    --color-accent:        LinkText;
+    --color-accent-hover:  LinkText;
+    --color-accent-muted:  Canvas;
+    --color-accent-fg:     Canvas;
+
+    --color-focus-ring:    Highlight;
+  }
+}
+
+/* ── Reduced motion ──────────────────────────────────────────────── *
+ * One root-level override neutralises every motion token. Components
+ * that reference `var(--dur-*)` in their transitions automatically
+ * become 0 ms when the user prefers reduced motion — no per-component
+ * `@media` block required. Animations get the same treatment.
+ *
+ * Components that opt OUT of this rule (e.g. an essential progress
+ * indicator) should declare an explicit non-token duration AND wrap
+ * it in a `@media (prefers-reduced-motion: no-preference)` guard.
+ */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0ms;
+    --dur-base: 0ms;
+    --dur-slow: 0ms;
+  }
+
+  /* Safety net for any animation/transition that didn't go through
+     the duration tokens. Use sparingly — token-driven motion is the
+     preferred path. */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Default focus ring ───────────────────────────────────────────── *
+ * Every interactive element in this system gets a consistent focus ring.
+ * Using `:where()` keeps specificity at 0 so component CSS can override
+ * without `!important`. Components don't need to declare focus styling
+ * unless they want a custom shape.
+ *
+ * `transition: none` on the outline avoids the "ring slides in" effect
+ * some browsers apply; the ring should appear instantly on focus.
+ */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline:
+    var(--focus-ring-width)
+    var(--focus-ring-style)
+    var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+  transition: none;
+}
+
+/* Reduced motion is already respected because we set transition: none
+   above; nothing more required here. Forced-colors picks up the
+   `Highlight` system colour via tokens.css's forced-colors block. */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg:           var(--ink-1000);
+    --color-bg-elevated:  var(--ink-900);
+    --color-bg-inverse:   var(--ink-100);
+    --color-bg-muted:     var(--ink-800);
+
+    --color-fg:           var(--ink-100);
+    --color-fg-muted:     var(--ink-300);
+    --color-fg-subtle:    var(--ink-400);
+    --color-fg-inverse:   var(--ink-1000);
+
+    --color-line:         var(--ink-700);
+    --color-line-strong:  var(--ink-500);
+
+    --color-accent:        var(--blue-250);
+    --color-accent-hover:  var(--blue-200);
+    --color-accent-muted:  var(--ink-800);
+    --color-accent-fg:     var(--ink-1000);
+
+    --color-success-bg:        var(--green-900);
+    --color-success-fg:        var(--green-300);
+    --color-success-border:    var(--green-700);
+    --color-success-solid:     var(--green-500);
+    --color-success-solid-fg:  var(--ink-1000);
+
+    --color-warning-bg:        var(--amber-900);
+    --color-warning-fg:        var(--amber-300);
+    --color-warning-border:    var(--amber-700);
+    --color-warning-solid:     var(--amber-500);
+    --color-warning-solid-fg:  var(--ink-1000);
+
+    --color-danger-bg:         var(--red-900);
+    --color-danger-fg:         var(--red-300);
+    --color-danger-border:     var(--red-700);
+    --color-danger-solid:      var(--red-500);
+    --color-danger-solid-fg:   var(--ink-0);
+
+    --color-info-bg:           var(--ink-800);
+    --color-info-fg:           var(--blue-250);
+    --color-info-border:       var(--blue-300);
+    --color-info-solid:        var(--blue-250);
+    --color-info-solid-fg:     var(--ink-1000);
+  }
+}
