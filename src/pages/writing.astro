@@ -1,33 +1,26 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
 const BASE = import.meta.env.BASE_URL;
 
-// Writing index. Replace this stub with frontmatter-driven content
-// collection (Astro `content/` dir) once the first essay lands.
-const entries = [
-  // Example shape — real essays render from src/content/writing/*.md.
-  // {
-  //   slug: 'operating-model-debt',
-  //   title: 'Operating-model debt compounds quietly',
-  //   date: '2026-05-20',
-  //   readingMins: 12,
-  //   summary: 'Why three weeks of unowned decisions look identical to a year of them — until they do not.',
-  // },
-];
+// Pull every non-draft essay, newest first.
+const all = await getCollection('writing', ({ data }) => !data.draft);
+const entries = all.sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+
+const fmtDate = (d: Date) =>
+  d.toISOString().slice(0, 10); // YYYY-MM-DD; sentence-case-friendly
 ---
 <BaseLayout
   title="Writing"
-  description="Long-form essays on platform topology, error-budget discipline, and the operating models that hold modern R&D together."
-  lede="Long-form essays on platform topology, error-budget discipline, and the operating models that hold modern R&D together."
+  description="Long-form essays on operations, product, engineering, and how teams collaborate."
+  lede="Long-form essays on operations, product, engineering, and how teams collaborate."
   nav="writing"
 >
   {entries.length === 0 ? (
     <section class="prose">
-      <p>No essays yet. The first three land before launch &mdash; see <a href={`${BASE}now`}>/now</a>.</p>
-      <p>
-        Want me to send the first one when it ships?
-        <a href={`${BASE}contact`}>Drop a line</a>; one email when there is something to read, no list.
-      </p>
+      <p>No essays yet. The first ones land here. Topics queued on <a href={`${BASE}now`}>/now</a>.</p>
     </section>
   ) : (
     <ol class="entry-list">
@@ -35,11 +28,11 @@ const entries = [
         <li class="entry">
           <div class="entry-meta">
             <span>ESSAY</span>
-            <span>{e.date}</span>
-            <span>{e.readingMins} min</span>
+            <span>{fmtDate(e.data.date)}</span>
+            {e.data.readingMins && <span>{e.data.readingMins} min</span>}
           </div>
-          <h2><a href={`/writing/${e.slug}`}>{e.title}</a></h2>
-          <p class="entry-summary">{e.summary}</p>
+          <h2><a href={`${BASE}writing/${e.id}`}>{e.data.title}</a></h2>
+          <p class="entry-summary">{e.data.summary}</p>
         </li>
       ))}
     </ol>

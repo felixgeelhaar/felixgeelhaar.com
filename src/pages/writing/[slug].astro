@@ -1,0 +1,40 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const BASE = import.meta.env.BASE_URL;
+
+// Static path generation: one route per essay (including drafts so
+// you can preview by URL — they just don't show in the index).
+export async function getStaticPaths() {
+  const entries = await getCollection('writing');
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const fmtDate = (d: Date) => d.toISOString().slice(0, 10);
+---
+<BaseLayout
+  title={entry.data.title}
+  description={entry.data.summary}
+  nav="writing"
+>
+  <article class="prose">
+    <header class="entry-meta" style="margin-bottom: 2rem;">
+      <span>ESSAY</span>
+      <span>{fmtDate(entry.data.date)}</span>
+      {entry.data.readingMins && <span>{entry.data.readingMins} min</span>}
+      {entry.data.draft && <span style="color: var(--color-fg-subtle);">DRAFT</span>}
+    </header>
+    <h1>{entry.data.title}</h1>
+    <p class="lede">{entry.data.summary}</p>
+    <Content />
+    <footer style="margin-top: 3rem;">
+      <a href={`${BASE}writing`}>← All writing</a>
+    </footer>
+  </article>
+</BaseLayout>
