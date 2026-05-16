@@ -31,6 +31,10 @@ const COPY = [
   'components',
   'wordmark',
   'static',
+  // OG image artefacts produced by `brand: npm run og`. The site uses
+  // them as page-level meta image; new pages get a new sample via
+  // running the OG script in the brand repo and re-syncing.
+  'dist/og',
 ];
 
 // Fresh write each run so stale brand assets don't linger.
