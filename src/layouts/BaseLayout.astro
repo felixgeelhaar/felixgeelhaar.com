@@ -43,6 +43,31 @@ const BASE = import.meta.env.BASE_URL;
     <!-- Site-local overrides + layout. Kept tiny on purpose; brand carries the weight. -->
     <link rel="stylesheet" href={`${BASE}site.css`} />
 
+    <!-- Pre-paint theme set: avoids FOUC where the page flashes light
+         before the toggle script runs and swaps to dark. Runs in <head>
+         so the data-theme attribute is on <html> before first paint. -->
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem('fg.theme');
+          if (stored === 'light' || stored === 'dark') {
+            document.documentElement.dataset.theme = stored;
+            return;
+          }
+        } catch (e) {}
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = prefersDark ? 'dark' : 'light';
+      })();
+    </script>
+
+    <!-- Theme toggle: brand's <fg-theme-toggle> custom element. Loads lit
+         via importmap so no bundler is needed. -->
+    <link rel="stylesheet" href={`${BASE}brand/components/theme-toggle/theme-toggle.css`} />
+    <script type="importmap">
+      { "imports": { "lit": "https://esm.sh/lit@3" } }
+    </script>
+    <script type="module" src={`${BASE}brand/components/theme-toggle/theme-toggle.element.js`}></script>
+
     <!-- Open Graph + Twitter -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site).toString()} />
@@ -62,6 +87,7 @@ const BASE = import.meta.env.BASE_URL;
           <li><a href={`${BASE}talks`}   aria-current={nav === 'talks'   ? 'page' : undefined}>Talks</a></li>
           <li><a href={`${BASE}work`}    aria-current={nav === 'work'    ? 'page' : undefined}>Work</a></li>
           <li><a href={`${BASE}about`}   aria-current={nav === 'about'   ? 'page' : undefined}>About</a></li>
+          <li><fg-theme-toggle aria-label="Toggle light or dark theme"></fg-theme-toggle></li>
         </ul>
       </nav>
     </header>
