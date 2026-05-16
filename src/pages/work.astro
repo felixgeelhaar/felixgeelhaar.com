@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+const BASE = import.meta.env.BASE_URL;
 ---
 <BaseLayout
   title="Work"
@@ -34,7 +35,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     <h2>How to start</h2>
     <p>
-      <a href="/contact">Send a one-paragraph brief</a>: what is happening, what you have tried,
+      <a href={`${BASE}contact`}>Send a one-paragraph brief</a>: what is happening, what you have tried,
       what you want to be true in 90 days. I reply within a week. First call is free; we use it to
       decide whether the engagement shape fits.
     </p>

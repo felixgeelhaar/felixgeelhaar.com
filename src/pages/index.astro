@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+const BASE = import.meta.env.BASE_URL;
 ---
 <BaseLayout
   title="Felix Geelhaar"
@@ -18,17 +19,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <section class="prose">
     <h2>What's here</h2>
     <ul>
-      <li><a href="/writing">Writing</a> &mdash; long-form essays on platform topology, error-budget discipline, and the operating models that hold modern R&amp;D together.</li>
-      <li><a href="/lab">Lab</a> &mdash; open-source projects. Small on purpose.</li>
-      <li><a href="/talks">Talks</a> &mdash; conference talks and recordings when the room is right.</li>
-      <li><a href="/work">Work</a> &mdash; engagement shapes if you want me on the problem.</li>
-      <li><a href="/about">About</a> &mdash; the long version of the bio.</li>
+      <li><a href={`${BASE}writing`}>Writing</a> &mdash; long-form essays on platform topology, error-budget discipline, and the operating models that hold modern R&amp;D together.</li>
+      <li><a href={`${BASE}lab`}>Lab</a> &mdash; open-source projects. Small on purpose.</li>
+      <li><a href={`${BASE}talks`}>Talks</a> &mdash; conference talks and recordings when the room is right.</li>
+      <li><a href={`${BASE}work`}>Work</a> &mdash; engagement shapes if you want me on the problem.</li>
+      <li><a href={`${BASE}about`}>About</a> &mdash; the long version of the bio.</li>
     </ul>
 
     <h2>Right now</h2>
     <p>
       Focused on the connective tissue between strategy, platform, and product so engineering teams ship
-      clearly and senior engineers stay senior. See <a href="/now">/now</a> for the current quarter.
+      clearly and senior engineers stay senior. See <a href={`${BASE}now`}>/now</a> for the current quarter.
     </p>
   </section>
 </BaseLayout>

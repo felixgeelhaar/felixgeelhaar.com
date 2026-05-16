@@ -21,6 +21,9 @@ export interface Props {
 
 const { title, description, lede, nav } = Astro.props;
 const fullTitle = title === 'Felix Geelhaar' ? title : `${title} — Felix Geelhaar`;
+// BASE_URL ends with a slash; use for asset hrefs so paths work under
+// both the project-pages prefix and the custom domain root.
+const BASE = import.meta.env.BASE_URL;
 ---
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
@@ -29,16 +32,16 @@ const fullTitle = title === 'Felix Geelhaar' ? title : `${title} — Felix Geelh
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
     {description && <meta name="description" content={description} />}
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href={`${BASE}favicon.svg`} type="image/svg+xml" />
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site).toString()} />
 
     <!-- Brand tokens + type. Loaded once per page; cached after first hit. -->
-    <link rel="stylesheet" href="/brand/tokens.css" />
-    <link rel="stylesheet" href="/brand/type.css" />
-    <link rel="stylesheet" href="/brand/responsive.css" />
+    <link rel="stylesheet" href={`${BASE}brand/tokens.css`} />
+    <link rel="stylesheet" href={`${BASE}brand/type.css`} />
+    <link rel="stylesheet" href={`${BASE}brand/responsive.css`} />
 
     <!-- Site-local overrides + layout. Kept tiny on purpose; brand carries the weight. -->
-    <link rel="stylesheet" href="/site.css" />
+    <link rel="stylesheet" href={`${BASE}site.css`} />
 
     <!-- Open Graph + Twitter -->
     <meta property="og:type" content="website" />
@@ -51,14 +54,14 @@ const fullTitle = title === 'Felix Geelhaar' ? title : `${title} — Felix Geelh
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site-header">
-      <a href="/" class="wordmark" aria-label="Felix Geelhaar — home">Felix Geelhaar</a>
+      <a href={BASE} class="wordmark" aria-label="Felix Geelhaar — home">Felix Geelhaar</a>
       <nav aria-label="Primary">
         <ul role="list">
-          <li><a href="/writing" aria-current={nav === 'writing' ? 'page' : undefined}>Writing</a></li>
-          <li><a href="/lab"     aria-current={nav === 'lab'     ? 'page' : undefined}>Lab</a></li>
-          <li><a href="/talks"   aria-current={nav === 'talks'   ? 'page' : undefined}>Talks</a></li>
-          <li><a href="/work"    aria-current={nav === 'work'    ? 'page' : undefined}>Work</a></li>
-          <li><a href="/about"   aria-current={nav === 'about'   ? 'page' : undefined}>About</a></li>
+          <li><a href={`${BASE}writing`} aria-current={nav === 'writing' ? 'page' : undefined}>Writing</a></li>
+          <li><a href={`${BASE}lab`}     aria-current={nav === 'lab'     ? 'page' : undefined}>Lab</a></li>
+          <li><a href={`${BASE}talks`}   aria-current={nav === 'talks'   ? 'page' : undefined}>Talks</a></li>
+          <li><a href={`${BASE}work`}    aria-current={nav === 'work'    ? 'page' : undefined}>Work</a></li>
+          <li><a href={`${BASE}about`}   aria-current={nav === 'about'   ? 'page' : undefined}>About</a></li>
         </ul>
       </nav>
     </header>
@@ -75,11 +78,11 @@ const fullTitle = title === 'Felix Geelhaar' ? title : `${title} — Felix Geelh
 
     <footer class="site-footer">
       <p>
-        <a href="/now">Now</a> · <a href="/uses">Uses</a> · <a href="/contact">Contact</a>
+        <a href={`${BASE}now`}>Now</a> · <a href={`${BASE}uses`}>Uses</a> · <a href={`${BASE}contact`}>Contact</a>
       </p>
       <p class="muted">
         © {new Date().getFullYear()} Felix Geelhaar. Built with
-        <a href="/lab/this-site">care</a> and the <a href="https://github.com/felixgeelhaar/brand">brand system</a>.
+        <a href={`${BASE}lab/this-site`}>care</a> and the <a href="https://github.com/felixgeelhaar/brand">brand system</a>.
       </p>
     </footer>
   </body>

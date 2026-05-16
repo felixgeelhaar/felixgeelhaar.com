@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+const BASE = import.meta.env.BASE_URL;
 ---
 <BaseLayout
   title="Contact"
@@ -35,7 +36,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </ul>
     <p>
       Speaker invitations: include the topic, the audience, the date, and the previous year's recording
-      if it exists. Sponsorship and press: <a href="/about">see About</a>.
+      if it exists. Sponsorship and press: <a href={`${BASE}about`}>see About</a>.
     </p>
   </section>
 </BaseLayout>

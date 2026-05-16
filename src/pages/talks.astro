@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+const BASE = import.meta.env.BASE_URL;
 
 const talks = [
   // Example shape:
@@ -22,7 +23,7 @@ const talks = [
     <section class="prose">
       <p>No talks listed yet. The first will land here after the next conference.</p>
       <p>
-        Speaker invitations? <a href="/contact">Send the brief</a>. I respond within a week.
+        Speaker invitations? <a href={`${BASE}contact`}>Send the brief</a>. I respond within a week.
       </p>
     </section>
   ) : (

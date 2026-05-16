@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+const BASE = import.meta.env.BASE_URL;
 ---
 <BaseLayout
   title="About"
@@ -21,20 +22,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       engineers senior. His open-source work &mdash; the <a href="https://github.com/felixgeelhaar/govee-light-management">Stream Deck plugin for Govee lights</a>,
       a design system, a handful of small Go services &mdash; is small on purpose. He lives near
       Munich, speaks at engineering conferences when the room is right, and is currently focused
-      on <a href="/now">/now</a>.
+      on <a href={`${BASE}now`}>/now</a>.
     </p>
 
     <h2>Press kit</h2>
     <p>
       Short and medium bios, portrait, logo SVG, and brand hex codes live at
-      <a href="/press">/press</a> (coming with v1.0 launch).
+      <a href={`${BASE}press`}>/press</a> (coming with v1.0 launch).
     </p>
 
     <h2>Find me elsewhere</h2>
     <ul>
       <li><a href="https://github.com/felixgeelhaar">GitHub</a></li>
       <li><a href="https://www.linkedin.com/in/felixgeelhaar/">LinkedIn</a></li>
-      <li><a href="/contact">Email / Cal.com</a></li>
+      <li><a href={`${BASE}contact`}>Email / Cal.com</a></li>
     </ul>
   </section>
 </BaseLayout>
