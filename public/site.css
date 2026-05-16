@@ -1,23 +1,37 @@
 /* felixgeelhaar.com — site-local CSS. Brand tokens carry the weight;
-   this file only adds layout glue specific to the site frame. Keep small. */
+   this file only adds layout glue specific to the site frame. Keep small.
+
+   Token names (from brand/tokens.css v0):
+     --color-bg, --color-bg-elevated, --color-bg-muted, --color-bg-inverse
+     --color-fg, --color-fg-muted, --color-fg-subtle, --color-fg-inverse
+     --font-sans, --font-mono
+     --ink-100..1000 (raw neutral ramp)
+     --blue-500, --blue-400, ... (raw accent ramp)
+*/
 
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 body {
   font-family: var(--font-sans, system-ui, sans-serif);
-  background: var(--color-bg-page, #FFFFFF);
+  background: var(--color-bg, #FAFAFA);
   color: var(--color-fg, #0A0A0A);
   line-height: 1.55;
   font-size: 18px;
+  -webkit-font-smoothing: antialiased;
 }
 
-a { color: var(--color-fg, #0A0A0A); text-decoration-thickness: 1px; text-underline-offset: 3px; }
-a:hover { color: var(--color-blue-500, #0050F5); }
+a {
+  color: var(--color-fg, #0A0A0A);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+a:hover { color: var(--blue-500, #0050F5); }
 
 /* --- skip link (a11y) --- */
 .skip-link {
   position: absolute; left: -9999px; top: auto;
-  background: var(--color-fg, #0A0A0A); color: var(--color-bg-page, #FFFFFF);
+  background: var(--color-fg, #0A0A0A);
+  color: var(--color-bg, #FAFAFA);
   padding: 0.5rem 0.75rem; z-index: 999;
 }
 .skip-link:focus { left: 1rem; top: 1rem; }
@@ -25,10 +39,10 @@ a:hover { color: var(--color-blue-500, #0050F5); }
 /* --- site header --- */
 .site-header {
   max-width: 64rem; margin: 0 auto;
-  padding: 1.5rem 1.5rem;
+  padding: 1.5rem;
   display: flex; align-items: baseline; justify-content: space-between;
   gap: 1.5rem; flex-wrap: wrap;
-  border-bottom: 1px solid var(--color-fg-faint, #E5E5E5);
+  border-bottom: 1px solid var(--ink-200, #E5E5E5);
 }
 .wordmark {
   font-family: var(--font-mono, ui-monospace, monospace);
@@ -51,36 +65,41 @@ a:hover { color: var(--color-blue-500, #0050F5); }
   padding-bottom: 2px;
 }
 
-/* --- page header --- */
+/* --- page frame --- */
 main { max-width: 64rem; margin: 0 auto; padding: 0 1.5rem; }
+
 .page-header {
   padding: 3rem 0 2rem;
-  border-bottom: 1px solid var(--color-fg-faint, #E5E5E5);
+  border-bottom: 1px solid var(--ink-200, #E5E5E5);
   margin-bottom: 2.5rem;
 }
 .page-header h1 {
   font-size: clamp(2rem, 5vw, 3.25rem);
-  line-height: 1.1; margin: 0 0 1rem;
-  letter-spacing: -0.01em; font-weight: 700;
+  line-height: 1.1;
+  margin: 0 0 1rem;
+  letter-spacing: -0.01em;
+  font-weight: 700;
 }
 .page-header .lede {
-  font-size: 1.15rem; color: var(--color-fg-muted, #525252);
-  max-width: 48rem; margin: 0;
+  font-size: 1.15rem;
+  color: var(--color-fg-muted, #525252);
+  max-width: 48rem;
+  margin: 0;
 }
 
 /* --- prose --- */
 .prose { max-width: 42rem; }
 .prose h2 { font-size: 1.5rem; margin-top: 2.5rem; line-height: 1.2; }
 .prose h3 { font-size: 1.15rem; margin-top: 2rem; }
-.prose p { margin: 1rem 0; }
+.prose p  { margin: 1rem 0; }
 .prose ul { padding-left: 1.25rem; margin: 1rem 0; }
 .prose li + li { margin-top: 0.4rem; }
 
-/* --- cards / listings (writing, lab, talks) --- */
+/* --- entry listing (writing, lab, talks) --- */
 .entry-list { list-style: none; padding: 0; margin: 0; }
 .entry {
   padding: 1.5rem 0;
-  border-bottom: 1px solid var(--color-fg-faint, #E5E5E5);
+  border-bottom: 1px solid var(--ink-200, #E5E5E5);
 }
 .entry h2 {
   margin: 0 0 0.35rem;
@@ -95,49 +114,60 @@ main { max-width: 64rem; margin: 0 auto; padding: 0 1.5rem; }
   text-transform: uppercase; letter-spacing: 0.04em;
   margin-bottom: 0.5rem;
 }
-.entry-summary { color: var(--color-fg-muted, #525252); margin: 0.5rem 0 0; }
+.entry-summary {
+  color: var(--color-fg-muted, #525252);
+  margin: 0.5rem 0 0;
+}
 
-/* --- callouts / tags --- */
+/* --- tag chip --- */
 .tag {
   display: inline-block;
   font-family: var(--font-mono, ui-monospace, monospace);
-  font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
   padding: 0.18rem 0.5rem;
-  border: 1px solid var(--color-fg-faint, #E5E5E5);
+  border: 1px solid var(--ink-200, #E5E5E5);
   border-radius: 999px;
   color: var(--color-fg-muted, #525252);
 }
 
 /* --- contact / work CTAs --- */
-.cta-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); margin: 2rem 0; }
+.cta-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  margin: 2rem 0;
+}
 .cta {
   display: block;
   padding: 1.5rem;
-  border: 1px solid var(--color-fg-faint, #E5E5E5);
+  border: 1px solid var(--ink-200, #E5E5E5);
   border-radius: 0.5rem;
   text-decoration: none;
   transition: border-color 0.15s, background 0.15s;
 }
-.cta:hover { border-color: var(--color-fg, #0A0A0A); background: var(--color-bg-subtle, #FAFAFA); }
+.cta:hover {
+  border-color: var(--color-fg, #0A0A0A);
+  background: var(--color-bg-elevated, #FFFFFF);
+}
 .cta h3 { margin: 0 0 0.3rem; font-size: 1.05rem; }
 .cta p  { margin: 0; color: var(--color-fg-muted, #525252); font-size: 0.9rem; }
 
 /* --- footer --- */
 .site-footer {
-  max-width: 64rem; margin: 4rem auto 2rem; padding: 1.5rem;
-  border-top: 1px solid var(--color-fg-faint, #E5E5E5);
-  font-size: 0.875rem; color: var(--color-fg-muted, #525252);
+  max-width: 64rem;
+  margin: 4rem auto 2rem;
+  padding: 1.5rem;
+  border-top: 1px solid var(--ink-200, #E5E5E5);
+  font-size: 0.875rem;
+  color: var(--color-fg-muted, #525252);
 }
 .site-footer p { margin: 0.25rem 0; }
-.site-footer .muted { color: var(--color-fg-faint-strong, #A3A3A3); }
+.site-footer .muted { color: var(--color-fg-subtle, #A3A3A3); }
 
 /* --- responsive --- */
 @media (max-width: 600px) {
   .site-header { padding: 1rem; }
   .page-header { padding: 2rem 0 1.5rem; margin-bottom: 1.5rem; }
-}
-
-/* --- dark mode (brand tokens already shift; just adjust faint borders) --- */
-@media (prefers-color-scheme: dark) {
-  html[data-theme="light"] { /* honour explicit light request */ }
 }
