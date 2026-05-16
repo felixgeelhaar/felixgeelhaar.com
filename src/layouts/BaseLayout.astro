@@ -92,7 +92,10 @@ const BASE = import.meta.env.BASE_URL;
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site-header">
-      <a href={BASE} class="wordmark" aria-label="Felix Geelhaar — home">Felix Geelhaar</a>
+      <a href={BASE} class="wordmark" aria-label="Felix Geelhaar — home">
+        <img src={`${BASE}brand/wordmark/symbol.svg`}    alt="" class="wordmark-symbol" width="20" height="20" />
+        <img src={`${BASE}brand/wordmark/logotype.svg`} alt="Felix Geelhaar" class="wordmark-logotype" width="180" height="20" />
+      </a>
       <nav aria-label="Primary">
         <ul role="list">
           <li><a href={`${BASE}writing`} aria-current={nav === 'writing' ? 'page' : undefined}>Writing</a></li>
