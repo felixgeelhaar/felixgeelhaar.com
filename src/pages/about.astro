@@ -4,32 +4,35 @@ const BASE = import.meta.env.BASE_URL;
 ---
 <BaseLayout
   title="About"
-  description="Felix Geelhaar — R&D ops leader, open-source author, writer on platform topology."
-  lede="The long version of the bio. Third-person on this page (per the brand voice guide); first-person everywhere else."
+  description="Felix Geelhaar — writes on operations, product, engineering, and team collaboration. Builds tools for engineers working with AI agents."
+  lede="The long version."
   nav="about"
 >
   <section class="prose">
     <p>
-      Felix Geelhaar leads R&amp;D operations at engineering organisations where the platform
-      decisions, hiring posture, and quarterly cadence already feel like a system but don't yet
-      behave like one. His work focuses on the middle layer &mdash; the place where decision
-      rights blur, ownership erodes, and platform debt compounds. He treats it like a product, not
-      a process.
+      I write about the operating models, product trade-offs, and engineering practices that
+      decide whether teams ship clearly. The interesting layer for me is the connective
+      tissue &mdash; how decisions move, where ownership lives, what a working agreement
+      actually does. Less framework, more field notes.
     </p>
     <p>
-      He writes on the same theme: platform topology, error-budget discipline, the operating
-      models that hold modern R&amp;D together, and the working agreements that keep senior
-      engineers senior. His open-source work &mdash; the <a href="https://github.com/felixgeelhaar/govee-light-management">Stream Deck plugin for Govee lights</a>,
-      a design system, a handful of small Go services &mdash; is small on purpose. He lives near
-      Munich, speaks at engineering conferences when the room is right, and is currently focused
-      on <a href={`${BASE}now`}>/now</a>.
+      In parallel I build tools. Mostly for engineers pairing with AI coding agents:
+      <a href="https://github.com/felixgeelhaar/roady">roady</a> (plan-of-record that survives
+      context resets), <a href="https://github.com/felixgeelhaar/tokenops">tokenops</a>
+      (local LLM spend + rate-limit tracker), <a href="https://github.com/felixgeelhaar/scout">scout</a>
+      (browser automation in one binary), <a href="https://github.com/felixgeelhaar/mnemos">mnemos</a>
+      (evidence layer with claims + contradictions), and a few Go libraries around resilience and
+      MCP. Everything lives on <a href="https://github.com/felixgeelhaar">GitHub</a>.
+    </p>
+    <p>
+      I live near Munich. Currently focused on the things on <a href={`${BASE}now`}>/now</a>.
     </p>
 
     <h2>Find me elsewhere</h2>
     <ul>
       <li><a href="https://github.com/felixgeelhaar">GitHub</a></li>
       <li><a href="https://www.linkedin.com/in/felixgeelhaar/">LinkedIn</a></li>
-      <li><a href={`${BASE}contact`}>Email / Cal.com</a></li>
+      <li><a href={`${BASE}contact`}>Email</a></li>
     </ul>
   </section>
 </BaseLayout>

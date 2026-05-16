@@ -4,32 +4,33 @@ const BASE = import.meta.env.BASE_URL;
 ---
 <BaseLayout
   title="Felix Geelhaar"
-  description="R&D ops leader and open-source author. Writes on platform topology and engineering effectiveness."
+  description="I write about operations, product, engineering, and how teams collaborate. I build small tools for engineers working with AI agents."
   nav="home"
 >
   <section class="page-header" style="border-bottom: none;">
-    <h1>Platforms rot from the middle.</h1>
+    <h1>Operations, product, engineering &mdash; and what holds them together.</h1>
     <p class="lede">
-      Three weeks of operating-model debt look identical to a year of it &mdash; until they don't.
-      I work on the middle layer where decision rights blur, ownership erodes, and platform
-      debt compounds. Treat it like a product, not a process.
+      I write about the operating models, product trade-offs, and engineering practices that
+      decide whether teams ship. In between, I build small tools &mdash; mostly for engineers
+      pairing with AI agents.
     </p>
   </section>
 
   <section class="prose">
     <h2>What's here</h2>
     <ul>
-      <li><a href={`${BASE}writing`}>Writing</a> &mdash; long-form essays on platform topology, error-budget discipline, and the operating models that hold modern R&amp;D together.</li>
-      <li><a href={`${BASE}lab`}>Lab</a> &mdash; open-source projects. Small on purpose.</li>
-      <li><a href={`${BASE}talks`}>Talks</a> &mdash; conference talks and recordings when the room is right.</li>
-      <li><a href={`${BASE}work`}>Work</a> &mdash; engagement shapes if you want me on the problem.</li>
-      <li><a href={`${BASE}about`}>About</a> &mdash; the long version of the bio.</li>
+      <li><a href={`${BASE}writing`}>Writing</a> &mdash; notes on operations, product, engineering, and team collaboration.</li>
+      <li><a href={`${BASE}lab`}>Lab</a> &mdash; tools I build. Most are open source on <a href="https://github.com/felixgeelhaar">GitHub</a>.</li>
+      <li><a href={`${BASE}talks`}>Talks</a> &mdash; recorded conference talks and meetups.</li>
+      <li><a href={`${BASE}about`}>About</a> &mdash; the long bio.</li>
     </ul>
 
     <h2>Right now</h2>
     <p>
-      Focused on the connective tissue between strategy, platform, and product so engineering teams ship
-      clearly and senior engineers stay senior. See <a href={`${BASE}now`}>/now</a> for the current quarter.
+      Building <a href="https://github.com/felixgeelhaar/roady">roady</a> (plan-of-record for AI agents),
+      <a href="https://github.com/felixgeelhaar/tokenops">tokenops</a> (LLM spend + rate-limit tracker),
+      and the rest of a small cognitive stack for agent tooling. See <a href={`${BASE}now`}>/now</a>
+      for the current quarter.
     </p>
   </section>
 </BaseLayout>

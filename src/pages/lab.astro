@@ -1,50 +1,65 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+const BASE = import.meta.env.BASE_URL;
 
-// Lab projects. Small on purpose. Replace this list as projects ship
-// or mature past the lab stage.
+// Current top projects. The full list lives on github.com/felixgeelhaar.
+// Update this when something graduates from lab to its own page or
+// when a new project takes over the focus.
 const projects = [
   {
-    slug: 'roady',
     title: 'Roady',
-    status: 'stable · v0.12',
-    summary: 'Plan-of-record for AI coding agents. Spec, plan, drift detection that survive context resets. File-based, MCP-native.',
+    status: 'active · Go',
+    summary: 'Plan-of-record for AI coding agents. Spec, plan, and drift detection that survive context resets. File-based, git-versioned, MCP-native.',
     href: 'https://github.com/felixgeelhaar/roady',
   },
   {
-    slug: 'tokenops',
     title: 'TokenOps',
-    status: 'beta · v0.17',
-    summary: 'Local daemon that measures LLM spend, attribution, and prompt-style waste across every CLI an operator uses.',
+    status: 'active · Go',
+    summary: 'Local MCP server + CLI that tracks Claude Max / ChatGPT Plus/Pro/Team / Copilot / Cursor plan windows and warns before you hit the cap. Output-side coach detects compressed reply styles (e.g. caveman).',
     href: 'https://github.com/felixgeelhaar/tokenops',
   },
   {
-    slug: 'govee-light-management',
-    title: 'Govee light management',
-    status: 'stable · v2.7',
-    summary: 'Stream Deck plugin to drive Govee lights without their cloud app. Local API, no telemetry.',
-    href: 'https://github.com/felixgeelhaar/govee-light-management',
-  },
-  {
-    slug: 'scout',
     title: 'Scout',
-    status: 'stable',
-    summary: 'Browser automation MCP server. Pages, forms, screenshots from any agent that speaks MCP.',
+    status: 'active · Go',
+    summary: 'Browser automation in one binary. Simpler alternative to Playwright — no Node, no Python, no runtime. Library, CLI, MCP server, chat UI.',
     href: 'https://github.com/felixgeelhaar/scout',
   },
   {
-    slug: 'mnemos',
+    title: 'Fortify',
+    status: 'active · Go',
+    summary: 'Production-grade resilience for Go services calling LLMs and tools. Circuit breaker, retry, rate limit, timeout, bulkhead, fallback, hedge, adaptive concurrency, cost budget, stream timeout. Zero core deps.',
+    href: 'https://github.com/felixgeelhaar/fortify',
+  },
+  {
     title: 'Mnemos',
-    status: 'stable',
-    summary: 'Long-term memory for AI assistants. Claims, contradictions, evidence graphs. Backed by sqlite.',
+    status: 'active · Go',
+    summary: 'Evidence layer for AI agents — claims, contradictions, citations. Self-hostable. Wrappers in TypeScript and Python.',
     href: 'https://github.com/felixgeelhaar/mnemos',
+  },
+  {
+    title: 'mcp-go',
+    status: 'active · Go',
+    summary: 'Go framework for building MCP (Model Context Protocol) servers. Used by most of the projects above.',
+    href: 'https://github.com/felixgeelhaar/mcp-go',
+  },
+  {
+    title: 'Govee Light Management',
+    status: 'stable · TypeScript',
+    summary: 'Stream Deck plugin for managing Govee smart lights, with advanced group functionality. Local API, no cloud app required.',
+    href: 'https://github.com/felixgeelhaar/govee-light-management',
+  },
+  {
+    title: 'cclint',
+    status: 'active · TypeScript',
+    summary: 'Fast, extensible linter for CLAUDE.md context files. Validates and optimises the rules an AI agent reads at session start.',
+    href: 'https://github.com/felixgeelhaar/cclint',
   },
 ];
 ---
 <BaseLayout
   title="Lab"
-  description="Open-source projects. Small on purpose. Each one solves one problem all the way."
-  lede="Open-source projects. Small on purpose. Each one solves one problem all the way."
+  description="Tools I build. Most are open source on GitHub. Most are written in Go."
+  lede="Tools I build. Most are open source on GitHub. Most are Go. The full list lives on GitHub."
   nav="lab"
 >
   <ol class="entry-list">
@@ -59,4 +74,11 @@ const projects = [
       </li>
     ))}
   </ol>
+
+  <section class="prose" style="margin-top: 2.5rem;">
+    <p>
+      Everything else (cognitive-stack pieces, smaller utilities, abandoned experiments) lives at
+      <a href="https://github.com/felixgeelhaar">github.com/felixgeelhaar</a>.
+    </p>
+  </section>
 </BaseLayout>
