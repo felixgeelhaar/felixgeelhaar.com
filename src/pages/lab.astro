@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Lab projects. Small on purpose. Replace this list as projects ship
+// or mature past the lab stage.
+const projects = [
+  {
+    slug: 'roady',
+    title: 'Roady',
+    status: 'stable · v0.12',
+    summary: 'Plan-of-record for AI coding agents. Spec, plan, drift detection that survive context resets. File-based, MCP-native.',
+    href: 'https://github.com/felixgeelhaar/roady',
+  },
+  {
+    slug: 'tokenops',
+    title: 'TokenOps',
+    status: 'beta · v0.17',
+    summary: 'Local daemon that measures LLM spend, attribution, and prompt-style waste across every CLI an operator uses.',
+    href: 'https://github.com/felixgeelhaar/tokenops',
+  },
+  {
+    slug: 'govee-light-management',
+    title: 'Govee light management',
+    status: 'stable · v2.7',
+    summary: 'Stream Deck plugin to drive Govee lights without their cloud app. Local API, no telemetry.',
+    href: 'https://github.com/felixgeelhaar/govee-light-management',
+  },
+  {
+    slug: 'scout',
+    title: 'Scout',
+    status: 'stable',
+    summary: 'Browser automation MCP server. Pages, forms, screenshots from any agent that speaks MCP.',
+    href: 'https://github.com/felixgeelhaar/scout',
+  },
+  {
+    slug: 'mnemos',
+    title: 'Mnemos',
+    status: 'stable',
+    summary: 'Long-term memory for AI assistants. Claims, contradictions, evidence graphs. Backed by sqlite.',
+    href: 'https://github.com/felixgeelhaar/mnemos',
+  },
+];
+---
+<BaseLayout
+  title="Lab"
+  description="Open-source projects. Small on purpose. Each one solves one problem all the way."
+  lede="Open-source projects. Small on purpose. Each one solves one problem all the way."
+  nav="lab"
+>
+  <ol class="entry-list">
+    {projects.map((p) => (
+      <li class="entry">
+        <div class="entry-meta">
+          <span>LAB</span>
+          <span>{p.status}</span>
+        </div>
+        <h2><a href={p.href}>{p.title} <span aria-hidden="true">↗</span></a></h2>
+        <p class="entry-summary">{p.summary}</p>
+      </li>
+    ))}
+  </ol>
+</BaseLayout>

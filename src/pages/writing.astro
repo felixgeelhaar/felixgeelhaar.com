@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Writing index. Replace this stub with frontmatter-driven content
+// collection (Astro `content/` dir) once the first essay lands.
+const entries = [
+  // Example shape — real essays render from src/content/writing/*.md.
+  // {
+  //   slug: 'operating-model-debt',
+  //   title: 'Operating-model debt compounds quietly',
+  //   date: '2026-05-20',
+  //   readingMins: 12,
+  //   summary: 'Why three weeks of unowned decisions look identical to a year of them — until they do not.',
+  // },
+];
+---
+<BaseLayout
+  title="Writing"
+  description="Long-form essays on platform topology, error-budget discipline, and the operating models that hold modern R&D together."
+  lede="Long-form essays on platform topology, error-budget discipline, and the operating models that hold modern R&D together."
+  nav="writing"
+>
+  {entries.length === 0 ? (
+    <section class="prose">
+      <p>No essays yet. The first three land before launch &mdash; see <a href="/now">/now</a>.</p>
+      <p>
+        Want me to send the first one when it ships?
+        <a href="/contact">Drop a line</a>; one email when there is something to read, no list.
+      </p>
+    </section>
+  ) : (
+    <ol class="entry-list">
+      {entries.map((e) => (
+        <li class="entry">
+          <div class="entry-meta">
+            <span>ESSAY</span>
+            <span>{e.date}</span>
+            <span>{e.readingMins} min</span>
+          </div>
+          <h2><a href={`/writing/${e.slug}`}>{e.title}</a></h2>
+          <p class="entry-summary">{e.summary}</p>
+        </li>
+      ))}
+    </ol>
+  )}
+</BaseLayout>

@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const talks = [
+  // Example shape:
+  // {
+  //   title: 'Error-budget discipline at platform scale',
+  //   venue: 'DORA Summit',
+  //   date: '2026-09-15',
+  //   slidesUrl: '#',
+  //   videoUrl: '#',
+  // },
+];
+---
+<BaseLayout
+  title="Talks"
+  description="Conference talks and recordings when the room is right."
+  lede="Conference talks and recordings when the room is right. Topics: platform topology, R&D operating models, error-budget discipline."
+  nav="talks"
+>
+  {talks.length === 0 ? (
+    <section class="prose">
+      <p>No talks listed yet. The first will land here after the next conference.</p>
+      <p>
+        Speaker invitations? <a href="/contact">Send the brief</a>. I respond within a week.
+      </p>
+    </section>
+  ) : (
+    <ol class="entry-list">
+      {talks.map((t) => (
+        <li class="entry">
+          <div class="entry-meta">
+            <span>TALK</span>
+            <span>{t.venue}</span>
+            <span>{t.date}</span>
+          </div>
+          <h2>{t.title}</h2>
+          <p class="entry-summary">
+            {t.slidesUrl && <a href={t.slidesUrl}>Slides</a>}
+            {t.slidesUrl && t.videoUrl && ' · '}
+            {t.videoUrl  && <a href={t.videoUrl}>Video</a>}
+          </p>
+        </li>
+      ))}
+    </ol>
+  )}
+</BaseLayout>

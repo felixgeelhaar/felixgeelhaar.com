@@ -1,0 +1,16 @@
+{
+  "name": "felixgeelhaar-com",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync:brand": "node scripts/sync-brand.mjs",
+    "dev": "npm run sync:brand && astro dev",
+    "build": "npm run sync:brand && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.0.0"
+  }
+}

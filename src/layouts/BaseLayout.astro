@@ -1,0 +1,92 @@
+---
+// Shared frame. All pages render inside this layout so head, nav, and
+// footer live in one place.
+//
+// Brand tokens + type live under /brand/ (vendor-copied by
+// scripts/sync-brand.mjs). Components are loaded as ESM only on the
+// pages that use them — most pages stay pure HTML/CSS.
+//
+// Voice rules (see brand/docs/voice.md):
+//   - sharp, specific, first-person declarative
+//   - sentence case headlines with a period
+//   - one headline per page
+export interface Props {
+  title: string;
+  description?: string;
+  // The lede sits under the page headline; cooler tone than the H1.
+  lede?: string;
+  // Mark the active nav item so the link gets aria-current=page.
+  nav?: 'home' | 'writing' | 'lab' | 'talks' | 'work' | 'about' | 'contact';
+}
+
+const { title, description, lede, nav } = Astro.props;
+const fullTitle = title === 'Felix Geelhaar' ? title : `${title} — Felix Geelhaar`;
+---
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site).toString()} />
+
+    <!-- Brand tokens + type. Loaded once per page; cached after first hit. -->
+    <link rel="stylesheet" href="/brand/tokens.css" />
+    <link rel="stylesheet" href="/brand/type.css" />
+    <link rel="stylesheet" href="/brand/responsive.css" />
+
+    <!-- Site-local overrides + layout. Kept tiny on purpose; brand carries the weight. -->
+    <link rel="stylesheet" href="/site.css" />
+
+    <!-- Open Graph + Twitter -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site).toString()} />
+    <meta property="og:title" content={fullTitle} />
+    {description && <meta property="og:description" content={description} />}
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a href="/" class="wordmark" aria-label="Felix Geelhaar — home">Felix Geelhaar</a>
+      <nav aria-label="Primary">
+        <ul role="list">
+          <li><a href="/writing" aria-current={nav === 'writing' ? 'page' : undefined}>Writing</a></li>
+          <li><a href="/lab"     aria-current={nav === 'lab'     ? 'page' : undefined}>Lab</a></li>
+          <li><a href="/talks"   aria-current={nav === 'talks'   ? 'page' : undefined}>Talks</a></li>
+          <li><a href="/work"    aria-current={nav === 'work'    ? 'page' : undefined}>Work</a></li>
+          <li><a href="/about"   aria-current={nav === 'about'   ? 'page' : undefined}>About</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main">
+      {title && nav && nav !== 'home' && (
+        <header class="page-header">
+          <h1>{title}</h1>
+          {lede && <p class="lede">{lede}</p>}
+        </header>
+      )}
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        <a href="/now">Now</a> · <a href="/uses">Uses</a> · <a href="/contact">Contact</a>
+      </p>
+      <p class="muted">
+        © {new Date().getFullYear()} Felix Geelhaar. Built with
+        <a href="/lab/this-site">care</a> and the <a href="https://github.com/felixgeelhaar/brand">brand system</a>.
+      </p>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  /* Site-local fallback if /site.css fails to load. Brand tokens.css
+     handles the rest; this file is intentionally tiny. */
+  :root { color-scheme: light dark; }
+</style>
