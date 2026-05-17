@@ -3,8 +3,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const BASE = import.meta.env.BASE_URL;
 
 const ARMADA = {
+  // Canonical product landing. armada.run is Armada's own marketing
+  // site; this page (/armada on the personal site) is the inline
+  // introduction for readers landing from the writing.
+  productSite: 'https://armada.run',
   marketplaceUrl: 'https://marketplace.atlassian.com/apps/2348071004/armada-campaign-manager-for-jira',
-  selfHostedUrl: 'https://armada.run',
   github: 'https://github.com/felixgeelhaar/armada',
   docs: 'https://github.com/felixgeelhaar/armada#documentation',
   version: 'v4.2',
@@ -87,15 +90,16 @@ const useCases = [
       <a href={ARMADA.marketplaceUrl} class="btn btn--accent" rel="noopener">
         Install from Marketplace
       </a>
-      <a href={ARMADA.selfHostedUrl} class="btn btn--ghost" rel="noopener">
-        Self-host on armada.run
+      <a href={ARMADA.productSite} class="btn btn--ghost" rel="noopener">
+        Full product site — armada.run
       </a>
       <a href={ARMADA.github} class="btn btn--ghost" rel="noopener">
         Source on GitHub
       </a>
     </div>
     <p class="armada-trial-note">
-      Free {ARMADA.trialDays}-day trial on Marketplace. Self-hosted via <a href={ARMADA.selfHostedUrl} rel="noopener">armada.run</a> for teams that need full data sovereignty.
+      Free {ARMADA.trialDays}-day trial via the Atlassian Marketplace. Full feature tour, screenshots,
+      and pricing on <a href={ARMADA.productSite} rel="noopener">armada.run</a>.
     </p>
   </section>
 
@@ -201,32 +205,18 @@ const useCases = [
   <!-- Get it -->
   <section class="armada-section armada-getit">
     <h2>Get it</h2>
-    <div class="armada-paths">
-      <article class="armada-path">
-        <h3>Atlassian Marketplace</h3>
-        <p>
-          Install Armada in your Jira site through the Atlassian Marketplace. {ARMADA.trialDays}-day
-          free trial. Forge app — runs inside your Jira tenant, no third-party data hosting, Atlassian's
-          permission and audit model. The default path for teams already on Jira Cloud.
-        </p>
-        <a href={ARMADA.marketplaceUrl} class="btn btn--accent" rel="noopener">
-          Install from Marketplace
-        </a>
-      </article>
-      <article class="armada-path">
-        <h3>Self-hosted &mdash; <a href={ARMADA.selfHostedUrl} rel="noopener">armada.run</a></h3>
-        <p>
-          For teams that need full data sovereignty, regulated environments, or a self-managed
-          deployment alongside Jira Data Center: run Armada on your own infrastructure via
-          <a href={ARMADA.selfHostedUrl} rel="noopener">armada.run</a>. Same product, your servers,
-          your audit boundary.
-        </p>
-        <a href={ARMADA.selfHostedUrl} class="btn btn--accent" rel="noopener">
-          Go to armada.run
-        </a>
-      </article>
-    </div>
-    <div class="armada-cta-row" style="margin-top: 1.5rem;">
+    <p>
+      Install Armada in your Jira site from the Atlassian Marketplace — {ARMADA.trialDays}-day free
+      trial, Forge app, runs inside your Jira tenant, Atlassian's permission and audit model. For
+      the full product tour, pricing tiers, screenshots, and case studies, head to <a href={ARMADA.productSite} rel="noopener">armada.run</a> — Armada's own marketing site.
+    </p>
+    <div class="armada-cta-row">
+      <a href={ARMADA.marketplaceUrl} class="btn btn--accent" rel="noopener">
+        Install from Marketplace
+      </a>
+      <a href={ARMADA.productSite} class="btn btn--ghost" rel="noopener">
+        armada.run
+      </a>
       <a href={ARMADA.docs} class="btn btn--ghost" rel="noopener">
         Documentation
       </a>
@@ -338,33 +328,7 @@ const useCases = [
   .armada-buyers strong { color: var(--color-fg, #0A0A0A); }
 
   .armada-getit { padding-bottom: 3rem; }
-  .armada-paths {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-    gap: 1.25rem;
-  }
-  .armada-path {
-    border: 1px solid var(--color-line, #E5E5E5);
-    padding: 1.5rem;
-    background: var(--color-bg-elevated, #FFFFFF);
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-  .armada-path h3 {
-    font-size: 1.05rem;
-    font-family: var(--font-mono, ui-monospace, monospace);
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    margin: 0;
-  }
-  .armada-path p {
-    color: var(--color-fg-muted, #525252);
-    line-height: 1.55;
-    margin: 0;
-    flex: 1;
-  }
-  .armada-path .btn { align-self: flex-start; }
+  .armada-getit p { line-height: 1.55; margin-bottom: 1.25rem; max-width: 60ch; }
 
   /* Button helpers — minimal, brand tokens with safe fallbacks. */
   .btn {
