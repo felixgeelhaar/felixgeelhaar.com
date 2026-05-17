@@ -87,6 +87,6 @@ The two aren't competitors at the extremes. They're competitors in the middle, a
 
 If your org runs anything that touches 50+ teams at once — security patches, migrations, compliance audits, incident response — and the orchestration lives in a spreadsheet today, that spreadsheet is costing you a recoverable amount of quarterly engineering throughput and an unrecoverable amount of audit defensibility.
 
-**[Install Armada](/armada)** — 30-day free trial, paid plans via the Marketplace. The Forge app runs inside your Jira tenant, so the data stays where your security review already approved it being.
+**[Install Armada](/armada)** — 30-day free trial via the [Atlassian Marketplace](https://marketplace.atlassian.com/apps/2348071004/armada-campaign-manager-for-jira), or self-host via [armada.run](https://armada.run) for teams that need full data sovereignty. Forge app runs inside your Jira tenant; self-hosted runs on your infrastructure. Either way the data stays where your security review already approved it.
 
 Stop running campaigns on grids.
