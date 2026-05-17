@@ -26,6 +26,7 @@ const label = entry.data.kind === 'project'
   title={entry.data.title}
   description={entry.data.summary}
   nav="writing"
+  ogImage={entry.id}
 >
   <article class="prose">
     <header class="entry-meta" style="margin-bottom: 2rem;">
@@ -36,6 +37,21 @@ const label = entry.data.kind === 'project'
     </header>
     <h1>{entry.data.title}</h1>
     <p class="lede">{entry.data.summary}</p>
+
+    {/* Hero visual: the OG image used as in-page header art. Light
+        version on light theme, dark on dark — picker via <picture>
+        + prefers-color-scheme. Lazy-loaded so it doesn't block LCP. */}
+    <picture class="post-hero">
+      <source media="(prefers-color-scheme: dark)" srcset={`${BASE}og/${entry.id}.dark.png`} />
+      <img
+        src={`${BASE}og/${entry.id}.light.png`}
+        alt={`Cover art for "${entry.data.title}"`}
+        width="1200"
+        height="630"
+        loading="lazy"
+      />
+    </picture>
+
     <Content />
     <PostFooter current={entry} entries={allEntries} />
   </article>

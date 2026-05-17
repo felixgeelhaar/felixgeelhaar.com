@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "sync:brand": "node scripts/sync-brand.mjs",
-    "dev": "npm run sync:brand && astro dev",
-    "build": "npm run sync:brand && astro build",
+    "og:writing": "node scripts/generate-og.mjs",
+    "dev": "npm run sync:brand && npm run og:writing && astro dev",
+    "build": "npm run sync:brand && npm run og:writing && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
