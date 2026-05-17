@@ -1,7 +1,7 @@
 ---
 title: "Pick performance, ergonomics, and observability. All three."
 summary: "The Logger's Trilemma says you can have two of speed, developer experience, and observability. The trilemma was a sampling problem; modern slog handlers can ship all three."
-date: 2026-05-17
+date: 2026-05-09
 readingMins: 5
 draft: false
 ---

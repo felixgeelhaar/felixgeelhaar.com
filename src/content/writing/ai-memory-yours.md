@@ -1,7 +1,7 @@
 ---
 title: "Your AI's memory is someone else's database."
 summary: "Hosted memory layers and vector DBs hand the user's preferences, conversation history, and inferred claims to a vendor's infrastructure. The feature ships; the ownership doesn't."
-date: 2026-05-17
+date: 2026-05-12
 readingMins: 6
 draft: false
 ---

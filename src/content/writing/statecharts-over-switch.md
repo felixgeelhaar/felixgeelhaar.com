@@ -1,7 +1,7 @@
 ---
 title: "Switch statements are a state machine in denial."
 summary: "Every team modeling order lifecycles, payment sagas, incident workflows — and now AI agent runtimes — ends up with the same 400-line switch block, three boolean flags, and a Slack channel where the bugs surface. The fix is to make the FSM a first-class artifact."
-date: 2026-05-17
+date: 2026-05-10
 readingMins: 6
 draft: false
 ---

@@ -1,7 +1,7 @@
 ---
 title: "Agents forget. The plan should remember."
 summary: "AI coding agents lose context every session. The work doesn't. What survives the reset is the plan-of-record — and most teams don't have one."
-date: 2026-05-17
+date: 2026-05-16
 readingMins: 6
 draft: false
 ---

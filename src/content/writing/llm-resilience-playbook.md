@@ -1,7 +1,7 @@
 ---
 title: "LLM calls broke your resilience playbook. Add these back."
 summary: "Retry, circuit breaker, timeout — the patterns that kept services up for two decades don't cover the failure modes of services that call LLMs and tools. Here's what's missing."
-date: 2026-05-17
+date: 2026-05-12
 readingMins: 6
 draft: false
 ---
