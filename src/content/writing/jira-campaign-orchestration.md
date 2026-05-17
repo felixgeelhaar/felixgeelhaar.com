@@ -2,7 +2,7 @@
 title: "Jira can run a 200-team campaign. The defaults can't."
 summary: "Security patches, migrations, compliance audits — large-scale initiatives are fan-out problems Jira's defaults don't solve. Teams reach for spreadsheets and lose every benefit of the workflow they left."
 date: 2026-02-01
-readingMins: 6
+readingMins: 8
 draft: false
 ---
 
@@ -46,6 +46,30 @@ A partial list of failure modes I keep watching in security, migration, and comp
 8. **Multi-stage rollout invented per campaign.** "Wave 1 = critical services, wave 2 = production-tier-1, wave 3 = everyone else" is a structure every large rollout reinvents. Each invention is bespoke. None of them are auditable. The org has run twelve waves; nobody can produce a list of which services went in which.
 
 The shared cause: campaigns at this scale are a different shape from regular issue tracking, and the workflow tool wasn't built for that shape. Without a layer that takes the shape seriously, teams either reinvent it badly or escape from the tool entirely.
+
+## But couldn't an agent just do this?
+
+Fair question, and the default 2026 move for "I need to fan out across 87 teams" is "ask Claude (or GPT, or Cursor) to do it via Jira's MCP." The agent can list projects, create issues, link them, push updates. For one-off, exploratory work, go for it — the agent path is the right tool for "I need five children created right now and I'll never run this again." Quick, flexible, zero schema to maintain.
+
+For anything that recurs, scales, or has consequences if it goes wrong, the agent path turns into the spreadsheet path with extra steps:
+
+- **Determinism.** The agent's choice of fan-out strategy varies between runs. Sometimes it picks sub-tasks. Sometimes linked tasks. Sometimes the same prompt nudges it differently next Tuesday. Auditable only if you save the prompt *and* the response *and* the model version — which most teams don't. The deterministic app produces the same plan from the same inputs every time.
+
+- **Permission model.** The agent acts with whatever Jira credentials its MCP token holds — usually a service account or someone's personal API token. Forge apps run inside Jira's own permission system with scoped grants declared in the manifest (`read:jira-work`, `write:jira-work`, `read:component:compass`, etc.) and reviewed by the admin who installs the app. The blast radius is bounded by the platform, not by hope.
+
+- **Persistent state.** Campaign state in Armada lives as a property on the parent issue. Re-open the issue next quarter and the state is still there. Agent-driven campaigns live in the chat session that created them; close the chat, the state evaporates unless someone wrote it down.
+
+- **Audit trail.** Forge logs every action through Atlassian's audit framework. Agent-driven actions land in Jira's history as "user X did this thing" without the *why*, unless you separately snapshot the prompts, the model responses, the tool-call sequences, and store them somewhere durable for the time horizon your auditor cares about.
+
+- **Approval gates and recall safety.** Armada ships an approver allowlist and a recall path with audit comments. Both are first-class objects. Agent "approvals" are vibes — there's no enforced gate, just a sentence in the prompt. Agent recall is "agent, please undo that" and a hope that nothing was linked or commented on by humans in the interim.
+
+- **In-product UI for non-engineers.** Armada renders as a Jira issue panel for the campaign owner — security PM, compliance lead, migration TPM — who isn't going to open a chat session every time they need a status check. Agent-driven workflows quietly assume every stakeholder is willing to live in the chat, which most stakeholders aren't.
+
+- **Templates and multi-stage rollouts as data.** The quarterly compliance campaign is a saved template you reapply with variable substitution. The multi-stage rollout's wave definitions are persisted on the campaign object. Agent equivalents re-derive the structure from prose each time, which means the structure drifts each time.
+
+The honest decision tree: if the campaign runs once, the rigour-vs-flexibility trade favours flexibility — let the agent do it. If the campaign repeats, scales past one person's working memory, or touches anything an auditor or a compliance team will eventually ask about, the trade-off flips. Deterministic, scope-bounded, audit-logged, permission-modelled, schema-versioned, in-product wins.
+
+The two aren't competitors at the extremes. They're competitors in the middle, and the middle is where most large orgs actually operate. Plenty of room to use both: the agent to draft the campaign skeleton, the app to execute and govern it.
 
 ## The fix is the orchestration primitive.
 
