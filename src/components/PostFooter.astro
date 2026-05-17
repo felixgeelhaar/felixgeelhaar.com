@@ -1,0 +1,134 @@
+---
+// Post footer — runs under every essay. Four jobs:
+//   1. Author proof for cold readers landing from a share link
+//   2. Email capture at high intent (just finished the essay)
+//   3. Related posts — 2 entries that share the kind (essay/project)
+//   4. Project deep-link for project-kind posts (Github repo + lab card)
+//
+// Auto-selects related entries by kind, excluding the current post.
+
+import type { CollectionEntry } from 'astro:content';
+import EmailSignup from './EmailSignup.astro';
+
+export interface Props {
+  current: CollectionEntry<'writing'>;
+  entries: CollectionEntry<'writing'>[];
+}
+
+const { current, entries } = Astro.props;
+const BASE = import.meta.env.BASE_URL;
+
+// Pick 2 related posts: same kind, not the current post, newest first.
+const related = entries
+  .filter((e) => e.id !== current.id && e.data.kind === current.data.kind && !e.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 2);
+
+// Project deep-link map. Keep in sync with /lab entries.
+const PROJECT_LINKS: Record<string, { repo: string; landing?: string }> = {
+  roady:    { repo: 'https://github.com/felixgeelhaar/roady' },
+  mnemos:   { repo: 'https://github.com/felixgeelhaar/mnemos' },
+  fortify:  { repo: 'https://github.com/felixgeelhaar/fortify' },
+  bolt:     { repo: 'https://github.com/felixgeelhaar/bolt' },
+  'mcp-go': { repo: 'https://github.com/felixgeelhaar/mcp-go' },
+  statekit: { repo: 'https://github.com/felixgeelhaar/statekit' },
+  tokenops: { repo: 'https://github.com/felixgeelhaar/tokenops' },
+  nomi:     { repo: 'https://github.com/felixgeelhaar/nomi' },
+  armada:   { repo: 'https://github.com/felixgeelhaar/armada', landing: `${BASE}armada` },
+};
+
+const proj = current.data.project ? PROJECT_LINKS[current.data.project] : undefined;
+---
+<aside class="post-footer">
+  <!-- 1. Author proof -->
+  <section class="post-footer__bio">
+    <p>
+      <strong>Felix Geelhaar</strong> builds open-source Go libraries and AI-agent tooling
+      (<a href={`${BASE}lab`}>/lab</a>), writes about how teams ship software (<a href={`${BASE}writing`}>/writing</a>),
+      and runs <a href={`${BASE}armada`}>Armada</a> in the Atlassian Marketplace. Munich.
+    </p>
+  </section>
+
+  <!-- 2. Email capture -->
+  <EmailSignup
+    heading="Get the next essay in your inbox."
+    blurb="One quiet email per post. No tracking, no upsell, unsubscribe in one click."
+  />
+
+  <!-- 3. Related posts (same kind) -->
+  {related.length > 0 && (
+    <section class="post-footer__related">
+      <h3>Read next</h3>
+      <ul>
+        {related.map((r) => (
+          <li>
+            <a href={`${BASE}writing/${r.id}`}>{r.data.title}</a>
+            <span class="post-footer__related-summary"> &mdash; {r.data.summary.slice(0, 110)}{r.data.summary.length > 110 ? '…' : ''}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  <!-- 4. Project deep-link (project-kind posts only) -->
+  {proj && current.data.project && (
+    <section class="post-footer__project">
+      <h3>The project</h3>
+      <p>
+        <strong>{current.data.project}</strong>
+        {' '}&mdash;{' '}
+        <a href={proj.repo} rel="noopener">source on GitHub</a>
+        {proj.landing && (
+          <>
+            {' '}·{' '}
+            <a href={proj.landing}>landing page</a>
+          </>
+        )}
+      </p>
+    </section>
+  )}
+
+  <!-- 5. Back link -->
+  <p class="post-footer__back">
+    <a href={`${BASE}writing`}>← All writing</a>
+  </p>
+</aside>
+
+<style>
+  .post-footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 2px solid var(--color-fg, #0A0A0A);
+    display: grid;
+    gap: 2rem;
+  }
+  .post-footer h3 {
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin: 0 0 0.5rem;
+    color: var(--color-fg-muted, #525252);
+  }
+  .post-footer__bio p {
+    line-height: 1.55;
+    color: var(--color-fg, #0A0A0A);
+    margin: 0;
+  }
+  .post-footer__related ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+  .post-footer__related a { font-weight: 500; }
+  .post-footer__related-summary {
+    color: var(--color-fg-muted, #525252);
+    font-size: 0.95rem;
+  }
+  .post-footer__project p { line-height: 1.55; }
+  .post-footer__back {
+    color: var(--color-fg-muted, #525252);
+    margin-top: 0.5rem;
+  }
+</style>

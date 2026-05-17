@@ -167,6 +167,7 @@ main { max-width: 64rem; margin: 0 auto; padding: 0 1.5rem; }
 }
 .site-footer p { margin: 0.25rem 0; }
 .site-footer .muted { color: var(--color-fg-subtle, #A3A3A3); }
+.site-footer__signup { margin: 0 0 1.5rem; max-width: 32rem; }
 
 /* --- responsive --- */
 @media (max-width: 600px) {

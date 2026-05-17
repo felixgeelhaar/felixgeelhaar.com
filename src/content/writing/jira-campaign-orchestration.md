@@ -73,12 +73,20 @@ The honest decision tree: if the campaign runs once, the rigour-vs-flexibility t
 
 The two aren't competitors at the extremes. They're competitors in the middle, and the middle is where most large orgs actually operate. Plenty of room to use both: the agent to draft the campaign skeleton, the app to execute and govern it.
 
-## The fix is the orchestration primitive.
+## Here's what we built that the agent path can't give you.
 
-You don't need my app. You need *an* orchestration layer that treats campaign as a first-class concept on top of Jira's workflow engine. Build it internally, buy one off the marketplace, or accept the spreadsheet tax — those are the three honest options.
+[Armada](/armada) — an Atlassian Forge app that ships in the Atlassian Marketplace — is the orchestration layer Jira was missing. v4.2 is live now. It treats campaigns as first-class objects on top of Jira's workflow engine and gives you the seven properties enterprise rollouts need that the ad-hoc agent path doesn't:
 
-I built [Armada](https://github.com/felixgeelhaar/armada) — an Atlassian Forge app, ships in the Atlassian Marketplace — because the off-the-shelf options either rebuild Jira (a separate UI you have to teach) or add a field (an enhancement, not a primitive). Armada is an issue-panel UI on top of Jira itself: smart fan-out, live mission control, fleet persistence, recall with safety rails, approval gates, templates, multi-stage campaigns, Compass integration for team discovery and metrics rollup. v4.2 ships now.
+- **Deterministic fan-out** — same plan from same inputs, every time. Strategy per team is data, not a model call.
+- **Forge-native permissions** — scoped grants declared in the manifest, reviewed by the admin who installs the app. Blast radius bounded by the platform, not by hope.
+- **Persistent state on the parent issue** — open the campaign next quarter, the state is still there.
+- **Audit trail through Atlassian's framework** — every approval, recall, nudge, and transition logged for the time horizon your auditor cares about.
+- **First-class approval gates and recall safety** — approver allowlists, recall paths with audit comments, no "agent, please undo that and hope."
+- **In-product UI for non-engineers** — security PM, compliance lead, migration TPM see status in the Jira issue panel without opening another tool.
+- **Templates and multi-stage rollouts as data** — the quarterly compliance campaign is a saved template, not a campaign someone rebuilds from memory each time.
 
-But the app is downstream. The point is the primitive. If your org runs anything that touches 50+ teams at once — security patches, migrations, compliance, incident response — and the orchestration lives in a spreadsheet, you're carrying the cost of the missing layer every quarter and calling it "how we do it here."
+If your org runs anything that touches 50+ teams at once — security patches, migrations, compliance audits, incident response — and the orchestration lives in a spreadsheet today, that spreadsheet is costing you a recoverable amount of quarterly engineering throughput and an unrecoverable amount of audit defensibility.
 
-Pick a layer. Stop running campaigns on grids.
+**[Install Armada](/armada)** — 30-day free trial, paid plans via the Marketplace. The Forge app runs inside your Jira tenant, so the data stays where your security review already approved it being.
+
+Stop running campaigns on grids.
