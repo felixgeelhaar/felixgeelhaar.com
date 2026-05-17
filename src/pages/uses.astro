@@ -6,7 +6,7 @@ const BASE = import.meta.env.BASE_URL;
   title="Uses"
   description="Hardware, editor, stack. The actual setup."
   lede="The actual setup. Anything not on this list got tried and dropped."
-  nav="home"
+  ogImage="uses"
 >
   <section class="prose">
     <h2>Hardware</h2>
@@ -42,6 +42,11 @@ const BASE = import.meta.env.BASE_URL;
       <li><strong><a href="https://github.com/felixgeelhaar/tokenops">TokenOps</a></strong> &mdash;
         local daemon tracking Claude Max / ChatGPT / Copilot / Cursor plan windows; warns before
         the cap and detects compressed output styles (e.g. caveman).</li>
+      <li><strong><a href="https://github.com/felixgeelhaar/fortify">Fortify</a></strong> &mdash;
+        wraps every outbound LLM call in my Go services. Timeout + circuit breaker + cost budget +
+        stream timeout by default.</li>
+      <li><strong><a href="https://nox-hq.dev">Nox</a></strong> &mdash; runs on every PR. AI-aware
+        SAST: prompt injection, embedding leakage, agent over-privilege, MCP hardening, AIBOM.</li>
     </ul>
 
     <p class="muted">

@@ -15,16 +15,27 @@ const talks = [
 ---
 <BaseLayout
   title="Talks"
-  description="Conference talks and recordings when the room is right."
-  lede="Conference talks and recordings when the room is right. Topics: platform topology, R&D operating models, error-budget discipline."
+  description="Conference talks and recordings when the room is right. Topics: AI-agent infrastructure, plan-of-record + evidence layers, deploy/release/launch decoupling, AI app security."
+  lede="Conference talks and recordings when the room is right. Topics: AI-agent infrastructure, agent-runtime primitives, deploy/release/launch decoupling, AI app security."
   nav="talks"
+  ogImage="talks"
 >
   {talks.length === 0 ? (
     <section class="prose">
-      <p>No talks listed yet. The first will land here after the next conference.</p>
       <p>
-        Speaker invitations? <a href={`${BASE}contact`}>Send the brief</a>. I respond within a week.
+        No talks listed yet — the first will land here after the next conference. Until then,
+        the long-form versions of the talks I'm working up live in <a href={`${BASE}writing`}>Field Notes</a>.
       </p>
+      <p>
+        Speaker invitations welcome &mdash; <a href={`${BASE}contact`}>send the brief</a>.
+        Topics I'm currently shaping into talks:
+      </p>
+      <ul>
+        <li>An agent runtime is five primitives. Most fake at least three.</li>
+        <li>Plan-of-record and evidence layer &mdash; the two memories your agent needs.</li>
+        <li>Deploy. Release. Launch. Three calendars, three owners.</li>
+        <li>The AI failure surface your security scanner can't see.</li>
+      </ul>
     </section>
   ) : (
     <ol class="entry-list">

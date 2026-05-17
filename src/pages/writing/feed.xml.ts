@@ -13,9 +13,9 @@ export async function GET(context: APIContext) {
   const BASE = import.meta.env.BASE_URL;
 
   return rss({
-    title: 'Felix Geelhaar — Writing',
+    title: 'Felix Geelhaar — Field Notes',
     description:
-      'Field notes on how teams ship software — operating models, product trade-offs, engineering practices, and the tools that make pairing with AI agents feel less like a sword fight.',
+      'Long-form essays on shipping software with AI agents. Plan-of-record, evidence layers, agent runtimes, and the anti-patterns engineering teams ship when a model is in the loop.',
     site: context.site!,
     items: entries.map((entry) => ({
       title: entry.data.title,

@@ -4,7 +4,7 @@ const BASE = import.meta.env.BASE_URL;
 ---
 <BaseLayout
   title="Felix Geelhaar"
-  description="Field notes on how teams ship software, plus the tools I build to make pairing with AI agents easier. Systems thinking applied to operating models, product trade-offs, and engineering practices."
+  description="Field Notes — long-form essays on shipping software with AI agents. Plus the open-source Go libraries and the Atlassian Marketplace app I build at the same time."
   nav="home"
   ogImage="home"
 >
@@ -14,26 +14,28 @@ const BASE = import.meta.env.BASE_URL;
       with AI agents feel less like a sword fight.
     </h1>
     <p class="lede">
-      Systems thinking applied: operating models, product trade-offs, engineering practices,
-      and the working agreements that hold them together.
+      Long-form essays on plan-of-record, evidence layers, agent runtimes, and the
+      anti-patterns engineering teams ship when a model is in the loop. Plus the
+      Go libraries I build alongside them.
     </p>
   </section>
 
   <section class="prose">
     <h2>What's here</h2>
     <ul>
-      <li><a href={`${BASE}writing`}>Writing</a> &mdash; notes on operations, product, engineering, and team collaboration.</li>
-      <li><a href={`${BASE}lab`}>Lab</a> &mdash; tools I build. Most are open source on <a href="https://github.com/felixgeelhaar">GitHub</a>.</li>
-      <li><a href={`${BASE}talks`}>Talks</a> &mdash; recorded conference talks and meetups.</li>
+      <li><a href={`${BASE}writing`}>Writing</a> &mdash; <strong>Field Notes</strong>, long-form essays on shipping software with AI agents.</li>
+      <li><a href={`${BASE}lab`}>Lab</a> &mdash; the open-source Go libraries + AI-agent tooling, plus <a href={`${BASE}armada`}>Armada</a> (paid, Atlassian Marketplace).</li>
+      <li><a href={`${BASE}armada`}>Armada</a> &mdash; campaign orchestration for Jira. Marketplace app + canonical site at <a href="https://armada.run">armada.run</a>.</li>
       <li><a href={`${BASE}about`}>About</a> &mdash; the long bio.</li>
     </ul>
 
     <h2>Right now</h2>
     <p>
-      Building <a href="https://github.com/felixgeelhaar/roady">roady</a> (plan-of-record for AI agents),
-      <a href="https://github.com/felixgeelhaar/tokenops">tokenops</a> (LLM spend + rate-limit tracker),
-      and the rest of a small cognitive stack for agent tooling. See <a href={`${BASE}now`}>/now</a>
-      for the current quarter.
+      Building <a href="https://github.com/felixgeelhaar/nomi">nomi</a> (local-first coding agent),
+      <a href="https://github.com/felixgeelhaar/roady">roady</a> (plan-of-record),
+      <a href="https://github.com/felixgeelhaar/tokenops">tokenops</a> (LLM rate-limit telemetry),
+      <a href="https://nox-hq.dev">nox</a> (AI-app security scanner), and the rest of a small Go
+      stack for agent infra &mdash; see <a href={`${BASE}lab`}>/lab</a> for the full shelf, <a href={`${BASE}now`}>/now</a> for current focus.
     </p>
   </section>
 </BaseLayout>

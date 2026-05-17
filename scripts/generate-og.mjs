@@ -105,6 +105,30 @@ const STATIC_PAGES = [
     title: 'Campaign orchestration for Jira. The defaults can’t.',
     footer: 'ARMADA.RUN · MARKETPLACE',
   },
+  {
+    slug: 'now',
+    kicker: 'NOW · 2026 Q2',
+    title: 'What I am building, writing, and reading this quarter.',
+    footer: 'FELIXGEELHAAR.COM / NOW',
+  },
+  {
+    slug: 'uses',
+    kicker: 'USES',
+    title: 'Hardware, editor, stack — the actual setup.',
+    footer: 'FELIXGEELHAAR.COM / USES',
+  },
+  {
+    slug: 'contact',
+    kicker: 'CONTACT',
+    title: 'Email, GitHub, LinkedIn. No web form.',
+    footer: 'FELIXGEELHAAR.COM / CONTACT',
+  },
+  {
+    slug: 'talks',
+    kicker: 'TALKS',
+    title: 'Conference talks on AI-agent infrastructure and engineering practice.',
+    footer: 'FELIXGEELHAAR.COM / TALKS',
+  },
 ];
 
 async function brandHasOgScript() {
