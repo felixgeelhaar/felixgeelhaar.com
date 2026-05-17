@@ -93,8 +93,32 @@ const BASE = import.meta.env.BASE_URL;
 
     <header class="site-header">
       <a href={BASE} class="wordmark" aria-label="Felix Geelhaar — home">
-        <img src={`${BASE}brand/wordmark/symbol.svg`}    alt="" class="wordmark-symbol" width="20" height="20" />
-        <img src={`${BASE}brand/wordmark/logotype.svg`} alt="Felix Geelhaar" class="wordmark-logotype" width="180" height="20" />
+        <!-- Symbol: inlined so currentColor inherits from the anchor's
+             color, which the theme toggle controls via tokens.css.
+             <img>-loaded SVGs do not inherit parent CSS color, so the
+             mark went black-on-black in dark mode. -->
+        <svg class="wordmark-symbol" aria-hidden="true" focusable="false"
+             width="22" height="22" viewBox="0 0 64 64"
+             xmlns="http://www.w3.org/2000/svg">
+          <g fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="square">
+            <path d="M 14 22 L 14 14 L 22 14"/>
+            <path d="M 50 42 L 50 50 L 42 50"/>
+          </g>
+          <line x1="22" y1="48" x2="42" y2="16"
+                stroke="var(--wordmark-accent, #0050F5)" stroke-width="6" stroke-linecap="square"/>
+        </svg>
+        <!-- Logotype: inlined for the same reason — letterforms now
+             follow currentColor; the slash keeps the brand accent. -->
+        <svg class="wordmark-logotype" aria-hidden="true" focusable="false"
+             width="200" height="22" viewBox="0 0 240 28"
+             xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="20" textLength="208" lengthAdjust="spacingAndGlyphs"
+                style="font: 500 17px/1 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 0.045em;"
+                fill="currentColor">FELIX GEELHAAR</text>
+          <text x="214" y="22"
+                style="font: 600 26px/1 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;"
+                fill="var(--wordmark-accent, #0050F5)">/</text>
+        </svg>
       </a>
       <nav aria-label="Primary">
         <ul role="list">
