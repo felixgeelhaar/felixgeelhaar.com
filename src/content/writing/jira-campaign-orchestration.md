@@ -1,5 +1,5 @@
 ---
-title: "Jira can run a 200-team campaign. The defaults can't."
+title: "Every 200-team rollout ends in a Google Sheet. Fix it in Jira."
 summary: "Security patches, migrations, compliance audits — large-scale initiatives are fan-out problems Jira's defaults don't solve. Teams reach for spreadsheets and lose every benefit of the workflow they left."
 date: 2026-02-01
 readingMins: 8

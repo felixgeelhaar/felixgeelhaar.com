@@ -81,4 +81,12 @@ I've been building each piece as a domain-agnostic Go library so they compose wi
 
 Each one is replaceable. The thesis is the composition: an agent runtime isn't one thing, and pretending it is means the first three failures will look like model problems, framework problems, or "we need a better prompt." They aren't. They're missing primitives.
 
-Pick yours. Keep them separate. Compose them deliberately.
+If you're starting from one of the eight failure modes above and don't know which primitive to adopt first, the mapping is reliable:
+
+- **Memory-as-buffer** or **memory written by A used by B** → start with the evidence layer ([Mnemos](https://github.com/felixgeelhaar/mnemos)). It's the most load-bearing primitive and the easiest to retrofit later.
+- **The unsupervised loop** or **fake control plane via dashboards** → start with the control plane ([Olymp](https://github.com/felixgeelhaar/olymp)). Once two agents share a runtime, the supervisor is non-negotiable.
+- **Prose-as-API** or **audit log = chat transcript** → start with typed actions ([Praxis](https://github.com/felixgeelhaar/praxis)). The action layer is where the agent meets the world; it should be the most rigorously typed part.
+- **Time-blind agent** or repeated misses on patterns the data shows → start with time perception ([Chronos](https://github.com/felixgeelhaar/chronos)).
+- **Promise amnesia** or dropped follow-throughs → start with commitment tracking ([Nous](https://github.com/felixgeelhaar/nous)).
+
+Pick the one your incident report points at. Add the next within the quarter.

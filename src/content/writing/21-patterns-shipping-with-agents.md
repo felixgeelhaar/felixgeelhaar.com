@@ -75,3 +75,5 @@ Two open questions I don't have answers for:
 - **What's the right unit of measurement?** Commits, diffs, tasks, sessions, all wrong in different ways. The shape of agent-assisted work doesn't match the shape of the metrics we ship today. (This one might be a whole essay.)
 
 This list is partial on purpose. The naming matters more than the completeness.
+
+Send me the ones I missed. I'll add them and credit you.

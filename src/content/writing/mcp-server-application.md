@@ -1,5 +1,5 @@
 ---
-title: "MCP is a protocol. Your server isn't."
+title: "Three MCP tools in, you've started rebuilding Gin. Stop."
 summary: "Hand-rolling MCP servers on raw SDKs means re-solving input decoding, validation, schema generation, errors, middleware, and transports — five times, in five repos, each slightly wrong. The protocol is the easy part."
 date: 2026-05-12
 readingMins: 5
