@@ -4,6 +4,8 @@ summary: "Every team modeling order lifecycles, payment sagas, incident workflow
 date: 2026-05-10
 readingMins: 6
 draft: false
+kind: project
+project: statekit
 ---
 
 Open any production Go service that's been running for more than two years. Find the file that handles the order lifecycle, or the payment saga, or the incident workflow, or the KYC flow. It will be the same shape every time: a 400-line `switch event.Type { ... }` block, ten case branches, three boolean flags (`isPaid`, `isCancelled`, `isRefunded`), one `TODO: think about partial failure` comment from 2024, and a recurring Slack thread where the bugs surface.

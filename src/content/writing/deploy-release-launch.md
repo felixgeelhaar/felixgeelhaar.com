@@ -4,6 +4,7 @@ summary: "Three different verbs, three different owners, three different days. D
 date: 2026-05-17
 readingMins: 4
 draft: false
+kind: essay
 ---
 
 There are three verbs. Most teams ship with one.

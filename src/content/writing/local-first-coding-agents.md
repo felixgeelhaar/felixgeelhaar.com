@@ -4,6 +4,7 @@ summary: "Why local-first is the right default for AI coding agents — and what
 date: 2026-05-17
 readingMins: 6
 draft: false
+kind: essay
 ---
 
 The first time I watched a hosted coding agent open files in a private

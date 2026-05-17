@@ -11,6 +11,13 @@ const entries = all.sort(
 
 const fmtDate = (d: Date) =>
   d.toISOString().slice(0, 10); // YYYY-MM-DD; sentence-case-friendly
+
+// Filter pill counts. Computed at build time; rendered once.
+const counts = {
+  all: entries.length,
+  essay: entries.filter((e) => e.data.kind === 'essay').length,
+  project: entries.filter((e) => e.data.kind === 'project').length,
+};
 ---
 <BaseLayout
   title="Writing"
@@ -23,18 +30,148 @@ const fmtDate = (d: Date) =>
       <p>No essays yet. The first ones land here. Topics queued on <a href={`${BASE}now`}>/now</a>.</p>
     </section>
   ) : (
-    <ol class="entry-list">
-      {entries.map((e) => (
-        <li class="entry">
-          <div class="entry-meta">
-            <span>ESSAY</span>
-            <span>{fmtDate(e.data.date)}</span>
-            {e.data.readingMins && <span>{e.data.readingMins} min</span>}
-          </div>
-          <h2><a href={`${BASE}writing/${e.id}`}>{e.data.title}</a></h2>
-          <p class="entry-summary">{e.data.summary}</p>
-        </li>
-      ))}
-    </ol>
+    <>
+      <div class="filter-bar" role="group" aria-label="Filter posts by kind">
+        <button type="button" class="filter-pill is-active" data-filter="all" aria-pressed="true">
+          All <span class="filter-count">{counts.all}</span>
+        </button>
+        <button type="button" class="filter-pill" data-filter="essay" aria-pressed="false">
+          Essays <span class="filter-count">{counts.essay}</span>
+        </button>
+        <button type="button" class="filter-pill" data-filter="project" aria-pressed="false">
+          Projects <span class="filter-count">{counts.project}</span>
+        </button>
+      </div>
+
+      <ol class="entry-list" id="writing-list">
+        {entries.map((e) => (
+          <li class="entry" data-kind={e.data.kind} data-project={e.data.project ?? ''}>
+            <div class="entry-meta">
+              <span>{e.data.kind === 'project' ? (e.data.project ?? 'PROJECT').toUpperCase() : 'ESSAY'}</span>
+              <span>{fmtDate(e.data.date)}</span>
+              {e.data.readingMins && <span>{e.data.readingMins} min</span>}
+            </div>
+            <h2><a href={`${BASE}writing/${e.id}`}>{e.data.title}</a></h2>
+            <p class="entry-summary">{e.data.summary}</p>
+          </li>
+        ))}
+      </ol>
+
+      <p class="filter-empty" id="filter-empty" hidden>
+        No posts in this filter yet.
+      </p>
+    </>
   )}
 </BaseLayout>
+
+<style>
+  /* Filter bar — sits above the entry list. Pill row with counts. */
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0 0 2rem;
+  }
+
+  .filter-pill {
+    appearance: none;
+    border: 1px solid var(--color-line, #E5E5E5);
+    background: var(--color-bg-elevated, #FFFFFF);
+    color: var(--color-fg-muted, #525252);
+    font: 500 0.85rem/1 var(--font-mono, ui-monospace, monospace);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.55rem 0.95rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 120ms ease-out;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .filter-pill:hover {
+    border-color: var(--color-fg, #0A0A0A);
+    color: var(--color-fg, #0A0A0A);
+  }
+
+  .filter-pill:focus-visible {
+    outline: 2px solid var(--color-accent, #0050F5);
+    outline-offset: 2px;
+  }
+
+  .filter-pill.is-active {
+    background: var(--color-fg, #0A0A0A);
+    color: var(--color-bg, #FAFAFA);
+    border-color: var(--color-fg, #0A0A0A);
+  }
+
+  .filter-count {
+    font-size: 0.7rem;
+    opacity: 0.7;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Hide entries that don't match the active filter. Client-side
+     toggling, no rebuild required. */
+  .entry[hidden] { display: none !important; }
+
+  .filter-empty {
+    color: var(--color-fg-muted, #525252);
+    font-style: italic;
+    margin-top: 1rem;
+  }
+</style>
+
+<script is:inline>
+  // Tiny client-side filter. Reads data-filter from the clicked pill,
+  // toggles `hidden` on every .entry whose data-kind doesn't match.
+  // No framework, no hydration cost — runs once on DOMContentLoaded.
+  (function () {
+    function init() {
+      var pills = document.querySelectorAll('.filter-pill');
+      var entries = document.querySelectorAll('#writing-list .entry');
+      var empty = document.getElementById('filter-empty');
+      if (!pills.length || !entries.length) return;
+
+      function apply(kind) {
+        var visible = 0;
+        entries.forEach(function (el) {
+          var match = kind === 'all' || el.getAttribute('data-kind') === kind;
+          if (match) { el.removeAttribute('hidden'); visible++; }
+          else { el.setAttribute('hidden', ''); }
+        });
+        if (empty) {
+          if (visible === 0) empty.removeAttribute('hidden');
+          else empty.setAttribute('hidden', '');
+        }
+        pills.forEach(function (p) {
+          var on = p.getAttribute('data-filter') === kind;
+          p.classList.toggle('is-active', on);
+          p.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+        // Reflect in URL hash so the filter survives a refresh + share.
+        try {
+          if (kind === 'all') history.replaceState(null, '', location.pathname + location.search);
+          else history.replaceState(null, '', '#' + kind);
+        } catch (e) {}
+      }
+
+      pills.forEach(function (p) {
+        p.addEventListener('click', function () {
+          apply(p.getAttribute('data-filter') || 'all');
+        });
+      });
+
+      // Read initial filter from URL hash (e.g. /writing#project).
+      var hash = (location.hash || '').replace('#', '');
+      if (hash === 'essay' || hash === 'project') apply(hash);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>

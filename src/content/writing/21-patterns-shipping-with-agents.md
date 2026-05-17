@@ -4,6 +4,7 @@ summary: "A partial, in-progress list of the recurring dysfunctions, anti-patter
 date: 2026-05-17
 readingMins: 8
 draft: false
+kind: essay
 ---
 
 This is a working list. It will be wrong in places, incomplete in others, and probably right where it makes someone uncomfortable.

@@ -23,6 +23,13 @@ const writing = defineCollection({
     // Hide-from-index flag for drafts you still want previewable by
     // direct URL. Excluded from the listing + RSS once those land.
     draft: z.boolean().default(false),
+    // Post kind. Drives filter pills on /writing.
+    //   essay   — cross-cutting argument or pattern catalogue
+    //   project — tied to a specific shipped project (Roady, Nomi, etc.)
+    kind: z.enum(['essay', 'project']).default('essay'),
+    // Optional project slug for kind=project posts. Match the lab.astro
+    // title lower-cased and dashed (e.g. 'roady', 'mcp-go', 'armada').
+    project: z.string().optional(),
   }),
 });
 

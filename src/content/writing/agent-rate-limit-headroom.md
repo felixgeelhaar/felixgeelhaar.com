@@ -4,6 +4,8 @@ summary: "Flat-rate AI plans hide a cliff. The agent burns through your weekly C
 date: 2026-05-16
 readingMins: 5
 draft: false
+kind: project
+project: tokenops
 ---
 
 You're forty minutes into a coding session with a Claude Max plan. The agent is mid-refactor across six files, has built up a working mental model of the codebase, and is about to start the third tool call of a multi-step migration. The response comes back: `rate_limit_exceeded`. The session resets. The next message tells you the window opens again in three hours.

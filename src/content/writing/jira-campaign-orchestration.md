@@ -4,6 +4,8 @@ summary: "Security patches, migrations, compliance audits — large-scale initia
 date: 2026-02-01
 readingMins: 8
 draft: false
+kind: project
+project: armada
 ---
 
 A security advisory drops. The patch needs to roll out across 87 teams. You open Jira to create the parent issue and stare at the blank screen for a minute.

@@ -4,6 +4,7 @@ summary: "Memory, time perception, commitment tracking, typed action, control pl
 date: 2026-05-03
 readingMins: 7
 draft: false
+kind: essay
 ---
 
 When teams talk about "the agent" they usually mean three things: the model, the prompt, and the tools. Pick a good model, write a careful prompt, expose a useful tool catalogue, and the demo is impressive. So is the second demo. By the third, the cracks start showing — not in any of those three, but underneath them, in the infrastructure nobody chose because nobody noticed they needed it.

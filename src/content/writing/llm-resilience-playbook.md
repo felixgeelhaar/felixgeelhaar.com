@@ -4,6 +4,8 @@ summary: "Retry, circuit breaker, timeout — the patterns that kept services up
 date: 2026-05-12
 readingMins: 6
 draft: false
+kind: project
+project: fortify
 ---
 
 The resilience playbook that worked for two decades — retry on transient failure, circuit breaker on persistent failure, timeout on the lot, bulkhead between dependencies — was designed for a world where backend calls failed cleanly. They returned 5xx, or they didn't. They were fast, or they timed out at a predictable boundary. The downstream cost of a retry was a network round-trip.

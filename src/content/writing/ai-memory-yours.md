@@ -4,6 +4,8 @@ summary: "Hosted memory layers and vector DBs hand the user's preferences, conve
 date: 2026-05-12
 readingMins: 6
 draft: false
+kind: project
+project: mnemos
 ---
 
 You bolt a hosted memory service onto your AI app. The user's preferences, the conversation history, the inferred claims about who they are, the things the agent has decided are true — all of it gets written to a vendor's API, billed per call, stored in their region, retrievable on their schedule, deletable on their terms.

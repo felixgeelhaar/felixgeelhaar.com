@@ -4,6 +4,8 @@ summary: "Hand-rolling MCP servers on raw SDKs means re-solving input decoding, 
 date: 2026-05-12
 readingMins: 5
 draft: false
+kind: project
+project: mcp-go
 ---
 
 The Model Context Protocol is a few dozen pages of spec. Reading it takes an afternoon. Implementing it correctly takes two days. Implementing it *well enough to put in production* takes three months — and most of those three months are spent re-solving the same boring problems every HTTP framework solved fifteen years ago.

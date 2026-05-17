@@ -4,6 +4,8 @@ summary: "AI coding agents lose context every session. The work doesn't. What su
 date: 2026-05-16
 readingMins: 6
 draft: false
+kind: project
+project: roady
 ---
 
 The agent is six tool calls into a refactor. It's asked clarifying questions, formed a plan, made three of the changes, opened a fourth file, paused to think. You hit context limit. Auto-compact runs. The summary keeps the headline of the task and loses the constraints, the half-formed decisions, the file you noticed needed touching second. Next turn, the agent starts again with a different mental model of the same job.

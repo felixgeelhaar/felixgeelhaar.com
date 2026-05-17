@@ -4,6 +4,8 @@ summary: "The Logger's Trilemma says you can have two of speed, developer experi
 date: 2026-05-09
 readingMins: 5
 draft: false
+kind: project
+project: bolt
 ---
 
 For most of the last decade, choosing a Go logger meant choosing two out of three:
