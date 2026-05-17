@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Masthead — A1, canonical hero lockup.
+
+  Stacked: oversized accent slash above the name, optional tagline
+  below a hairline rule. Use as the cover/hero mark on long-form
+  writing, talks, decks, business cards, and the homepage.
+
+  Lineage: New York Times "T", Verso, The Atlantic. The slash carries
+  the symbol role; no separate icon required (use brand/wordmark/symbol.svg
+  for square containers where the slash alone is too thin).
+
+  Tokens: currentColor for name + rule + tagline; var(--wordmark-accent)
+  for the slash. The tagline group has data-tagline="optional" so
+  consumers can strip it when shipping a no-tagline variant.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="280" height="200" viewBox="0 0 280 200" role="img" aria-label="Felix Geelhaar — field notes">
+  <title>Felix Geelhaar — masthead</title>
+  <style>
+    .slash    { font: 700 88px/1 "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace; fill: var(--wordmark-accent, #0050F5); }
+    .name     { font: 500 22px/1 "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 0.18em; fill: currentColor; }
+    .tagline  { font: 500 11px/1 "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 0.25em; fill: currentColor; opacity: 0.6; }
+    .rule     { stroke: currentColor; stroke-width: 1; opacity: 0.4; }
+  </style>
+  <text class="slash" x="140" y="100" text-anchor="middle">/</text>
+  <text class="name"  x="140" y="148" text-anchor="middle">FELIX GEELHAAR</text>
+  <g data-tagline="optional">
+    <line class="rule" x1="60" y1="166" x2="220" y2="166"/>
+    <text class="tagline" x="140" y="184" text-anchor="middle">FIELD NOTES · EST. 2026</text>
+  </g>
+</svg>

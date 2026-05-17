@@ -47,13 +47,10 @@ a:hover { color: var(--blue-500, #0050F5); }
 .wordmark {
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
   text-decoration: none;
   color: var(--color-fg, #0A0A0A);
 }
-.wordmark-symbol,
 .wordmark-logotype { display: block; }
-.wordmark-symbol  { color: var(--color-fg, #0A0A0A); }
 .site-header nav ul {
   list-style: none; padding: 0; margin: 0;
   display: flex; gap: 1.25rem; flex-wrap: wrap;

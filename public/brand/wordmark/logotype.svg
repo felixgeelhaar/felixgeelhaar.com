@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Logotype v1 — "mono redrawn" draft.
+  Logotype — A2 inline split, canonical inline lockup.
 
-  Geist Mono baseline; the accent slash is the hero — promoted to a
-  larger weight + offset above the baseline so it reads as a
-  signature mark rather than punctuation.
+  Slash sits BETWEEN the two name halves as a separator — reads as a
+  URL path, a section marker, a date stamp. Promoted to display weight
+  so it functions as the mark, not punctuation. Use in nav headers,
+  footer sign-offs, email signatures, social share cards.
 
-  Sized for 28px line-height so it slots into nav at body cadence.
-  Scale freely via width/height.
+  Lineage: 37signals, Hyper, Vercel. The slash is the brand and the
+  symbol simultaneously.
+
+  Tokens: currentColor for the name; var(--wordmark-accent) for the
+  slash. Scales freely via width/height.
 -->
-<svg xmlns="http://www.w3.org/2000/svg" width="240" height="28" viewBox="0 0 240 28" role="img" aria-label="Felix Geelhaar">
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="40" viewBox="0 0 240 40" role="img" aria-label="Felix Geelhaar">
   <title>Felix Geelhaar</title>
   <style>
-    .word  { font: 500 17px/1 "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 0.045em; fill: currentColor; }
-    .slash { font: 600 26px/1 "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace; fill: var(--wordmark-accent, #0050F5); }
+    .name  { font: 500 22px/1 "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 0.04em; fill: currentColor; }
+    .slash { font: 700 30px/1 "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace; fill: var(--wordmark-accent, #0050F5); }
   </style>
-  <text class="word"  x="0"   y="20" textLength="208" lengthAdjust="spacingAndGlyphs">FELIX GEELHAAR</text>
-  <text class="slash" x="214" y="22">/</text>
+  <text class="name"  x="0"   y="28">FELIX</text>
+  <text class="slash" x="84"  y="32">/</text>
+  <text class="name"  x="108" y="28">GEELHAAR</text>
 </svg>

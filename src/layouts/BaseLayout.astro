@@ -93,38 +93,21 @@ const BASE = import.meta.env.BASE_URL;
 
     <header class="site-header">
       <a href={BASE} class="wordmark" aria-label="Felix Geelhaar — home">
-        <!-- Monogram: FG, mono-stroke, rounded caps. Inlined so
-             currentColor follows the theme toggle. Accent slash sits
-             on the G's spur. Same construction language as the
-             slash-bracket symbol but warmer (rounded, less blueprint). -->
-        <svg class="wordmark-symbol" aria-hidden="true" focusable="false"
-             width="22" height="22" viewBox="0 0 64 64"
-             xmlns="http://www.w3.org/2000/svg">
-          <g fill="none" stroke="currentColor" stroke-width="6"
-             stroke-linecap="round" stroke-linejoin="round">
-            <!-- F -->
-            <path d="M 10 14 L 10 50"/>
-            <path d="M 10 14 L 26 14"/>
-            <path d="M 10 30 L 22 30"/>
-            <!-- G open C -->
-            <path d="M 54 16 L 38 16 L 38 48 L 54 48"/>
-          </g>
-          <!-- G spur — accent -->
-          <path d="M 54 48 L 54 34 L 44 34" fill="none"
-                stroke="var(--wordmark-accent, #0050F5)" stroke-width="6"
-                stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <!-- Logotype: inlined for the same reason — letterforms now
-             follow currentColor; the slash keeps the brand accent. -->
+        <!-- Logotype (A2 inline split): the slash IS the brand mark.
+             Sits between FELIX and GEELHAAR like a URL path separator.
+             Inlined so currentColor follows the theme toggle. -->
         <svg class="wordmark-logotype" aria-hidden="true" focusable="false"
-             width="200" height="22" viewBox="0 0 240 28"
+             width="220" height="28" viewBox="0 0 240 40"
              xmlns="http://www.w3.org/2000/svg">
-          <text x="0" y="20" textLength="208" lengthAdjust="spacingAndGlyphs"
-                style="font: 500 17px/1 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 0.045em;"
-                fill="currentColor">FELIX GEELHAAR</text>
-          <text x="214" y="22"
-                style="font: 600 26px/1 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;"
+          <text x="0"   y="28"
+                style="font: 500 22px/1 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 0.04em;"
+                fill="currentColor">FELIX</text>
+          <text x="84"  y="32"
+                style="font: 700 30px/1 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;"
                 fill="var(--wordmark-accent, #0050F5)">/</text>
+          <text x="108" y="28"
+                style="font: 500 22px/1 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 0.04em;"
+                fill="currentColor">GEELHAAR</text>
         </svg>
       </a>
       <nav aria-label="Primary">
