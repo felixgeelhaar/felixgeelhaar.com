@@ -15,6 +15,27 @@ If you ask **"why did you decide the new column should be nullable?"** and the a
 
 These are two different memories. Confusing them is the reason most agent runtimes feel like they "forget" even when they have storage attached. Skipping both is the reason most agents drift. Picking one and assuming it covers the other is the reason teams ship a memory feature and still get bug reports about the agent making things up.
 
+<pre class="mermaid">
+flowchart LR
+  subgraph Plan[Plan-of-record  ·  future-facing]
+    Spec[Spec]
+    PlanSteps[Plan]
+    Drift[Drift]
+  end
+  subgraph Evidence[Evidence layer  ·  past-facing]
+    Events[Events]
+    Claims[Claims]
+    Contradictions[Contradictions]
+    Replay[Replay]
+  end
+  Spec --> PlanSteps --> Drift
+  Events --> Claims --> Contradictions
+  Claims -. cited by .- Replay
+  PlanSteps -. references .- Claims
+  Drift -. reads facts from .- Claims
+  Events -. written during .- PlanSteps
+</pre>
+
 ## The two primitives.
 
 **Plan-of-record** is future-facing. It answers: *what is the agent supposed to do, and where is reality drifting from that intent?*

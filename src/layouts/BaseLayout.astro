@@ -76,6 +76,20 @@ const BASE = import.meta.env.BASE_URL;
       })();
     </script>
 
+    <!-- Mermaid: only loaded on pages that actually contain a .mermaid
+         block. Theme follows data-theme on <html>. Initialised once;
+         re-runs on the existing nodes. Cached after first hit. -->
+    <script type="module">
+      const blocks = document.querySelectorAll('.mermaid');
+      if (blocks.length) {
+        const mod = await import('https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs');
+        const mermaid = mod.default;
+        const theme = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default';
+        mermaid.initialize({ startOnLoad: false, theme, securityLevel: 'strict', fontFamily: 'inherit' });
+        await mermaid.run({ nodes: blocks });
+      }
+    </script>
+
     <!-- Theme toggle: brand's <fg-theme-toggle> custom element. Loads lit
          via importmap so no bundler is needed. -->
     <link rel="stylesheet" href={`${BASE}brand/components/theme-toggle/theme-toggle.css`} />

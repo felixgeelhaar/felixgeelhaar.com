@@ -14,6 +14,23 @@ That switch is a finite state machine. It just isn't designed like one. Nobody d
 
 Then the team adopts AI agents and discovers the agent's runtime is also one of these switches — `if last_action == "tool_call" { ... } else if last_action == "user_response" { ... }` — and the same class of bug ships in a new vocabulary.
 
+<pre class="mermaid">
+stateDiagram-v2
+  [*] --> cart
+  cart --> processing : CHECKOUT
+  processing --> shipped : PAID
+  processing --> cart : DECLINED
+  shipped --> [*]
+
+  state processing {
+    [*] --> card_pending
+    card_pending --> card_authorized : AUTH_OK
+    card_pending --> card_failed : AUTH_FAIL
+    card_authorized --> [*]
+    card_failed --> [*]
+  }
+</pre>
+
 ## The statechart primitive.
 
 A statechart is what an FSM becomes when you take it seriously:

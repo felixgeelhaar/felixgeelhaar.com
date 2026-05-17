@@ -17,6 +17,24 @@ Decoupling is the only honest way to ship in 2026. The three-way version:
 - **Release.** A switch is flipped. Behavior is exposed to a defined population — a flag for an internal team, a 5% cohort, a tier of accounts, every user in one region. The risk surface is product correctness — does the feature actually work for this slice. Should be reversible inside seconds and rehearsed often enough that the rollback is muscle memory.
 - **Launch.** Attention is orchestrated. Press, sales, support enablement, comms, paid, lifecycle email. The risk surface is reputation and timing. Should never depend on a deploy or a release succeeding on the same calendar day.
 
+<pre class="mermaid">
+flowchart LR
+  subgraph EngCal[Engineer's calendar]
+    Deploy[Deploy<br/>code on infra<br/>no user impact]
+  end
+  subgraph ProdCal[Product's calendar]
+    Release[Release<br/>switch flipped<br/>cohort exposed]
+  end
+  subgraph GTMCal[GTM's calendar]
+    Launch[Launch<br/>attention orchestrated<br/>press · sales · support]
+  end
+  Deploy -. gated by tests + health .- Release
+  Release -. gated by product signal .- Launch
+  Deploy -. continuous .- Deploy
+  Release -. reversible .- Release
+  Launch -. once .- Launch
+</pre>
+
 The three answer different questions, are gated by different signals, and belong to different owners. Conflate them and every slip cascades for no engineering reason. The deploy waits on the launch comms approval. The release waits on the deploy that was rushed because the launch couldn't move. The press release fires before the flag flips. Everything is coupled by accident.
 
 A partial list of what that coupling looks like:

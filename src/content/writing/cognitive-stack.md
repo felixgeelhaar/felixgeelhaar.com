@@ -13,6 +13,28 @@ That infrastructure is the agent runtime. It is not the model. It is not the too
 
 There are five primitives. They're separable on purpose.
 
+<pre class="mermaid">
+flowchart LR
+  Model([LLM model])
+  Tools([Tool layer])
+  subgraph Runtime[Agent runtime]
+    Memory[Memory<br/>Mnemos]
+    Time[Time perception<br/>Chronos]
+    Commit[Commitment<br/>Nous]
+    Action[Typed action<br/>Praxis]
+    Control[Control plane<br/>Olymp]
+  end
+  Model --> Runtime
+  Runtime --> Tools
+  Memory -. shared state .- Time
+  Time -. signals .- Commit
+  Commit -. plans .- Action
+  Control -. supervises .- Memory
+  Control -. supervises .- Time
+  Control -. supervises .- Commit
+  Control -. supervises .- Action
+</pre>
+
 ## The five primitives.
 
 - **Memory.** What the agent knows, who said it, when, and what the agent should do when two memories disagree. Not retrieval — that's how you query memory. Memory is the structure being queried. Events, claims, contradictions, evidence, replay.

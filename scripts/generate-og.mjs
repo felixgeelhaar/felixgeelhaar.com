@@ -68,6 +68,45 @@ function buildKicker(fm) {
   return `${label} · ${date}${mins}`;
 }
 
+/**
+ * Static landing/index pages get hand-curated kickers. Keep this list
+ * short — only pages that are realistic share targets (homepage, the
+ * indexes, Armada). The writing posts and one-off pages don't need
+ * entries here.
+ */
+const STATIC_PAGES = [
+  {
+    slug: 'home',
+    kicker: 'FIELD NOTES · 2026',
+    title: 'Felix Geelhaar — shipping software, building agent tools.',
+    footer: 'FELIXGEELHAAR.COM',
+  },
+  {
+    slug: 'writing',
+    kicker: 'WRITING · INDEX',
+    title: 'Field notes on how teams ship software with AI agents.',
+    footer: 'FELIXGEELHAAR.COM / WRITING',
+  },
+  {
+    slug: 'lab',
+    kicker: 'LAB · INDEX',
+    title: 'Open-source Go libraries + AI-agent tooling.',
+    footer: 'FELIXGEELHAAR.COM / LAB',
+  },
+  {
+    slug: 'about',
+    kicker: 'ABOUT',
+    title: 'Felix Geelhaar — engineering leader, builds Go libraries and AI-agent infra.',
+    footer: 'FELIXGEELHAAR.COM / ABOUT',
+  },
+  {
+    slug: 'armada',
+    kicker: 'ARMADA · ATLASSIAN MARKETPLACE',
+    title: 'Campaign orchestration for Jira. The defaults can’t.',
+    footer: 'ARMADA.RUN · MARKETPLACE',
+  },
+];
+
 async function brandHasOgScript() {
   try {
     await access(resolve(brandRoot, 'scripts/og.mjs'));
@@ -127,7 +166,32 @@ async function main() {
     process.stdout.write('ok\n');
   }
 
-  console.log(`generate-og: ${generated} post(s) → public/og/`);
+  // Static pages — same template, hand-curated kicker/title.
+  let staticGenerated = 0;
+  for (const page of STATIC_PAGES) {
+    process.stdout.write(`OG: ${page.slug} (static) ... `);
+    await exec(
+      'node',
+      [
+        'scripts/og.mjs',
+        '--kicker', page.kicker,
+        '--title', page.title,
+        '--slug', page.slug,
+        '--footer', page.footer,
+      ],
+      { cwd: brandRoot },
+    );
+    for (const theme of ['light', 'dark']) {
+      await copyFile(
+        resolve(brandOgDir, `${page.slug}.${theme}.png`),
+        resolve(ogOutDir, `${page.slug}.${theme}.png`),
+      );
+    }
+    staticGenerated++;
+    process.stdout.write('ok\n');
+  }
+
+  console.log(`generate-og: ${generated} post(s) + ${staticGenerated} static page(s) → public/og/`);
 }
 
 main().catch((err) => {
