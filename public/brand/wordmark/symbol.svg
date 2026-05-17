@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Symbol mark v1 — "slash bracket".
+
+  Two corner brackets (top-left + bottom-right) with a single slash
+  cutting through. Reads as a writer's annotation mark + code bracket.
+  Mono-stroke, grid-aligned, single color (currentColor). Scales
+  cleanly to 16x16 for favicons; usable as standalone app icon at
+  512x512.
+
+  --symbol-accent overrides the slash color (defaults to currentColor).
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="Felix Geelhaar mark">
+  <title>Felix Geelhaar mark</title>
+  <g fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="square" stroke-linejoin="miter">
+    <!-- top-left corner -->
+    <path d="M 14 22 L 14 14 L 22 14"/>
+    <!-- bottom-right corner -->
+    <path d="M 50 42 L 50 50 L 42 50"/>
+  </g>
+  <!-- accent slash, drawn separately so it can take a different color -->
+  <line x1="22" y1="48" x2="42" y2="16" stroke="var(--symbol-accent, currentColor)" stroke-width="6" stroke-linecap="square"/>
+</svg>

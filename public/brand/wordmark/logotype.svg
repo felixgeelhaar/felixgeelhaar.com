@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Logotype v1 — "mono redrawn" draft.
+
+  Geist Mono baseline; the accent slash is the hero — promoted to a
+  larger weight + offset above the baseline so it reads as a
+  signature mark rather than punctuation.
+
+  Sized for 28px line-height so it slots into nav at body cadence.
+  Scale freely via width/height.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="28" viewBox="0 0 240 28" role="img" aria-label="Felix Geelhaar">
+  <title>Felix Geelhaar</title>
+  <style>
+    .word  { font: 500 17px/1 "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 0.045em; fill: currentColor; }
+    .slash { font: 600 26px/1 "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace; fill: var(--wordmark-accent, #0050F5); }
+  </style>
+  <text class="word"  x="0"   y="20" textLength="208" lengthAdjust="spacingAndGlyphs">FELIX GEELHAAR</text>
+  <text class="slash" x="214" y="22">/</text>
+</svg>
