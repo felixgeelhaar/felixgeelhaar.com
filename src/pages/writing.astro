@@ -32,6 +32,39 @@ const counts = {
     </section>
   ) : (
     <>
+      <section class="start-here">
+        <h2 class="start-here__heading">Start here</h2>
+        <p class="start-here__lede">
+          Three reader-paths through the 14 posts. Pick the one closest to your job today.
+        </p>
+        <div class="start-here__grid">
+          <article class="start-here__card">
+            <p class="start-here__role">Eng leader adopting AI agents</p>
+            <ol>
+              <li><a href={`${BASE}writing/21-patterns-shipping-with-agents`}>21 patterns I keep seeing in teams shipping with AI coding agents.</a></li>
+              <li><a href={`${BASE}writing/deploy-release-launch`}>Deploy is not release. Release is not launch.</a></li>
+              <li><a href={`${BASE}writing/cognitive-stack`}>An agent runtime is five primitives. Most fake at least three.</a></li>
+            </ol>
+          </article>
+          <article class="start-here__card">
+            <p class="start-here__role">Engineer building agent tooling</p>
+            <ol>
+              <li><a href={`${BASE}writing/agents-forget-plan-remembers`}>Agents forget. The plan should remember.</a></li>
+              <li><a href={`${BASE}writing/plan-and-evidence-two-memories`}>Agents forget two ways. Most memory tools only fix one.</a></li>
+              <li><a href={`${BASE}writing/llm-resilience-playbook`}>LLM calls broke your resilience playbook. Add these back.</a></li>
+            </ol>
+          </article>
+          <article class="start-here__card">
+            <p class="start-here__role">Security / platform / TPM at scale</p>
+            <ol>
+              <li><a href={`${BASE}writing/security-scanner-ai-blind`}>Your security scanner can't see your AI code.</a></li>
+              <li><a href={`${BASE}writing/jira-campaign-orchestration`}>Every 200-team rollout ends in a Google Sheet. Fix it in Jira.</a></li>
+              <li><a href={`${BASE}writing/local-first-coding-agents`}>Cloud coding agents read your repo. Yours doesn't have to.</a></li>
+            </ol>
+          </article>
+        </div>
+      </section>
+
       <div class="filter-bar" role="group" aria-label="Filter posts by kind">
         <button type="button" class="filter-pill is-active" data-filter="all" aria-pressed="true">
           All <span class="filter-count">{counts.all}</span>
@@ -66,6 +99,56 @@ const counts = {
 </BaseLayout>
 
 <style>
+  /* Start-here block: three reader-paths into the portfolio. Sits
+     above the filter bar so a cold reader picks a path before the
+     full list overwhelms them. */
+  .start-here {
+    margin: 0 0 2.5rem;
+    padding: 1.5rem;
+    background: var(--color-bg-elevated, #FFFFFF);
+    border: 1px solid var(--color-line, #E5E5E5);
+    border-radius: 8px;
+  }
+  .start-here__heading {
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-fg-muted, #525252);
+    margin: 0 0 0.5rem;
+  }
+  .start-here__lede {
+    color: var(--color-fg-muted, #525252);
+    margin: 0 0 1.25rem;
+    font-size: 0.95rem;
+  }
+  .start-here__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 1.25rem;
+  }
+  .start-here__card {
+    background: var(--color-bg, #FAFAFA);
+    border: 1px solid var(--color-line, #E5E5E5);
+    padding: 1rem 1.1rem 1.1rem;
+    border-radius: 6px;
+  }
+  .start-here__role {
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-fg, #0A0A0A);
+    margin: 0 0 0.65rem;
+  }
+  .start-here__card ol {
+    margin: 0;
+    padding-left: 1.1rem;
+    display: grid;
+    gap: 0.45rem;
+  }
+  .start-here__card a { font-size: 0.92rem; line-height: 1.35; }
+
   /* Filter bar — sits above the entry list. Pill row with counts. */
   .filter-bar {
     display: flex;

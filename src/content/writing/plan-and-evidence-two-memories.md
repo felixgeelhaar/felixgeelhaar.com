@@ -1,5 +1,5 @@
 ---
-title: "Your agent needs two memories. The plan and the evidence."
+title: "Agents forget two ways. Most memory tools only fix one."
 summary: "Plan-of-record and evidence layer are different primitives, solving different forms of forgetting. Most agent runtimes collapse them into one — or skip both — and pay the cost in the wrong direction."
 date: 2026-05-17
 readingMins: 7

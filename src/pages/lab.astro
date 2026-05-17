@@ -2,9 +2,21 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 const BASE = import.meta.env.BASE_URL;
 
-// Current top projects. The full list lives on github.com/felixgeelhaar.
-// Update this when something graduates from lab to its own page or
-// when a new project takes over the focus.
+// Paid products live in their own section at the top of /lab so a
+// buyer landing here from a project post sees the commercial option
+// before scrolling through the OSS shelf.
+const paid = [
+  {
+    title: 'Armada',
+    status: 'paid · Atlassian Marketplace · TypeScript',
+    summary: 'Campaign orchestration for Jira — turn one parent issue into 50+ child issues across teams, with fan-out strategies per team, live mission control, fleet management, recall safety rails, approval gates, templates, and multi-stage rollouts. Ships on the Atlassian Marketplace. Product site: armada.run.',
+    href: `${BASE}armada`,
+  },
+];
+
+// Open-source projects. The full list lives on github.com/felixgeelhaar.
+// Update when something graduates from lab to its own page or when a
+// new project takes over the focus.
 const projects = [
   {
     title: 'Nomi',
@@ -67,12 +79,6 @@ const projects = [
     href: 'https://github.com/felixgeelhaar?tab=repositories&q=chronos+nous+praxis+olymp',
   },
   {
-    title: 'Armada',
-    status: 'paid · Atlassian Marketplace · TypeScript',
-    summary: 'Campaign orchestration for Jira — turn one parent issue into 50+ child issues across teams, with fan-out strategies per team, live mission control, fleet management, recall safety rails, approval gates, templates, and multi-stage rollouts. Compass integration for team discovery and metric rollup. Ships on the Atlassian Marketplace. Product site: armada.run.',
-    href: `${BASE}armada`,
-  },
-  {
     title: 'mcp-go',
     status: 'active · Go',
     summary: 'Go framework for building MCP (Model Context Protocol) servers. Used by most of the projects above.',
@@ -94,11 +100,26 @@ const projects = [
 ---
 <BaseLayout
   title="Lab"
-  description="Tools I build. Most are open source on GitHub. Most are written in Go."
-  lede="Tools I build. Most are open source on GitHub. Most are Go. The full list lives on GitHub."
+  description="Tools I build. One paid product on the Atlassian Marketplace. The rest open source on GitHub. Most are written in Go."
+  lede="Tools I build. One paid product (Armada, in the Atlassian Marketplace). The rest open source on GitHub. Most are Go."
   nav="lab"
   ogImage="lab"
 >
+  <h2 class="lab-section-heading">Paid</h2>
+  <ol class="entry-list">
+    {paid.map((p) => (
+      <li class="entry">
+        <div class="entry-meta">
+          <span class="entry-badge entry-badge--paid">PAID</span>
+          <span>{p.status}</span>
+        </div>
+        <h2><a href={p.href}>{p.title} <span aria-hidden="true">↗</span></a></h2>
+        <p class="entry-summary">{p.summary}</p>
+      </li>
+    ))}
+  </ol>
+
+  <h2 class="lab-section-heading">Open source</h2>
   <ol class="entry-list">
     {projects.map((p) => (
       <li class="entry">
@@ -119,3 +140,31 @@ const projects = [
     </p>
   </section>
 </BaseLayout>
+
+<style>
+  .lab-section-heading {
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-fg-muted, #525252);
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--color-line, #E5E5E5);
+  }
+  .lab-section-heading:first-of-type { margin-top: 0; }
+
+  .entry-badge {
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    padding: 0.15rem 0.45rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+  }
+  .entry-badge--paid {
+    background: var(--color-accent, #0050F5);
+    color: #FFFFFF;
+  }
+</style>

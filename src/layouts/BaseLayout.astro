@@ -166,7 +166,11 @@ const BASE = import.meta.env.BASE_URL;
 
     <footer class="site-footer">
       <div class="site-footer__signup">
-        <EmailSignup compact={false} />
+        <EmailSignup
+          heading="Field Notes"
+          blurb="New essay, roughly weekly. No tracking, no upsell."
+          cta="Subscribe"
+        />
       </div>
       <p>
         <a href={`${BASE}now`}>Now</a> · <a href={`${BASE}uses`}>Uses</a> · <a href={`${BASE}contact`}>Contact</a> · <a href={`${BASE}writing/feed.xml`}>RSS</a>

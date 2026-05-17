@@ -3,13 +3,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const BASE = import.meta.env.BASE_URL;
 
 const ARMADA = {
-  // Canonical product landing. armada.run is Armada's own marketing
-  // site; this page (/armada on the personal site) is the inline
-  // introduction for readers landing from the writing.
+  // armada.run is the canonical commercial site. This page is the
+  // intro for personal-site visitors who arrive from a writing post
+  // or the primary nav. The full pitch (screenshots, pricing, social
+  // proof, full feature list) lives on armada.run.
   productSite: 'https://armada.run',
   marketplaceUrl: 'https://marketplace.atlassian.com/apps/2348071004/armada-campaign-manager-for-jira',
   github: 'https://github.com/felixgeelhaar/armada',
-  docs: 'https://github.com/felixgeelhaar/armada#documentation',
   version: 'v4.2',
   trialDays: 30,
 };
@@ -51,114 +51,38 @@ const compare = [
     armada: 'Templates saved as data. Multi-stage rollouts defined and persisted on the campaign object.',
   },
 ];
-
-const useCases = [
-  {
-    title: 'Security patch rollout',
-    detail: 'CVE drops. Patch needs to ship across every service touching the affected library — across 87 teams in 12 projects. Fan-out with health checks, approval gates per tier, recall safety if the patch regresses.',
-  },
-  {
-    title: 'Platform migration',
-    detail: 'Move 142 services from in-house auth to OIDC. Multi-stage rollout (tier-1, tier-2, tier-3), per-team adoption tracking, drift detection when teams skip stages.',
-  },
-  {
-    title: 'Compliance audit campaign',
-    detail: 'Quarterly SOC 2 evidence collection across 200+ repos. Templates reused each quarter, evidence-of-completion linked to parent campaign, audit trail defensible without a spreadsheet.',
-  },
-  {
-    title: 'Incident response coordination',
-    detail: 'Major incident requires action across multiple teams: rollback service A, patch service B, draft RCA for service C. Fan-out with live mission control + auto-nudge for stalled teams.',
-  },
-];
 ---
 <BaseLayout
   title="Armada — Campaign orchestration for Jira"
-  description="Turn one parent Jira issue into a tracked, audited, governable campaign across 50+ teams. Fan-out engine, live mission control, approval gates, recall safety, templates, multi-stage rollouts. Atlassian Marketplace app."
+  description="Turn one parent Jira issue into a tracked, audited, governable campaign across 50+ teams. Atlassian Marketplace app. Full product site: armada.run."
   nav="armada"
   ogImage="armada"
 >
   <!-- Hero -->
   <section class="armada-hero">
     <p class="armada-eyebrow">ATLASSIAN MARKETPLACE · {ARMADA.version}</p>
-    <h1>Jira can run a 200-team campaign. The defaults can't.</h1>
+    <h1>Every 200-team rollout ends in a Google Sheet. Fix it in Jira.</h1>
     <p class="lede">
       Armada turns Jira into a command center for large-scale initiatives — security patches,
       migrations, compliance audits, incident coordination. Fan out from one parent issue to
-      every team that needs work, govern the rollout, recall safely when you need to. Built as
-      a Forge app so it runs inside Jira's own permission and audit model.
+      every team that needs work, govern the rollout, recall safely. Built as a Forge app so
+      it runs inside Jira's permission and audit model.
     </p>
     <div class="armada-cta-row">
       <a href={ARMADA.marketplaceUrl} class="btn btn--accent" rel="noopener">
         Install from Marketplace
       </a>
-      <a href={ARMADA.productSite} class="btn btn--ghost" rel="noopener">
-        Full product site — armada.run
-      </a>
-      <a href={ARMADA.github} class="btn btn--ghost" rel="noopener">
-        Source on GitHub
+      <a href={ARMADA.productSite} class="armada-link-text" rel="noopener">
+        Full feature tour, screenshots &amp; pricing &rarr; armada.run
       </a>
     </div>
     <p class="armada-trial-note">
-      Free {ARMADA.trialDays}-day trial via the Atlassian Marketplace. Full feature tour, screenshots,
-      and pricing on <a href={ARMADA.productSite} rel="noopener">armada.run</a>.
+      Free {ARMADA.trialDays}-day trial via the Atlassian Marketplace. Source on <a href={ARMADA.github} rel="noopener">GitHub</a>.
     </p>
   </section>
 
-  <!-- What it does -->
-  <section class="armada-section">
-    <h2>What it does</h2>
-    <ul class="armada-features">
-      <li>
-        <strong>Smart fan-out.</strong> One parent issue produces N children across N teams. Each
-        child lands in the right project, in the right shape (sub-task, linked task, Epic child)
-        without the campaign owner needing to know each team's layout.
-      </li>
-      <li>
-        <strong>Live mission control.</strong> Single rollup view: weighted progress, blocked vs
-        review vs done, per-team timeline. Stalled-team detection with auto-nudge.
-      </li>
-      <li>
-        <strong>Fleet persistence.</strong> Team → project mapping stored, versioned, importable
-        from Compass with dedupe and validation.
-      </li>
-      <li>
-        <strong>Safety rails.</strong> Pre-flight health checks before launch. Recall path that
-        transitions + unlinks children with audit comments instead of bulk-deleting.
-      </li>
-      <li>
-        <strong>Approval gates.</strong> Named approver allowlist with audit-comment confirmations
-        for the launches that warrant it.
-      </li>
-      <li>
-        <strong>Templates.</strong> The quarterly compliance campaign you run every quarter is a
-        template you reapply with variable substitution. Not a campaign someone rebuilds from
-        memory each time.
-      </li>
-      <li>
-        <strong>Multi-stage rollouts.</strong> Wave 1 / wave 2 / wave 3 defined on the campaign,
-        gated, persisted, advanceable from the UI with audit-tracked transitions.
-      </li>
-      <li>
-        <strong>Compass integration.</strong> Component pages show campaign status. Scorecards push
-        metrics. Team discovery pulls services from Compass. Campaign indexing for fast lookups.
-      </li>
-    </ul>
-  </section>
-
-  <!-- Use cases -->
-  <section class="armada-section">
-    <h2>Where it fits</h2>
-    <div class="armada-usecases">
-      {useCases.map((uc) => (
-        <article class="armada-usecase">
-          <h3>{uc.title}</h3>
-          <p>{uc.detail}</p>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <!-- Comparison: vs ad-hoc agent -->
+  <!-- Comparison: vs ad-hoc agent. The unique signal this page carries —
+       no other Marketplace listing pre-empts the "just use Claude" objection. -->
   <section class="armada-section">
     <h2>But couldn't an agent just do this?</h2>
     <p class="armada-section-lede">
@@ -181,48 +105,31 @@ const useCases = [
       ))}
     </div>
     <p class="armada-compare__close">
-      <strong>The honest decision tree:</strong> one-off campaigns → use the agent.
-      Recurring, scaled, or audited campaigns → use the deterministic, scope-bounded,
+      <strong>The honest decision tree:</strong> one-off campaigns &rarr; use the agent.
+      Recurring, scaled, or audited campaigns &rarr; use the deterministic, scope-bounded,
       audit-logged app. The two compose: agent drafts the skeleton, Armada governs the
       execution.
     </p>
     <p class="armada-compare__longread">
       Long-form argument:
-      <a href={`${BASE}writing/jira-campaign-orchestration`}>Jira can run a 200-team campaign. The defaults can't.</a>
+      <a href={`${BASE}writing/jira-campaign-orchestration`}>Every 200-team rollout ends in a Google Sheet. Fix it in Jira.</a>
     </p>
   </section>
 
-  <!-- Who it's for -->
-  <section class="armada-section">
-    <h2>Who it's for</h2>
-    <ul class="armada-buyers">
-      <li><strong>Security program managers</strong> coordinating CVE patch rollouts across product engineering.</li>
-      <li><strong>Platform / infrastructure TPMs</strong> running multi-service migrations with per-team adoption tracking.</li>
-      <li><strong>Compliance leads</strong> orchestrating quarterly evidence collection across hundreds of repos.</li>
-      <li><strong>Engineering operations</strong> teams coordinating cross-org initiatives that don't fit a single project board.</li>
-    </ul>
-  </section>
-
-  <!-- Get it -->
+  <!-- Close -->
   <section class="armada-section armada-getit">
-    <h2>Get it</h2>
+    <h2>Get Armada</h2>
     <p>
-      Install Armada in your Jira site from the Atlassian Marketplace — {ARMADA.trialDays}-day free
-      trial, Forge app, runs inside your Jira tenant, Atlassian's permission and audit model. For
-      the full product tour, pricing tiers, screenshots, and case studies, head to <a href={ARMADA.productSite} rel="noopener">armada.run</a> — Armada's own marketing site.
+      Install from the Atlassian Marketplace &mdash; {ARMADA.trialDays}-day free trial, Forge app
+      runs inside your Jira tenant, Atlassian's permission and audit model. For the full feature
+      tour, screenshots, pricing tiers, and case studies, head to <a href={ARMADA.productSite} rel="noopener">armada.run</a>.
     </p>
     <div class="armada-cta-row">
       <a href={ARMADA.marketplaceUrl} class="btn btn--accent" rel="noopener">
         Install from Marketplace
       </a>
-      <a href={ARMADA.productSite} class="btn btn--ghost" rel="noopener">
-        armada.run
-      </a>
-      <a href={ARMADA.docs} class="btn btn--ghost" rel="noopener">
-        Documentation
-      </a>
-      <a href={ARMADA.github} class="btn btn--ghost" rel="noopener">
-        Source on GitHub
+      <a href={ARMADA.productSite} class="armada-link-text" rel="noopener">
+        armada.run &rarr;
       </a>
     </div>
   </section>
@@ -240,7 +147,19 @@ const useCases = [
   .armada-hero h1 { letter-spacing: -0.015em; margin-bottom: 1rem; }
   .armada-hero .lede { max-width: 56ch; }
   .armada-cta-row {
-    display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem;
+    display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin-top: 1.5rem;
+  }
+  .armada-link-text {
+    font: 500 0.9rem/1 var(--font-mono, ui-monospace, monospace);
+    letter-spacing: 0.04em;
+    color: var(--color-fg-muted, #525252);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--color-line-strong, #C9C9C9);
+    padding-bottom: 2px;
+  }
+  .armada-link-text:hover {
+    color: var(--color-fg, #0A0A0A);
+    border-bottom-color: var(--color-fg, #0A0A0A);
   }
   .armada-trial-note {
     margin-top: 0.75rem;
@@ -257,36 +176,6 @@ const useCases = [
     color: var(--color-fg-muted, #525252);
     max-width: 60ch;
     margin-bottom: 1.5rem;
-  }
-
-  .armada-features { list-style: none; padding: 0; display: grid; gap: 1rem; }
-  .armada-features li {
-    padding-left: 0;
-    line-height: 1.55;
-  }
-  .armada-features strong { color: var(--color-fg, #0A0A0A); }
-
-  .armada-usecases {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
-    gap: 1rem;
-  }
-  .armada-usecase {
-    border: 1px solid var(--color-line, #E5E5E5);
-    padding: 1.25rem;
-    background: var(--color-bg-elevated, #FFFFFF);
-  }
-  .armada-usecase h3 {
-    font-size: 1rem;
-    font-family: var(--font-mono, ui-monospace, monospace);
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-  }
-  .armada-usecase p {
-    color: var(--color-fg-muted, #525252);
-    font-size: 0.95rem;
-    line-height: 1.5;
   }
 
   .armada-compare {
@@ -325,13 +214,9 @@ const useCases = [
     color: var(--color-fg-muted, #525252);
   }
 
-  .armada-buyers { padding-left: 1.25rem; line-height: 1.6; }
-  .armada-buyers strong { color: var(--color-fg, #0A0A0A); }
-
   .armada-getit { padding-bottom: 3rem; }
   .armada-getit p { line-height: 1.55; margin-bottom: 1.25rem; max-width: 60ch; }
 
-  /* Button helpers — minimal, brand tokens with safe fallbacks. */
   .btn {
     display: inline-flex;
     align-items: center;
@@ -350,10 +235,4 @@ const useCases = [
     border-color: var(--color-accent, #0050F5);
   }
   .btn--accent:hover { background: var(--color-accent-hover, #0040C8); }
-  .btn--ghost {
-    background: transparent;
-    color: var(--color-fg, #0A0A0A);
-    border-color: var(--color-line-strong, #C9C9C9);
-  }
-  .btn--ghost:hover { border-color: var(--color-fg, #0A0A0A); }
 </style>

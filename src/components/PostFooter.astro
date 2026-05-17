@@ -24,6 +24,14 @@ const related = entries
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 2);
 
+// 3 most recent non-draft essays anywhere, for the email signup's
+// "recent issues" proof block. Excludes the current post.
+const recentForSignup = entries
+  .filter((e) => e.id !== current.id && !e.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3)
+  .map((e) => ({ title: e.data.title, href: `${BASE}writing/${e.id}` }));
+
 // Project deep-link map. Keep in sync with /lab entries.
 const PROJECT_LINKS: Record<string, { repo: string; landing?: string }> = {
   roady:    { repo: 'https://github.com/felixgeelhaar/roady' },
@@ -45,15 +53,16 @@ const proj = current.data.project ? PROJECT_LINKS[current.data.project] : undefi
   <section class="post-footer__bio">
     <p>
       <strong>Felix Geelhaar</strong> builds open-source Go libraries and AI-agent tooling
-      (<a href={`${BASE}lab`}>/lab</a>), writes about how teams ship software (<a href={`${BASE}writing`}>/writing</a>),
-      and runs <a href={`${BASE}armada`}>Armada</a> in the Atlassian Marketplace. Munich.
+      (<a href={`${BASE}lab`}>/lab</a>), writes the <a href={`${BASE}writing`}>Field Notes</a> newsletter
+      (roughly weekly), and runs <a href={`${BASE}armada`}>Armada</a> in the Atlassian Marketplace. Munich.
     </p>
   </section>
 
   <!-- 2. Email capture -->
   <EmailSignup
-    heading="Get the next essay in your inbox."
-    blurb="One quiet email per post. No tracking, no upsell, unsubscribe in one click."
+    heading="Liked this? Get the next one in your inbox."
+    blurb="Field notes on shipping with agents — roughly weekly. No tracking, no upsell, unsubscribe in one click."
+    recentTitles={recentForSignup}
   />
 
   <!-- 3. Related posts (same kind) -->
