@@ -1,0 +1,116 @@
+# felixgeelhaar.de — personal site on the shared k3s cluster.
+# Mirrors iri/brotwerk conventions: namespace-scoped names, GHCR
+# pull secret, Traefik ingress, cert-manager TLS.
+#
+# Bootstrap (one-time):
+#   kubectl apply -f deploy/k3s/site.yaml          # namespace + workload
+#   kubectl -n website create secret docker-registry ghcr-pull \
+#     --docker-server=ghcr.io --docker-username=felixgeelhaar \
+#     --docker-password=<PAT-with-read:packages>
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: website
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: site
+  namespace: website
+  labels:
+    app: site
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: site
+  template:
+    metadata:
+      labels:
+        app: site
+    spec:
+      imagePullSecrets:
+        - name: ghcr-pull
+      # Spread across nodes so either node can serve alone.
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: site
+      containers:
+        - name: site
+          image: ghcr.io/felixgeelhaar/felixgeelhaar-com:v0.1.0
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 2
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 30
+          resources:
+            requests:
+              cpu: 10m
+              memory: 16Mi
+            limits:
+              cpu: 200m
+              memory: 64Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: site
+  namespace: website
+spec:
+  selector:
+    app: site
+  ports:
+    - port: 80
+      targetPort: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: site
+  namespace: website
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: felixgeelhaar.de
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: site
+                port:
+                  number: 80
+    - host: www.felixgeelhaar.de
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: site
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - felixgeelhaar.de
+        - www.felixgeelhaar.de
+      secretName: site-tls
