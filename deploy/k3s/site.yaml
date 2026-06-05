@@ -42,7 +42,7 @@ spec:
               app: site
       containers:
         - name: site
-          image: ghcr.io/felixgeelhaar/felixgeelhaar-com:v0.1.0
+          image: ghcr.io/felixgeelhaar/felixgeelhaar-com:v0.1.1
           ports:
             - containerPort: 8080
           readinessProbe:
