@@ -10,8 +10,13 @@ import { defineConfig } from 'astro/config';
 //   - Once the custom domain lands, both flip to https://felixgeelhaar.com/
 // Toggle via env so the same workflow can ship to either target.
 const USE_CUSTOM_DOMAIN = process.env.PUBLIC_USE_CUSTOM_DOMAIN === '1';
+// PUBLIC_SITE_URL overrides the canonical origin for self-hosted deploys
+// (k3s serves the site at https://felixgeelhaar.de — see deploy/k3s/).
+const SITE_URL =
+  process.env.PUBLIC_SITE_URL ||
+  (USE_CUSTOM_DOMAIN ? 'https://felixgeelhaar.com' : 'https://felixgeelhaar.github.io/felixgeelhaar.com');
 export default defineConfig({
-  site: USE_CUSTOM_DOMAIN ? 'https://felixgeelhaar.com' : 'https://felixgeelhaar.github.io/felixgeelhaar.com',
+  site: SITE_URL,
   base: USE_CUSTOM_DOMAIN ? '/' : '/felixgeelhaar.com/',
   // trailingSlash default 'ignore' keeps BASE_URL as '/felixgeelhaar.com/'
   // so `${BASE}brand/tokens.css` joins correctly. 'never' strips the
