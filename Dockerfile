@@ -8,6 +8,8 @@
 # Static site via unprivileged nginx (listens on 8080, runs as uid 101).
 FROM nginxinc/nginx-unprivileged:1.27-alpine
 
+# try_files mapping for Astro build.format 'file' (extension-less links).
+COPY deploy/nginx.conf /etc/nginx/conf.d/default.conf
 COPY dist /usr/share/nginx/html
 
 EXPOSE 8080
