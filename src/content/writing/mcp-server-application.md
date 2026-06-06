@@ -53,7 +53,7 @@ Each of these is a couple of hours of work to fix the first time. By the fifth t
 
 You don't need my framework. You need *a* framework. The primitive — typed handlers + middleware + transport abstraction + uniform error mapping + automatic schema — is what makes MCP servers shippable instead of bespoke.
 
-I built [mcp-go](https://github.com/felixgeelhaar/mcp-go) because the existing options in Go either give you protocol correctness without application structure (the SDKs) or convenience without the production defaults you need at the third tool, the third client, and the second incident (the lighter wrappers). mcp-go is opinionated, production-ready, conformance-tested against the MCP spec, and gets out of your way once the scaffold is up. v1.11 ships now.
+I built [mcp-go](https://github.com/klarlabs-studio/mcp-go) because the existing options in Go either give you protocol correctness without application structure (the SDKs) or convenience without the production defaults you need at the third tool, the third client, and the second incident (the lighter wrappers). mcp-go is opinionated, production-ready, conformance-tested against the MCP spec, and gets out of your way once the scaffold is up. v1.11 ships now.
 
 But the framework is downstream. The point is the primitive. If you're three MCP tools into a server and the third one is harder to write than the first one was, you're not building a server. You're rebuilding the framework, one handler at a time.
 

@@ -73,7 +73,7 @@ You don't need my libraries. You need to recognize the primitives, decide which 
 
 I've been building each piece as a domain-agnostic Go library so they compose without locking into one runtime:
 
-- [Mnemos](https://github.com/felixgeelhaar/mnemos) — memory & evidence layer
+- [Mnemos](https://github.com/klarlabs-studio/mnemos) — memory & evidence layer
 - [Chronos](https://github.com/felixgeelhaar/chronos) — time & pattern perception
 - [Nous](https://github.com/felixgeelhaar/nous) — commitment extraction & intervention
 - [Praxis](https://github.com/felixgeelhaar/praxis) — typed, policy-checked, audit-logged actions
@@ -83,7 +83,7 @@ Each one is replaceable. The thesis is the composition: an agent runtime isn't o
 
 If you're starting from one of the eight failure modes above and don't know which primitive to adopt first, the mapping is reliable:
 
-- **Memory-as-buffer** or **memory written by A used by B** → start with the evidence layer ([Mnemos](https://github.com/felixgeelhaar/mnemos)). It's the most load-bearing primitive and the easiest to retrofit later.
+- **Memory-as-buffer** or **memory written by A used by B** → start with the evidence layer ([Mnemos](https://github.com/klarlabs-studio/mnemos)). It's the most load-bearing primitive and the easiest to retrofit later.
 - **The unsupervised loop** or **fake control plane via dashboards** → start with the control plane ([Olymp](https://github.com/felixgeelhaar/olymp)). Once two agents share a runtime, the supervisor is non-negotiable.
 - **Prose-as-API** or **audit log = chat transcript** → start with typed actions ([Praxis](https://github.com/felixgeelhaar/praxis)). The action layer is where the agent meets the world; it should be the most rigorously typed part.
 - **Time-blind agent** or repeated misses on patterns the data shows → start with time perception ([Chronos](https://github.com/felixgeelhaar/chronos)).

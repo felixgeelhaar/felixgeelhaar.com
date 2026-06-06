@@ -54,7 +54,7 @@ The shared cause of all eight: applying patterns designed for cheap, fast, binar
 
 You don't need my library. You need the patterns, composed correctly for your workload, instrumented well enough that you can see them working.
 
-I built [Fortify](https://github.com/felixgeelhaar/fortify) because the existing Go resilience libraries cover the classical patterns but leave the AI-shaped ones — stream timeout, cost budget, hedge with budget cap, adaptive concurrency tuned for token rate limits — as an exercise for the reader. Fortify ships them as composable middleware, with OpenTelemetry, Prometheus, and `slog` observability built in, and zero core dependencies. v1.5 ships now.
+I built [Fortify](https://github.com/klarlabs-studio/fortify) because the existing Go resilience libraries cover the classical patterns but leave the AI-shaped ones — stream timeout, cost budget, hedge with budget cap, adaptive concurrency tuned for token rate limits — as an exercise for the reader. Fortify ships them as composable middleware, with OpenTelemetry, Prometheus, and `slog` observability built in, and zero core dependencies. v1.5 ships now.
 
 But the tool is downstream. The point is the primitive set. If you're shipping a Go service that calls an LLM or a tool, and you don't have at least timeout + circuit breaker + cost budget + stream timeout wrapping every outbound call, you're betting the service's uptime on the model provider's good behavior. The bet has good days. The bad days are very, very bad.
 

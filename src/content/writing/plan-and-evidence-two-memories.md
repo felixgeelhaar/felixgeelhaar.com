@@ -48,7 +48,7 @@ This is what [Roady](https://github.com/felixgeelhaar/roady) provides.
 
 The artifacts are events (the inputs), claims (the structured assertions the agent has made from those inputs), contradictions (the surfaced conflicts when two claims disagree), and replay (the ability to re-run the same input and get the same output, or surface a divergence). Structured, queryable, auditable. The agent's "knowledge" is no longer an opaque embedding store; it's a database you can `grep`.
 
-This is what [Mnemos](https://github.com/felixgeelhaar/mnemos) provides.
+This is what [Mnemos](https://github.com/klarlabs-studio/mnemos) provides.
 
 The two artifacts answer different questions on different timelines. A plan-of-record without an evidence layer means the agent knows what to do but not what to believe. An evidence layer without a plan-of-record means the agent knows what's true but not where it's going.
 
