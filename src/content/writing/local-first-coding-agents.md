@@ -100,7 +100,7 @@ network as explicit capabilities you grant or deny. The memory is a
 SQLite file. The same daemon runs headless on a homelab box for the
 multi-machine case. You bring the LLM.
 
-It is called [Nomi](https://github.com/felixgeelhaar/nomi). v0.1 is
+It is called [Nomi](https://github.com/klarlabs-studio/nomi). v0.1 is
 out. The roadmap and the source are public. If this argument lands
 for you, the install is one binary.
 

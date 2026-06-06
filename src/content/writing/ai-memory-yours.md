@@ -51,7 +51,7 @@ The thread connecting all eight: treating memory as a vendor problem instead of 
 
 You don't need my binary. You need the shape — events, claims, contradictions, evidence, replay — running somewhere you control.
 
-I built [Mnemos](https://github.com/felixgeelhaar/mnemos) because the existing options either give you cloud convenience without the ownership properties (the hosted services) or storage without structure (the vector DBs). Mnemos is a Go binary, an HTTP API, and SQLite or Postgres on your infrastructure. Every claim has evidence. Every contradiction surfaces. Every decision replays. No SDK to install; any language with an HTTP client integrates in five lines. v0.15 ships now.
+I built [Mnemos](https://github.com/klarlabs-studio/mnemos) because the existing options either give you cloud convenience without the ownership properties (the hosted services) or storage without structure (the vector DBs). Mnemos is a Go binary, an HTTP API, and SQLite or Postgres on your infrastructure. Every claim has evidence. Every contradiction surfaces. Every decision replays. No SDK to install; any language with an HTTP client integrates in five lines. v0.15 ships now.
 
 But the binary is downstream. The point is the primitive. If you're building an AI app and the answer to "where does the memory live" is a vendor's region, the answer to "what happens when the vendor changes its pricing or its terms or its uptime" is "we find out."
 

@@ -70,7 +70,7 @@ The common cause: treating workflow logic as control flow when it's actually a s
 
 You don't need my library. You need the primitive — typed states, hierarchy, guards, snapshots, lint, visualization — as a first-class part of the workflow, not as the third refactor everyone postpones.
 
-I built [Statekit](https://github.com/felixgeelhaar/statekit) because the existing Go FSM libraries are either flat (no hierarchy, no parallel states) or have ceilings the moment you need typed context, snapshot persistence, or recovery from a partial transition. Statekit is hierarchical, typed, lintable, visualizable, and runs the two adjacent jobs that look similar from outside: backend domain workflows (order, payment, incident) and AI agent runtimes (RAG pipelines, tool-call workflows, human-in-the-loop). Same primitives, one mental model. v1.5 ships now.
+I built [Statekit](https://github.com/klarlabs-studio/statekit) because the existing Go FSM libraries are either flat (no hierarchy, no parallel states) or have ceilings the moment you need typed context, snapshot persistence, or recovery from a partial transition. Statekit is hierarchical, typed, lintable, visualizable, and runs the two adjacent jobs that look similar from outside: backend domain workflows (order, payment, incident) and AI agent runtimes (RAG pipelines, tool-call workflows, human-in-the-loop). Same primitives, one mental model. v1.5 ships now.
 
 But the library is downstream. The point is the primitive. If your service has a 400-line switch and a recurring bug pattern around partial failure, the refactor isn't "clean up the switch." The refactor is "the switch was an FSM all along; let's let it be one."
 

@@ -57,7 +57,7 @@ The thread connecting all eight: treating one corner of the trilemma as the sacr
 
 You don't need my handler. You need a handler that takes all three corners seriously and a logger interface (slog) that lets you swap the handler without touching application code.
 
-I built [Bolt](https://github.com/felixgeelhaar/bolt) because I wanted the zero-allocation perf of zerolog, the slog ergonomics that the standard library now blesses, and the OTel correlation that production services need on day one, in one handler, with a single encoder behind both the `slog.Handler` interface and a chained-builder API for hot paths. The `genai` add-on annotates spans with the OpenTelemetry GenAI semantic conventions so AI calls show up in your traces correctly without each service inventing the mapping. v1.4 of the core and v0.1 of `genai` ship now.
+I built [Bolt](https://github.com/klarlabs-studio/bolt) because I wanted the zero-allocation perf of zerolog, the slog ergonomics that the standard library now blesses, and the OTel correlation that production services need on day one, in one handler, with a single encoder behind both the `slog.Handler` interface and a chained-builder API for hot paths. The `genai` add-on annotates spans with the OpenTelemetry GenAI semantic conventions so AI calls show up in your traces correctly without each service inventing the mapping. v1.4 of the core and v0.1 of `genai` ship now.
 
 But the handler is downstream. The point is that the trilemma was always a sampling artifact. If your logger picks two corners, the third corner is paying interest in your production environment whether you measure it or not.
 
