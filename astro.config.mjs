@@ -18,6 +18,19 @@ const SITE_URL =
 export default defineConfig({
   site: SITE_URL,
   base: USE_CUSTOM_DOMAIN ? '/' : '/felixgeelhaar.com/',
+  // v1 IA cut the sitemap to three surfaces (brand docs/ia.md):
+  // Home, Work, Writing. Old top-level routes redirect to their new
+  // homes. Static output → Astro emits meta-refresh pages; the nginx
+  // config (deploy/nginx.conf) adds real 301s for self-hosted deploys.
+  // Destinations carry the base prefix explicitly — Astro passes
+  // redirect values through verbatim.
+  redirects: {
+    '/lab':   USE_CUSTOM_DOMAIN ? '/work' : '/felixgeelhaar.com/work', // lab folds into /work
+    '/talks': USE_CUSTOM_DOMAIN ? '/work' : '/felixgeelhaar.com/work', // speaking lives as a /work section
+    '/about': USE_CUSTOM_DOMAIN ? '/'     : '/felixgeelhaar.com/',     // narrative bio folds into home
+    '/now':   USE_CUSTOM_DOMAIN ? '/'     : '/felixgeelhaar.com/',     // focus snapshot folds into home
+    '/uses':  USE_CUSTOM_DOMAIN ? '/'     : '/felixgeelhaar.com/',     // dropped from v1; revisit on demand
+  },
   // trailingSlash default 'ignore' keeps BASE_URL as '/felixgeelhaar.com/'
   // so `${BASE}brand/tokens.css` joins correctly. 'never' strips the
   // trailing slash from BASE_URL and breaks asset hrefs.

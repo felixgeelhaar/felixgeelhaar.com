@@ -1,18 +1,11 @@
 /**
  * <fg-icon> styles + plain `<svg class="fg-icon">` baseline.
  *
- * Sizes pull from --icon-size-* tokens declared below. Stroke width
- * stays unitless on the symbol itself; vector-effect: non-scaling-stroke
- * keeps the rendered weight optically uniform across sizes.
+ * Sizes pull from the --icon-size-* tokens in tokens.css (single source
+ * of truth — never redefined here). Stroke weight consumes
+ * --icon-stroke-default; vector-effect: non-scaling-stroke keeps the
+ * rendered weight optically uniform across sizes.
  */
-
-:root {
-  --icon-size-xs: 16px;
-  --icon-size-sm: 20px;
-  --icon-size-md: 24px;
-  --icon-size-lg: 32px;
-  --icon-stroke:  1.5;
-}
 
 fg-icon {
   display: inline-flex;
@@ -37,6 +30,7 @@ fg-icon > svg {
 }
 
 fg-icon svg [stroke="currentColor"] {
+  stroke-width: var(--icon-stroke-default);
   vector-effect: non-scaling-stroke;
 }
 

@@ -48,10 +48,14 @@ fg-toc { display: block; }
 fg-reading-progress { display: block; }
 
 .fg-reading-progress {
+  /* Local derived value: 3px is deliberate — --border-strong (2px) is
+     too faint against page chrome, --space-2 (4px) too loud. Do not
+     bend the border/spacing scales to hit it. */
+  --progress-height: 3px;
   position: fixed;
   left: 0;
   right: 0;
-  height: 3px;
+  height: var(--progress-height);
   background: transparent;
   z-index: var(--z-sticky);
   pointer-events: none;
@@ -66,7 +70,8 @@ fg-reading-progress { display: block; }
   background: var(--color-accent);
   transform-origin: left center;
   transform: scaleX(0);
-  transition: transform var(--dur-fast) linear;
+  /* linear easing is reserved for progress indicators (tokens.css). */
+  transition: transform var(--dur-fast) var(--ease-linear);
 }
 
 /* ── Prev / next post nav ────────────────────────────────────────── */

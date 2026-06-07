@@ -28,43 +28,10 @@ const counts = {
 >
   {entries.length === 0 ? (
     <section class="prose">
-      <p>No essays yet. The first ones land here. Topics queued on <a href={`${BASE}now`}>/now</a>.</p>
+      <p>No essays yet. The first ones land here.</p>
     </section>
   ) : (
     <>
-      <section class="start-here">
-        <h2 class="start-here__heading">Start here</h2>
-        <p class="start-here__lede">
-          Three reader-paths through the 14 posts. Pick the one closest to your job today.
-        </p>
-        <div class="start-here__grid">
-          <article class="start-here__card">
-            <p class="start-here__role">Eng leader adopting AI agents</p>
-            <ol>
-              <li><a href={`${BASE}writing/21-patterns-shipping-with-agents`}>21 patterns I keep seeing in teams shipping with AI coding agents.</a></li>
-              <li><a href={`${BASE}writing/deploy-release-launch`}>Deploy is not release. Release is not launch.</a></li>
-              <li><a href={`${BASE}writing/cognitive-stack`}>An agent runtime is five primitives. Most fake at least three.</a></li>
-            </ol>
-          </article>
-          <article class="start-here__card">
-            <p class="start-here__role">Engineer building agent tooling</p>
-            <ol>
-              <li><a href={`${BASE}writing/agents-forget-plan-remembers`}>Agents forget. The plan should remember.</a></li>
-              <li><a href={`${BASE}writing/plan-and-evidence-two-memories`}>Agents forget two ways. Most memory tools only fix one.</a></li>
-              <li><a href={`${BASE}writing/llm-resilience-playbook`}>LLM calls broke your resilience playbook. Add these back.</a></li>
-            </ol>
-          </article>
-          <article class="start-here__card">
-            <p class="start-here__role">Security / platform / TPM at scale</p>
-            <ol>
-              <li><a href={`${BASE}writing/security-scanner-ai-blind`}>Your security scanner can't see your AI code.</a></li>
-              <li><a href={`${BASE}writing/jira-campaign-orchestration`}>Every 200-team rollout ends in a Google Sheet. Fix it in Jira.</a></li>
-              <li><a href={`${BASE}writing/local-first-coding-agents`}>Cloud coding agents read your repo. Yours doesn't have to.</a></li>
-            </ol>
-          </article>
-        </div>
-      </section>
-
       <div class="filter-bar" role="group" aria-label="Filter posts by kind">
         <button type="button" class="filter-pill is-active" data-filter="all" aria-pressed="true">
           All <span class="filter-count">{counts.all}</span>
@@ -77,19 +44,22 @@ const counts = {
         </button>
       </div>
 
-      <ol class="entry-list" id="writing-list">
+      {/* Direction-C essay rows: white card, hairline-divided rows,
+          kinetic cobalt underline on hover. */}
+      <div class="essay-rows" id="writing-list">
         {entries.map((e) => (
-          <li class="entry" data-kind={e.data.kind} data-project={e.data.project ?? ''}>
-            <div class="entry-meta">
-              <span>{e.data.kind === 'project' ? (e.data.project ?? 'PROJECT').toUpperCase() : 'ESSAY'}</span>
-              <span>{fmtDate(e.data.date)}</span>
-              {e.data.readingMins && <span>{e.data.readingMins} min</span>}
+          <a class="essay-row" href={`${BASE}writing/${e.id}`} data-kind={e.data.kind}>
+            <time datetime={fmtDate(e.data.date)}>{fmtDate(e.data.date)}</time>
+            <div class="essay-row__body">
+              <h3><span>{e.data.title}</span></h3>
+              <p class="essay-row__summary">{e.data.summary}</p>
             </div>
-            <h2><a href={`${BASE}writing/${e.id}`}>{e.data.title}</a></h2>
-            <p class="entry-summary">{e.data.summary}</p>
-          </li>
+            <span class="essay-row__min">
+              {e.data.kind === 'project' ? (e.data.project ?? 'project') : `${e.data.readingMins ?? '—'} min`}
+            </span>
+          </a>
         ))}
-      </ol>
+      </div>
 
       <p class="filter-empty" id="filter-empty" hidden>
         No posts in this filter yet.
@@ -99,74 +69,24 @@ const counts = {
 </BaseLayout>
 
 <style>
-  /* Start-here block: three reader-paths into the portfolio. Sits
-     above the filter bar so a cold reader picks a path before the
-     full list overwhelms them. */
-  .start-here {
-    margin: 0 0 2.5rem;
-    padding: 1.5rem;
-    background: var(--color-bg-elevated, #FFFFFF);
-    border: 1px solid var(--color-line, #E5E5E5);
-    border-radius: 8px;
-  }
-  .start-here__heading {
-    font-family: var(--font-mono, ui-monospace, monospace);
-    font-size: 0.8rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--color-fg-muted, #525252);
-    margin: 0 0 0.5rem;
-  }
-  .start-here__lede {
-    color: var(--color-fg-muted, #525252);
-    margin: 0 0 1.25rem;
-    font-size: 0.95rem;
-  }
-  .start-here__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-    gap: 1.25rem;
-  }
-  .start-here__card {
-    background: var(--color-bg, #FAFAFA);
-    border: 1px solid var(--color-line, #E5E5E5);
-    padding: 1rem 1.1rem 1.1rem;
-    border-radius: 6px;
-  }
-  .start-here__role {
-    font-family: var(--font-mono, ui-monospace, monospace);
-    font-size: 0.7rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--color-fg, #0A0A0A);
-    margin: 0 0 0.65rem;
-  }
-  .start-here__card ol {
-    margin: 0;
-    padding-left: 1.1rem;
-    display: grid;
-    gap: 0.45rem;
-  }
-  .start-here__card a { font-size: 0.92rem; line-height: 1.35; }
-
-  /* Filter bar — sits above the entry list. Pill row with counts. */
+  /* Filter bar — pill row with counts, v1 pill geometry + cobalt accent. */
   .filter-bar {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin: 0 0 2rem;
+    margin: 0 0 1.5rem;
   }
 
   .filter-pill {
     appearance: none;
-    border: 1px solid var(--color-line, #E5E5E5);
+    border: 1px solid var(--color-line, #E2E4E8);
     background: var(--color-bg-elevated, #FFFFFF);
-    color: var(--color-fg-muted, #525252);
+    color: var(--color-fg-muted, #70757F);
     font: 500 0.85rem/1 var(--font-mono, ui-monospace, monospace);
     letter-spacing: 0.04em;
     text-transform: uppercase;
     padding: 0.55rem 0.95rem;
-    border-radius: 999px;
+    border-radius: var(--radius-pill, 999px);
     cursor: pointer;
     transition: all 120ms ease-out;
     display: inline-flex;
@@ -175,19 +95,19 @@ const counts = {
   }
 
   .filter-pill:hover {
-    border-color: var(--color-fg, #0A0A0A);
-    color: var(--color-fg, #0A0A0A);
+    border-color: var(--color-accent, #2742F5);
+    color: var(--color-accent, #2742F5);
   }
 
   .filter-pill:focus-visible {
-    outline: 2px solid var(--color-accent, #0050F5);
+    outline: 2px solid var(--color-accent, #2742F5);
     outline-offset: 2px;
   }
 
   .filter-pill.is-active {
-    background: var(--color-fg, #0A0A0A);
-    color: var(--color-bg, #FAFAFA);
-    border-color: var(--color-fg, #0A0A0A);
+    background: var(--color-bg-inverse, #16181D);
+    color: var(--color-bg, #F2F3F5);
+    border-color: var(--color-bg-inverse, #16181D);
   }
 
   .filter-count {
@@ -198,10 +118,10 @@ const counts = {
 
   /* Hide entries that don't match the active filter. Client-side
      toggling, no rebuild required. */
-  .entry[hidden] { display: none !important; }
+  .essay-row[hidden] { display: none !important; }
 
   .filter-empty {
-    color: var(--color-fg-muted, #525252);
+    color: var(--color-fg-muted, #70757F);
     font-style: italic;
     margin-top: 1rem;
   }
@@ -209,12 +129,12 @@ const counts = {
 
 <script is:inline>
   // Tiny client-side filter. Reads data-filter from the clicked pill,
-  // toggles `hidden` on every .entry whose data-kind doesn't match.
+  // toggles `hidden` on every row whose data-kind doesn't match.
   // No framework, no hydration cost — runs once on DOMContentLoaded.
   (function () {
     function init() {
       var pills = document.querySelectorAll('.filter-pill');
-      var entries = document.querySelectorAll('#writing-list .entry');
+      var entries = document.querySelectorAll('#writing-list .essay-row');
       var empty = document.getElementById('filter-empty');
       if (!pills.length || !entries.length) return;
 

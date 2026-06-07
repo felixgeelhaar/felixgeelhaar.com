@@ -43,7 +43,12 @@ class Modal extends HTMLElement {
     super();
     this._onDialogClose = this._onDialogClose.bind(this);
     this._onDialogClick = this._onDialogClick.bind(this);
+    this._onCloseTriggerClick = this._onCloseTriggerClick.bind(this);
+    this._onOpenTriggerClick = this._onOpenTriggerClick.bind(this);
     this._lastFocus = null;
+    /** Elements we attached listeners to, so disconnect can detach them. */
+    this._closeTriggers = [];
+    this._openTriggers = [];
   }
 
   connectedCallback() {
@@ -55,24 +60,19 @@ class Modal extends HTMLElement {
     this._dialog.addEventListener("close", this._onDialogClose);
     this._dialog.addEventListener("click", this._onDialogClick);
 
-    this.querySelectorAll("[data-fg-close]").forEach((el) => {
-      el.addEventListener("click", (e) => {
-        e.preventDefault();
-        this.close();
-      });
+    this._closeTriggers = [...this.querySelectorAll("[data-fg-close]")];
+    this._closeTriggers.forEach((el) => {
+      el.addEventListener("click", this._onCloseTriggerClick);
     });
 
     // Auto-wire external triggers that reference this modal by id.
     if (this.id) {
-      document
-        .querySelectorAll(`[data-fg-modal-open="${this.id}"]`)
-        .forEach((trigger) => {
-          trigger.addEventListener("click", (e) => {
-            e.preventDefault();
-            this._lastFocus = trigger;
-            this.open();
-          });
-        });
+      this._openTriggers = [
+        ...document.querySelectorAll(`[data-fg-modal-open="${this.id}"]`),
+      ];
+      this._openTriggers.forEach((trigger) => {
+        trigger.addEventListener("click", this._onOpenTriggerClick);
+      });
     }
   }
 
@@ -81,7 +81,29 @@ class Modal extends HTMLElement {
       this._dialog.removeEventListener("close", this._onDialogClose);
       this._dialog.removeEventListener("click", this._onDialogClick);
     }
+    // Detach every listener we added in connectedCallback — external
+    // triggers especially outlive this element, so leaving handlers on
+    // them leaks the modal instance.
+    this._closeTriggers.forEach((el) => {
+      el.removeEventListener("click", this._onCloseTriggerClick);
+    });
+    this._closeTriggers = [];
+    this._openTriggers.forEach((trigger) => {
+      trigger.removeEventListener("click", this._onOpenTriggerClick);
+    });
+    this._openTriggers = [];
     this._unlockScroll();
+  }
+
+  _onCloseTriggerClick(event) {
+    event.preventDefault();
+    this.close();
+  }
+
+  _onOpenTriggerClick(event) {
+    event.preventDefault();
+    this._lastFocus = event.currentTarget;
+    this.open();
   }
 
   attributeChangedCallback(name) {

@@ -38,14 +38,13 @@ Pages IPs and the site lives there once DNS propagates.
 ```
 src/
   layouts/BaseLayout.astro     # head, nav, footer
+  data/projects.ts             # project shelf shared by / and /work
   pages/
-    index.astro                # /
+    index.astro                # / (absorbs the old /about + /now)
+    work.astro                 # /work (absorbs the old /lab + /talks)
     writing.astro              # /writing
-    lab.astro                  # /lab
-    talks.astro                # /talks
-    work.astro                 # /work
-    about.astro                # /about
-    contact.astro              # /contact
+    armada.astro               # /armada (product intro; canonical: armada.run)
+    contact.astro              # /contact (footer-linked)
 public/
   site.css                     # site-local CSS (small; brand carries the weight)
   brand/                       # vendor-copied from ../brand (gitignored)

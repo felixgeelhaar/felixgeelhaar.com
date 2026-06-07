@@ -19,15 +19,27 @@ fg-modal { display: contents; }
   color: var(--color-fg);
   border: var(--border-hairline) solid var(--color-line);
   border-radius: var(--radius-2);
-  box-shadow: var(--shadow-high);
+  /* shadow-max is reserved for modals (see tokens.css elevation scale). */
+  box-shadow: var(--shadow-max);
   overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
 .fg-modal__dialog::backdrop {
-  background: rgb(0 0 0 / 0.5);
+  background: var(--color-overlay);
   backdrop-filter: blur(2px);
+}
+
+/* Forced-colors: the overlay token isn't remapped by the system palette
+   (::backdrop has no system keyword for "scrim"), so collapse the
+   backdrop to Canvas — the dialog's CanvasText border carries the
+   separation instead of translucency. */
+@media (forced-colors: active) {
+  .fg-modal__dialog::backdrop {
+    background: Canvas;
+    backdrop-filter: none;
+  }
 }
 
 .fg-modal__header {

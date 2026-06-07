@@ -57,7 +57,7 @@ Buttondown, ConvertKit (Kit), Resend Audiences, and EmailOctopus all accept a `P
 
 ## Accessibility
 
-- The email label is visually hidden but present for screen readers (`<label class="visually-hidden">`).
+- The email label is visually hidden but present for screen readers (`<label class="visually-hidden">`; the utility lives in `form.css`, which this component already imports).
 - Status messages announce via `role="status"` (success) and `role="alert"` (error) with `aria-live="polite"`.
 - Submit button text changes to "Subscribing…" during the in-flight state and disables the input + button.
 - Touch targets ≥ 44 × 44.
