@@ -1,14 +1,13 @@
 # felixgeelhaar.com
 
 Astro static site. Brand tokens + components vendor-copied from the
-sibling `brand` repo (no npm linkage; the brand stays a pure design
-system).
+`brand` repo (no npm linkage; the brand stays a pure design system).
 
 ## Local
 
 ```bash
 npm install
-npm run sync:brand   # copies ../brand/{tokens,type,grid,responsive}.css + components/ into public/brand/
+npm run sync:brand   # copies the brand repo's {tokens,type,grid,responsive}.css + components/ + wordmark/ + static/ + dist/og into public/brand/
 npm run dev          # http://localhost:4321
 npm run build        # static dist/
 ```
@@ -16,7 +15,12 @@ npm run build        # static dist/
 `sync:brand` is automatic on `dev` and `build`; run it manually after a
 brand change if the dev server is already up.
 
-`BRAND_ROOT` overrides the path if the brand repo lives elsewhere:
+The brand repo is auto-discovered — first existing path wins:
+
+1. `$BRAND_ROOT` (env var override)
+2. `../brand` (sibling of this repo)
+3. `../../klarlabs/internal/brand` (site in `~/Developer/projects/`,
+   brand in `~/Developer/klarlabs/internal/`)
 
 ```bash
 BRAND_ROOT=/path/to/brand npm run sync:brand
