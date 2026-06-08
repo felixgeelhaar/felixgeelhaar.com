@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Symbol mark v1 — "slash bracket".
+  Symbol mark v2 - "fg." tile (brand v1, "Studio Grotesk").
 
-  Two corner brackets (top-left + bottom-right) with a single slash
-  cutting through. Reads as a writer's annotation mark + code bracket.
-  Mono-stroke, grid-aligned, single color (currentColor). Scales
-  cleanly to 16x16 for favicons; usable as standalone app icon at
-  512x512.
+  Lowercase fg + cobalt full stop on the ink tile. Square-container
+  mark: favicon, app icon, social avatar. Glyphs outlined from
+  Schibsted Grotesk Black; renders without webfonts.
 
-  --symbol-accent overrides the slash color (defaults to currentColor).
+  - -symbol-bg overrides the tile (defaults ink-900)
+  - -symbol-accent overrides the period (defaults cobalt)
+  Letterforms fixed white: the tile guarantees contrast.
 -->
-<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="Felix Geelhaar mark">
-  <title>Felix Geelhaar mark</title>
-  <g fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="square" stroke-linejoin="miter">
-    <!-- top-left corner -->
-    <path d="M 14 22 L 14 14 L 22 14"/>
-    <!-- bottom-right corner -->
-    <path d="M 50 42 L 50 50 L 42 50"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="felixgeelhaar mark">
+  <title>felixgeelhaar mark</title>
+  <rect width="64" height="64" rx="14" fill="var(--symbol-bg, #16181D)"/>
+  <g transform="translate(11.22 42) scale(0.016602 -0.016602)">
+    <g fill="#FFFFFF">
+    <path transform="translate(0 0)" d="M159 0V800H30V1080H159V1213Q159 1358 236.0 1429.0Q313 1500 478 1500H754V1220H609Q578 1220 568.5 1209.0Q559 1198 559 1164V1080H731V800H559V0Z"/>
+    <path transform="translate(712 0)" d="M583 -418Q305 -418 168.5 -347.5Q32 -277 32 -130Q32 -35 81.0 14.0Q130 63 191 82Q154 111 134.5 151.0Q115 191 115 237Q115 302 155.5 349.0Q196 396 272 418Q193 469 149.0 546.5Q105 624 105 720Q105 835 167.5 922.5Q230 1010 340.5 1059.0Q451 1108 595 1108Q675 1108 745 1093Q759 1191 818 1246Q895 1317 1061 1317H1144V1037H1013Q982 1037 973 1026Q964 1016 963 987Q996 958 1022 923Q1084 835 1084 720Q1084 606 1022.0 518.5Q960 431 849.5 382.0Q739 333 594 333H538Q461 333 461 296Q461 261 542 261H762Q860 261 936.5 236.5Q1013 212 1067.0 167.0Q1121 122 1149.0 59.0Q1177 -4 1177 -81Q1177 -250 1035.0 -334.0Q893 -418 603 -418ZM595 573Q651 573 682.5 612.5Q714 652 714.0 720.0Q714 788 682.5 827.5Q651 867 595 867Q540 867 507.5 827.5Q475 788 475.0 720.0Q475 652 507.5 612.5Q540 573 595 573ZM595 -183H611Q774 -183 774 -85Q774 -50 746.5 -25.0Q719 0 636 0H530Q497 0 460.5 -21.0Q424 -42 424 -92Q424 -138 465.5 -160.5Q507 -183 595 -183Z"/>
+    </g>
+    <g fill="var(--symbol-accent, #2742F5)">
+    <path transform="translate(1842 0)" d="M331 -28Q217 -28 150.0 39.0Q83 106 83 220Q83 334 150.0 401.0Q217 468 331 468Q445 468 512.0 401.0Q579 334 579 220Q579 106 512.0 39.0Q445 -28 331 -28Z"/>
+    </g>
   </g>
-  <!-- accent slash, drawn separately so it can take a different color -->
-  <line x1="22" y1="48" x2="42" y2="16" stroke="var(--symbol-accent, currentColor)" stroke-width="6" stroke-linecap="square"/>
 </svg>

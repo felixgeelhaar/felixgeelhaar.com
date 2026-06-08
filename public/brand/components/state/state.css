@@ -34,8 +34,13 @@
 }
 
 .state__icon {
-  width: 48px;
-  height: 48px;
+  /* Local derived value: hero glyph, deliberately above the icon scale
+     (--icon-size-lg = 32px would undersell a full-page empty state).
+     48px = --icon-size-lg + --icon-size-xs; documented here, not a
+     new token, because no other surface needs this size. */
+  --state-icon-size: calc(var(--icon-size-lg) + var(--icon-size-xs));
+  width: var(--state-icon-size);
+  height: var(--state-icon-size);
   color: var(--color-fg-muted);
 }
 
@@ -103,7 +108,11 @@
   );
   background-size: 200% 100%;
   border-radius: var(--radius-1);
-  animation: state-skeleton-shimmer 1.6s linear infinite;
+  /* 1600ms = 5 × --dur-slow (320ms): slow enough not to distract,
+     fast enough to read as "working". Token-derived so reduced-motion
+     zeroes it via the --dur-* override in tokens.css. */
+  animation: state-skeleton-shimmer calc(var(--dur-slow) * 5)
+    var(--ease-linear) infinite;
 }
 
 .state-skeleton__bar--h1 { height: var(--fs-500); }

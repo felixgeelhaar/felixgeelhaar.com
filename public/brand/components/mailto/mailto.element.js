@@ -29,12 +29,41 @@ class Mailto extends HTMLElement {
     return ["user", "host", "label", "subject"];
   }
 
+  constructor() {
+    super();
+    this._onClick = this._onClick.bind(this);
+  }
+
   connectedCallback() {
+    // One delegated listener on the host. _render() replaces innerHTML
+    // on every attribute change; binding the handler to the host (not
+    // the anchor) means re-renders never attach a second listener and
+    // the handler always reads the current attributes.
+    this.addEventListener("click", this._onClick);
     this._render();
+  }
+
+  disconnectedCallback() {
+    this.removeEventListener("click", this._onClick);
   }
 
   attributeChangedCallback() {
     if (this.isConnected) this._render();
+  }
+
+  _onClick(e) {
+    const a = e.target.closest("[data-fg-mailto]");
+    if (!a || !this.contains(a)) return;
+    e.preventDefault();
+    if (e.metaKey || e.ctrlKey) {
+      // Copy fallback
+      navigator.clipboard
+        .writeText(this._address())
+        .then(() => this._announce("Address copied"))
+        .catch(() => this._announce("Copy failed"));
+      return;
+    }
+    window.location.href = this._href();
   }
 
   _address() {
@@ -54,29 +83,16 @@ class Mailto extends HTMLElement {
 
   _render() {
     const label = this.getAttribute("label") || "Email";
-    const addr = this._address();
     // Render the address with the @ as a separate aria-hidden character
     // so screen readers still read it correctly, but a naive regex
-    // scrape against innerHTML misses it.
+    // scrape against innerHTML misses it. Click handling lives on the
+    // host (see connectedCallback) so re-rendering attaches nothing.
     this.innerHTML = `
       <a href="#" data-fg-mailto>
         ${label}
         <span class="fg-mailto__status" aria-live="polite" hidden></span>
       </a>
     `;
-    const a = this.querySelector("a");
-    a.addEventListener("click", (e) => {
-      e.preventDefault();
-      if (e.metaKey || e.ctrlKey) {
-        // Copy fallback
-        navigator.clipboard
-          .writeText(addr)
-          .then(() => this._announce("Address copied"))
-          .catch(() => this._announce("Copy failed"));
-        return;
-      }
-      window.location.href = this._href();
-    });
   }
 
   _announce(text) {

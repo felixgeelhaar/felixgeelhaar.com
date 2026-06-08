@@ -18,6 +18,7 @@
  */
 
 import { readdir, readFile, copyFile, mkdir, access } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { resolve, dirname } from 'node:path';
@@ -26,9 +27,15 @@ import { fileURLToPath } from 'node:url';
 const exec = promisify(execFile);
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const siteRoot  = resolve(__dirname, '..');
-const brandRoot = process.env.BRAND_ROOT
-  ? resolve(process.env.BRAND_ROOT)
-  : resolve(siteRoot, '../brand');
+// Brand repo auto-discovery — same candidate order as sync-brand.mjs:
+// BRAND_ROOT env var, then ../brand (sibling), then
+// ../../klarlabs/internal/brand. First existing wins.
+const brandCandidates = [
+  process.env.BRAND_ROOT && resolve(process.env.BRAND_ROOT),
+  resolve(siteRoot, '../brand'),
+  resolve(siteRoot, '../../klarlabs/internal/brand'),
+].filter(Boolean);
+const brandRoot = brandCandidates.find((p) => existsSync(p)) ?? brandCandidates[0];
 const writingDir = resolve(siteRoot, 'src/content/writing');
 const ogOutDir   = resolve(siteRoot, 'public/og');
 const brandOgDir = resolve(brandRoot, 'dist/og');
@@ -88,16 +95,11 @@ const STATIC_PAGES = [
     footer: 'FELIXGEELHAAR.COM / WRITING',
   },
   {
-    slug: 'lab',
-    kicker: 'LAB · INDEX',
+    // v1 IA: /lab + /talks folded into /work (brand docs/ia.md).
+    slug: 'work',
+    kicker: 'WORK · INDEX',
     title: 'Open-source Go libraries + AI-agent tooling.',
-    footer: 'FELIXGEELHAAR.COM / LAB',
-  },
-  {
-    slug: 'about',
-    kicker: 'ABOUT',
-    title: 'Felix Geelhaar — engineering leader, builds Go libraries and AI-agent infra.',
-    footer: 'FELIXGEELHAAR.COM / ABOUT',
+    footer: 'FELIXGEELHAAR.COM / WORK',
   },
   {
     slug: 'armada',
@@ -106,28 +108,10 @@ const STATIC_PAGES = [
     footer: 'ARMADA.RUN · MARKETPLACE',
   },
   {
-    slug: 'now',
-    kicker: 'NOW · 2026 Q2',
-    title: 'What I am building, writing, and reading this quarter.',
-    footer: 'FELIXGEELHAAR.COM / NOW',
-  },
-  {
-    slug: 'uses',
-    kicker: 'USES',
-    title: 'Hardware, editor, stack — the actual setup.',
-    footer: 'FELIXGEELHAAR.COM / USES',
-  },
-  {
     slug: 'contact',
     kicker: 'CONTACT',
     title: 'Email, GitHub, LinkedIn. No web form.',
     footer: 'FELIXGEELHAAR.COM / CONTACT',
-  },
-  {
-    slug: 'talks',
-    kicker: 'TALKS',
-    title: 'Conference talks on AI-agent infrastructure and engineering practice.',
-    footer: 'FELIXGEELHAAR.COM / TALKS',
   },
 ];
 

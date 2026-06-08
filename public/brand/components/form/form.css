@@ -24,7 +24,10 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
-  max-width: 480px;
+  /* Optimal single-column form measure: shorter than --width-narrow
+     (720px) on purpose — long input rows hurt scannability. Deliberate
+     local value, clamped so it never overflows small viewports. */
+  max-width: min(480px, 100%);
 }
 
 .form-field {
@@ -85,7 +88,9 @@
 }
 
 .form-textarea {
-  min-height: 120px;
+  /* ~4 body lines of breathing room: 96px + 24px from the spacing
+     scale rather than a magic 120px. */
+  min-height: calc(var(--space-10) + var(--space-6));
   resize: vertical;
   line-height: var(--lh-body);
 }
@@ -154,11 +159,16 @@
 
 .form-check input[type="checkbox"],
 .form-check input[type="radio"] {
+  /* Local derived values — the control box sits between --space-5
+     (16px) and --space-6 (24px) deliberately; mark sizes below derive
+     from these so resizing the box keeps the proportions. */
+  --checkbox-size: 18px;
+  --checkbox-mark-inset: var(--space-2); /* gap box-edge → mark, per side */
   appearance: none;
   -webkit-appearance: none;
   margin: 0;
-  width: 18px;
-  height: 18px;
+  width: var(--checkbox-size);
+  height: var(--checkbox-size);
   flex-shrink: 0;
   background: var(--color-bg-elevated);
   border: var(--border-hairline) solid var(--color-line-strong);
@@ -169,7 +179,12 @@
   transition: all var(--dur-fast) var(--ease-out);
 }
 
-.form-check input[type="radio"] { border-radius: var(--radius-pill); }
+.form-check input[type="radio"] {
+  border-radius: var(--radius-pill);
+  /* The round dot reads optically larger than the square check;
+     inset it one extra step so both marks carry equal weight. */
+  --checkbox-mark-inset: calc(var(--space-2) + var(--space-1));
+}
 
 .form-check input[type="checkbox"]:checked,
 .form-check input[type="radio"]:checked {
@@ -179,18 +194,36 @@
 
 .form-check input[type="checkbox"]:checked::after {
   content: "";
-  width: 10px;
-  height: 10px;
+  /* 10px: box minus the inset on both sides. */
+  width: calc(var(--checkbox-size) - var(--checkbox-mark-inset) * 2);
+  height: calc(var(--checkbox-size) - var(--checkbox-mark-inset) * 2);
   background: var(--color-accent-fg);
   clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
 }
 
 .form-check input[type="radio"]:checked::after {
   content: "";
-  width: 8px;
-  height: 8px;
+  /* 8px: box minus the (larger, see above) radio inset on both sides. */
+  width: calc(var(--checkbox-size) - var(--checkbox-mark-inset) * 2);
+  height: calc(var(--checkbox-size) - var(--checkbox-mark-inset) * 2);
   background: var(--color-accent-fg);
   border-radius: var(--radius-pill);
+}
+
+/* ── Screen-reader-only utility ───────────────────────────────────── *
+ * For labels that must exist for assistive tech but stay invisible
+ * (e.g. the newsletter email label). Lives here in the form primitive
+ * so every form-consuming component shares one definition. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* ── Fieldset + legend ────────────────────────────────────────────── */

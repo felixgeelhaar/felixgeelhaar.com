@@ -59,7 +59,7 @@ fg-chart-sparkline {
 
 .fg-chart__axis {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: var(--fs-50);
   letter-spacing: var(--ls-mono);
   text-transform: uppercase;
   fill: var(--color-fg-muted);
@@ -79,7 +79,7 @@ fg-chart-sparkline {
 
 .fg-chart__label {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: var(--fs-50);
   letter-spacing: var(--ls-mono);
   text-transform: uppercase;
   fill: var(--color-fg-muted);

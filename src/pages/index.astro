@@ -1,41 +1,130 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { paid, projects } from '../data/projects';
 const BASE = import.meta.env.BASE_URL;
+
+// Home per brand docs/ia.md: hero + positioning, narrative bio,
+// current focus, latest 3 projects, latest 3 writings. Absorbs the
+// old /about (bio paragraph) and /now (focus snapshot).
+const all = await getCollection('writing', ({ data }) => !data.draft);
+const recentWriting = all
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+
+const fmtDate = (d: Date) => d.toISOString().slice(0, 10);
+
+// First three OSS projects are the home-page cards; /work has the rest.
+const recentWork = projects.slice(0, 3);
+const pad = (n: number) => String(n).padStart(2, '0');
 ---
 <BaseLayout
   title="Felix Geelhaar"
-  description="Field Notes — long-form essays on shipping software with AI agents. Plus the open-source Go libraries and the Atlassian Marketplace app I build at the same time."
+  description="Memory, resilience, and execution infrastructure for AI systems — built in Go, shipped open source, explained in writing. Studio: Klarlabs."
   nav="home"
   ogImage="home"
 >
-  <section class="page-header" style="border-bottom: none;">
-    <h1>
-      Field notes on how teams ship software &mdash; and the tools that make pairing
-      with AI agents feel less like a sword fight.
-    </h1>
-    <p class="lede">
-      Long-form essays on plan-of-record, evidence layers, agent runtimes, and the
-      anti-patterns engineering teams ship when a model is in the loop. Plus the
-      Go libraries I build alongside them.
+  <section class="hero">
+    <p class="hero-kicker">FELIX GEELHAAR — ENGINEER, <b>MUNICH</b></p>
+    <h1 class="hero-display">Tools for agents you can actually trust<span class="hero-period">.</span></h1>
+    <p class="hero-lede">
+      Memory, resilience, and execution infrastructure for AI systems &mdash; built in Go,
+      shipped open source, explained in long-form writing. Studio:
+      <a href="https://klarlabs.de" rel="noopener">Klarlabs</a>.
     </p>
   </section>
 
-  <section class="prose">
-    <h2>What's here</h2>
-    <ul>
-      <li><a href={`${BASE}writing`}>Writing</a> &mdash; <strong>Field Notes</strong>, long-form essays on shipping software with AI agents.</li>
-      <li><a href={`${BASE}lab`}>Lab</a> &mdash; the open-source Go libraries + AI-agent tooling, plus <a href={`${BASE}armada`}>Armada</a> (paid, Atlassian Marketplace).</li>
-      <li><a href={`${BASE}armada`}>Armada</a> &mdash; campaign orchestration for Jira. Marketplace app + canonical site at <a href="https://armada.run">armada.run</a>.</li>
-      <li><a href={`${BASE}about`}>About</a> &mdash; the long bio.</li>
-    </ul>
+  <h2 class="section-kicker">WORK <i>/ {pad(recentWork.length)}</i></h2>
+  <div class="work-cards">
+    {recentWork.map((p, i) => (
+      <a class="work-card" href={p.href}>
+        <div class="work-card__num">{pad(i + 1)} <span class="work-card__dot"></span></div>
+        <h3>{p.title}</h3>
+        <p>{p.summary}</p>
+      </a>
+    ))}
+  </div>
+  <p class="section-more"><a href={`${BASE}work`}>Everything I build and do &rarr; /work</a></p>
 
-    <h2>Right now</h2>
+  <h2 class="section-kicker">WRITING <i>/ LATEST</i></h2>
+  <div class="essay-rows">
+    {recentWriting.map((e) => (
+      <a class="essay-row" href={`${BASE}writing/${e.id}`}>
+        <time datetime={fmtDate(e.data.date)}>{fmtDate(e.data.date)}</time>
+        <h3><span>{e.data.title}</span></h3>
+        {e.data.readingMins && <span class="essay-row__min">{e.data.readingMins} min</span>}
+      </a>
+    ))}
+  </div>
+  <p class="section-more"><a href={`${BASE}writing`}>All essays &rarr; /writing</a></p>
+
+  {/* Bio + current focus — absorbed from the old /about and /now
+      pages per the v1 IA disposition table. */}
+  <h2 class="section-kicker">ABOUT <i>/ NOW</i></h2>
+  <section class="prose home-about">
     <p>
-      Building <a href="https://github.com/klarlabs-studio/nomi">nomi</a> (local-first coding agent),
-      <a href="https://github.com/felixgeelhaar/roady">roady</a> (plan-of-record),
-      <a href="https://github.com/felixgeelhaar/tokenops">tokenops</a> (LLM rate-limit telemetry),
-      <a href="https://nox-hq.dev">nox</a> (AI-app security scanner), and the rest of a small Go
-      stack for agent infra &mdash; see <a href={`${BASE}lab`}>/lab</a> for the full shelf, <a href={`${BASE}now`}>/now</a> for current focus.
+      I write <strong>Field Notes</strong> &mdash; long-form essays on shipping software with
+      AI agents &mdash; and build the tools in parallel: a dozen open-source Go libraries on
+      <a href="https://github.com/felixgeelhaar">GitHub</a>, plus
+      <a href={`${BASE}armada`}>Armada</a> on the Atlassian Marketplace. 15+ years across
+      engineering, platform, and ops roles. I live near Munich and run
+      <a href="https://klarlabs.de" rel="noopener">klarlabs.de</a>.
+    </p>
+    <p>
+      Right now: <a href="https://github.com/klarlabs-studio/nomi">Nomi</a> (local-first coding
+      agent), <a href="https://github.com/felixgeelhaar/roady">Roady</a> (plan-of-record),
+      <a href="https://github.com/felixgeelhaar/tokenops">TokenOps</a> (LLM rate-limit telemetry),
+      <a href="https://nox-hq.dev">Nox</a> (AI-app security scanner), and the rest of a small Go
+      stack for agent infra &mdash; the full shelf lives on <a href={`${BASE}work`}>/work</a>.
     </p>
   </section>
 </BaseLayout>
+
+<style>
+  /* Direction-C hero (brand direction-lab.html, .dC). Mono kicker,
+     Schibsted 900 display headline with a cobalt full stop, muted lede.
+     All colors via brand semantic tokens. */
+  .hero { padding: 4.5rem 0 4rem; }
+  .hero-kicker {
+    font: 500 13px/1 var(--font-mono, ui-monospace, monospace);
+    letter-spacing: 0.12em;
+    color: var(--color-fg-muted, #70757F);
+    margin: 0 0 1.6rem;
+    animation: hero-up 0.7s 0.05s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .hero-kicker b { color: var(--color-accent, #2742F5); font-weight: 500; }
+  .hero-display {
+    font-weight: 900;
+    font-size: clamp(46px, 6.8vw, 82px);
+    line-height: 1.0;
+    letter-spacing: -0.045em;
+    max-width: 15ch;
+    margin: 0;
+    animation: hero-up 0.7s 0.13s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .hero-period { color: var(--color-accent, #2742F5); }
+  .hero-lede {
+    margin: 1.85rem 0 0;
+    max-width: 50ch;
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--color-fg-muted, #70757F);
+    animation: hero-up 0.7s 0.21s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  @keyframes hero-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-kicker, .hero-display, .hero-lede { animation: none; }
+  }
+
+  .section-more { margin: 1.25rem 0 0; font-size: 0.9rem; }
+  .section-more a {
+    color: var(--color-fg-muted, #70757F);
+    text-decoration: none;
+  }
+  .section-more a:hover { color: var(--color-accent, #2742F5); }
+
+  .home-about p { max-width: 60ch; }
+</style>
