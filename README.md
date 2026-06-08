@@ -28,10 +28,23 @@ BRAND_ROOT=/path/to/brand npm run sync:brand
 
 ## Deploy
 
-GitHub Actions builds + ships to GitHub Pages on every push to `main`.
-See `.github/workflows/pages.yml`. The custom domain is wired via
-`public/CNAME`; point `felixgeelhaar.com` A/AAAA records at GitHub
-Pages IPs and the site lives there once DNS propagates.
+Self-hosted on the shared k3s cluster — **felixgeelhaar.de** (Traefik
+ingress, cert-manager TLS). See `deploy/k3s/site.yaml`.
+
+Ship a new version:
+
+```bash
+npm run build                                   # static dist/ (root base)
+docker build --platform linux/amd64 \
+  -t ghcr.io/felixgeelhaar/felixgeelhaar-com:vX.Y.Z .
+docker push ghcr.io/felixgeelhaar/felixgeelhaar-com:vX.Y.Z
+# bump the image tag in deploy/k3s/site.yaml, then:
+kubectl apply -f deploy/k3s/site.yaml
+kubectl -n website rollout status deployment/site
+```
+
+`npm run build` targets the domain root by default; set `PUBLIC_SITE_URL`
+to override the canonical origin for a staging/preview build.
 
 ## Structure
 
