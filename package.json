@@ -15,6 +15,6 @@
     "@astrojs/rss": "^4.0.18",
     "@fontsource/schibsted-grotesk": "^5.2.8",
     "@fontsource/spline-sans-mono": "^5.2.8",
-    "astro": "^6.3.3"
+    "astro": "^6.4.6"
   }
 }
