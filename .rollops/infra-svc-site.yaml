@@ -1,0 +1,20 @@
+apiVersion: rollops.klarlabs.de/v1
+kind: RolloutConfig
+metadata:
+  name: web-svc-site
+spec:
+  target:
+    kind: kubernetes
+    ref: website/prod/svc-site
+    criticality: low
+    spec:
+      namespace: website
+      resource: service/site
+      manifest: "apiVersion: v1\nkind: Service\nmetadata:\n  name: site\n  namespace:\
+        \ website\nspec:\n  internalTrafficPolicy: Cluster\n  ports:\n  - port: 80\n\
+        \    protocol: TCP\n    targetPort: 8080\n  selector:\n    app: site\n  sessionAffinity:\
+        \ None\n  type: ClusterIP\n"
+  strategy:
+    type: rolling
+  verification: shallow
+
