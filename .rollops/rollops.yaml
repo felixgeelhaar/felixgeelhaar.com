@@ -10,7 +10,7 @@ spec:
     spec:
       namespace: website
       resource: deployment/site
-      image: ghcr.io/felixgeelhaar/felixgeelhaar-com:v0.2.1@sha256:8b4f5dfecb20367f2a572be51415807b02d4d817af59cb56dad2095662c1587b
+      image: ghcr.io/felixgeelhaar/felixgeelhaar-com:v0.2.2@sha256:2e7650a440c8fc8acc2cfdf5a8438a7dd74e794249262942f56e2b7c977bf526
       manifest: |
         apiVersion: apps/v1
         kind: Deployment
@@ -39,7 +39,7 @@ spec:
                 app: site
             spec:
               containers:
-              - image: ghcr.io/felixgeelhaar/felixgeelhaar-com:v0.2.1@sha256:8b4f5dfecb20367f2a572be51415807b02d4d817af59cb56dad2095662c1587b
+              - image: ghcr.io/felixgeelhaar/felixgeelhaar-com:v0.2.2@sha256:2e7650a440c8fc8acc2cfdf5a8438a7dd74e794249262942f56e2b7c977bf526
                 imagePullPolicy: IfNotPresent
                 livenessProbe:
                   failureThreshold: 3
