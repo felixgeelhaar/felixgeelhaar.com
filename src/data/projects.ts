@@ -86,7 +86,7 @@ export const projects: Project[] = [
     title: 'Nox',
     status: 'active · Go · Apache 2.0',
     summary:
-      'Open-source security scanner with first-class AI app security: prompt injection at the call site, embedding leakage, agent over-privilege, MCP hardening, cross-file AI taint, polyglot AIBOM. Offline-first, agent-native via MCP. Lives at nox-hq.dev.',
+      'Open-source security scanner that understands AI apps: prompt injection at the call site, MCP threats mapped to the OWASP MCP Top 10, cross-file AI taint, hallucinated-package imports — plus secrets, dependencies and IaC in one deterministic pass. Dependency answers come from NOX Intelligence (intel.klarlabs.de) and are checked against OSV.dev on every scan. Lives at nox-hq.dev.',
     href: 'https://nox-hq.dev',
   },
   {
