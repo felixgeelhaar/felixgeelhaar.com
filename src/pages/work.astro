@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { paid, projects } from '../data/projects';
+import { paid, projects, sideProjects } from '../data/projects';
 const BASE = import.meta.env.BASE_URL;
 
 // /work per brand docs/ia.md: what I built and do — OSS projects +
@@ -53,6 +53,18 @@ const speakingTopics = [
     Everything else (smaller utilities, abandoned experiments) lives at
     <a href="https://github.com/felixgeelhaar">github.com/felixgeelhaar</a>.
   </p>
+
+  <h2 class="section-kicker">SIDE PROJECTS <i>/ {pad(sideProjects.length)}</i></h2>
+  <div class="work-cards">
+    {sideProjects.map((p, i) => (
+      <a class="work-card" href={p.href} rel="noopener">
+        <div class="work-card__num">{pad(i + 1)} <span class="work-card__dot"></span></div>
+        <h3>{p.title}</h3>
+        <p class="work-card__status">{p.status}</p>
+        <p>{p.summary}</p>
+      </a>
+    ))}
+  </div>
 
   <h2 class="section-kicker">SPEAKING <i>/ TOPICS</i></h2>
   <section class="prose">
