@@ -118,3 +118,16 @@ export const projects: Project[] = [
     href: 'https://github.com/felixgeelhaar/cclint',
   },
 ];
+
+// Apps I build for myself and open to others: not open source, not a paid
+// product. Brotwerk moved here from klarlabs.de, which now lists only the
+// studio's AI-infrastructure work.
+export const sideProjects: Project[] = [
+  {
+    title: 'Brotwerk',
+    status: 'beta · web app',
+    summary:
+      'Daily AI coaching for sourdough. A morning and an evening photo of the starter; the model reads dome, bubbles and rise, scores ripeness 0–100 with a confidence, and answers in one sentence: feed, hydrate, wait or bake. EU-hosted, photos never used for training.',
+    href: 'https://brotwerk.app',
+  },
+];
